@@ -1,8 +1,8 @@
 {
   "database_name": "BUMN Watch — Database Komisaris BUMN Indonesia",
   "generated": "2026-06-27T06:03:14.503706",
-  "version": "7.6",
-  "total_commissioners": 218,
+  "version": "7.7",
+  "total_commissioners": 226,
   "data_coverage": {
     "political_affiliation": "37/37 (100%)",
     "age_birth_year": "24/37 (65%)",
@@ -11,7 +11,7 @@
     "wealth_lhkpn": "10/37 (27%)",
     "legal_records": "13/37 (35%) — 13 researched, 24 pending",
     "source_links": "150+ full URLs",
-    "bumn_count": 35
+    "bumn_count": 38
   },
   "commissioners": [
     {
@@ -4699,6 +4699,102 @@
       "bumn": "PNM",
       "role": "Komisaris",
       "sector": "Keuangan",
+      "status": "belum_dianalisis",
+      "party": "",
+      "political_affiliation": "",
+      "evidence": "",
+      "sources": [],
+      "photo_url": ""
+    },
+    {
+      "name": "Fary Djemy Franscis",
+      "bumn": "TASPEN",
+      "role": "Komisaris Utama",
+      "sector": "Asuransi/Dana Pensiun",
+      "status": "belum_dianalisis",
+      "party": "",
+      "political_affiliation": "",
+      "evidence": "",
+      "sources": [],
+      "photo_url": ""
+    },
+    {
+      "name": "Dyah Pancaningrum",
+      "bumn": "TASPEN",
+      "role": "Komisaris",
+      "sector": "Asuransi/Dana Pensiun",
+      "status": "belum_dianalisis",
+      "party": "",
+      "political_affiliation": "",
+      "evidence": "",
+      "sources": [],
+      "photo_url": ""
+    },
+    {
+      "name": "Widodo Ekatjahjana",
+      "bumn": "Askrindo",
+      "role": "Komisaris Utama",
+      "sector": "Asuransi",
+      "status": "belum_dianalisis",
+      "party": "",
+      "political_affiliation": "",
+      "evidence": "",
+      "sources": [],
+      "photo_url": ""
+    },
+    {
+      "name": "Encep Sudarwan",
+      "bumn": "Askrindo",
+      "role": "Komisaris",
+      "sector": "Asuransi",
+      "status": "belum_dianalisis",
+      "party": "",
+      "political_affiliation": "",
+      "evidence": "",
+      "sources": [],
+      "photo_url": ""
+    },
+    {
+      "name": "Heru Kreshna Reza",
+      "bumn": "Askrindo",
+      "role": "Komisaris Independen",
+      "sector": "Asuransi",
+      "status": "belum_dianalisis",
+      "party": "",
+      "political_affiliation": "",
+      "evidence": "",
+      "sources": [],
+      "photo_url": ""
+    },
+    {
+      "name": "Renny Octavianus Rorong",
+      "bumn": "Askrindo",
+      "role": "Komisaris Independen",
+      "sector": "Asuransi",
+      "status": "belum_dianalisis",
+      "party": "",
+      "political_affiliation": "",
+      "evidence": "",
+      "sources": [],
+      "photo_url": ""
+    },
+    {
+      "name": "Viviet Savitri Putri",
+      "bumn": "Askrindo",
+      "role": "Komisaris Independen",
+      "sector": "Asuransi",
+      "status": "belum_dianalisis",
+      "party": "",
+      "political_affiliation": "",
+      "evidence": "",
+      "sources": [],
+      "photo_url": ""
+    },
+    {
+      "name": "Dhony Rahajoe",
+      "bumn": "PT PP",
+      "role": "Komisaris Utama",
+      "sector": "Konstruksi",
       "status": "belum_dianalisis",
       "party": "",
       "political_affiliation": "",
