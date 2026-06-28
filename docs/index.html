@@ -5488,12 +5488,29 @@ function renderDetail(){
         <div class="nums" style="margin-left:auto"><div class="num-i"><div class="v">${comms.length}</div><div class="l">Komisaris</div></div><div class="num-i"><div class="v" style="color:var(--red)">${pol}</div><div class="l">Politik</div></div><div class="num-i"><div class="v" style="color:var(--orange)">${legal}</div><div class="l">Hukum</div></div></div>
       </div>
     </div>
-    ${subs.length?`<div class="sh" style="margin-top:20px"><h2>Anak Perusahaan</h2><p>${subs.length} anak perusahaan</p></div>
-    <div class="grid grid-2">${subs.map(s=>`<div class="sub-card"><div class="sn">${s.name}</div><div class="ss">${s.sector}</div></div>`).join('')}</div>`:''}
+    ${subs.length?`<div class="sh" style="margin-top:20px"><h2>Anak Perusahaan</h2><p>${subs.length} anak perusahaan · klik untuk lihat detail</p></div>
+    <div class="grid grid-2">${subs.map(s=>{const subComms=D.filter(c=>c.bumn===s.name||c.subsidiary===s.name);return`<div class="card" onclick="navTo(2,'${s.name.replace(/'/g,"\\'")}','${s.name.replace(/'/g,"\\'")}')"><div class="ct"><div class="ico ico-energy">\u{1F3E2}</div><div><div class="title">${s.name}</div><div class="sub">${s.sector} · ${subComms.length} komisaris</div></div></div></div>`}).join('')}</div>`:''}
     <div class="sh" style="margin-top:20px"><h2>Komisaris</h2><p>${comms.length} komisaris · klik untuk profil lengkap</p></div>
     <div class="flt"><select id="fStat" onchange="filterComms2()"><option value="">Semua Status</option><option value="kader_partai">Kader Partai</option><option value="relawan_pemenangan">Relawan</option><option value="pejabat">Pejabat</option><option value="profesional">Profesional</option></select><input id="fSearch" placeholder="Cari nama..." oninput="filterComms2()"></div>
     <div class="comm-list" id="commList"></div>`;
     renderCommList(comms);
+  } else if(navStack.length>=3){
+    // Level 3: Show subsidiary detail — commissioners of subsidiary
+    const subName=navStack[2].id;
+    const parent=navStack[1].id;
+    const subInfo=SUBS.find(s=>s.name===subName)||{};
+    const subComms=D.filter(c=>c.bumn===subName||c.subsidiary===subName);
+    const pol=subComms.filter(c=>c.status==='kader_partai'||c.status==='relawan_pemenangan').length;
+    const legal=subComms.filter(c=>c.legal_record?.has_legal_issue).length;
+
+    content.innerHTML=`<div class="card" style="margin-bottom:16px">
+      <div class="ct"><div class="ico ico-energy">\u{1F3E2}</div><div><div class="title" style="font-size:20px">${subName}</div><div class="sub">${subInfo.sector||''} · Anak dari ${parent}</div></div>
+        <div class="nums" style="margin-left:auto"><div class="num-i"><div class="v">${subComms.length}</div><div class="l">Komisaris</div></div><div class="num-i"><div class="v" style="color:var(--red)">${pol}</div><div class="l">Politik</div></div><div class="num-i"><div class="v" style="color:var(--orange)">${legal}</div><div class="l">Hukum</div></div></div>
+      </div>
+    </div>
+    <div class="sh" style="margin-top:20px"><h2>Komisaris</h2><p>${subComms.length} komisaris di ${subName}</p></div>
+    <div class="comm-list" id="commList"></div>`;
+    renderCommList(subComms);
   }
 }
 
