@@ -69,8 +69,9 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
 .risk.high{background:#fee2e2;color:#991b1b}.risk.med{background:#fef3c7;color:#92400e}.risk.low{background:#d1fae5;color:#065f46}
 
 /* Filter */
-.flt{display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap}
-.flt select,.flt input{border:1px solid var(--bd2);border-radius:6px;padding:8px 12px;font-size:14px;font-family:inherit;outline:none}.flt select:focus,.flt input:focus{border-color:var(--blue)}.flt input{flex:1;min-width:180px}
+.flt{display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap;align-items:center}
+.flt select,.flt input{border:1px solid var(--bd2);border-radius:6px;padding:8px 12px;font-size:13px;font-family:inherit;outline:none;background:var(--bg)}.flt select:focus,.flt input:focus{border-color:var(--blue)}.flt input{flex:1;min-width:160px}
+@media(max-width:640px){.flt select{flex:1;min-width:140px}.flt input{min-width:140px}}
 
 /* Drawer */
 .drawer{position:fixed;inset:0;background:rgba(15,23,42,.5);z-index:200;display:none;justify-content:flex-end}.drawer.on{display:flex}
@@ -9584,20 +9585,18 @@ function renderBreadcrumb(){
 
 // ── Render: Sector Grid (Level 0) ──
 function renderSectors(){
-  // Group by sector using BUMN_MASTER (top-level BUMN only)
   const sectors={};
   BUMN_MASTER.filter(b=>b.type==='bumn').forEach(b=>{
     const s=b.sector||'Lainnya';
     if(!sectors[s])sectors[s]={total:0,pol:0,legal:0,bumns:0};
-    // Count commissioners for this BUMN + its subsidiaries
-    const comms=D.filter(c=>c.bumn===b.name||(c.parent_bumn===b.name));
+    const comms=D.filter(c=>c.bumn===b.name||c.parent_bumn===b.name);
     sectors[s].total+=comms.length;
     sectors[s].pol+=comms.filter(c=>c.status==='kader_partai'||c.status==='relawan_pemenangan').length;
     sectors[s].legal+=comms.filter(c=>c.legal_record?.has_legal_issue).length;
     sectors[s].bumns++;
   });
   document.getElementById('sectorGrid').innerHTML=Object.entries(sectors).map(([sector,info])=>{
-    const ico=SECTOR_ICO[sector]||{cls:"ico-telecom",icon:"\u🏙"};
+    const ico=SECTOR_ICO[sector]||{cls:"ico-telecom",icon:"🏢"};
     const pct=info.total?Math.round(info.pol/info.total*100):0,bc=pct>=50?'#dc2626':pct>=25?'#ca8a04':'#16a34a';
     return`<div class="card" onclick="navTo(0,'${sector}','${sector}')">
       <div class="ct"><div class="ico ${ico.cls}">${ico.icon}</div><div><div class="title">${sector}</div><div class="sub">${info.bumns} perusahaan</div></div></div>
@@ -9613,75 +9612,99 @@ function renderDetail(){
   if(navStack.length===0){nav('home');return}
 
   if(navStack.length===1){
-    // Level 1: Show BUMN cards in this sector (top-level BUMN only)
+    // Level 1: Show BUMN cards in this sector
     const sector=navStack[0].id;
     const bumns=BUMN_MASTER.filter(b=>b.type==='bumn'&&b.sector===sector);
     content.innerHTML=`<div class="sh"><h2>${sector}</h2><p>${bumns.length} perusahaan BUMN di sektor ini</p></div>
     <div class="grid grid-3">${bumns.map(b=>{
-      const comms=D.filter(c=>c.bumn===b.name);
-      const subComms=D.filter(c=>c.parent_bumn===b.name);
-      const allComms=comms.concat(subComms);
+      const allComms=D.filter(c=>c.bumn===b.name||c.parent_bumn===b.name);
       const pol=allComms.filter(c=>c.status==='kader_partai'||c.status==='relawan_pemenangan').length;
       const legal=allComms.filter(c=>c.legal_record?.has_legal_issue).length;
       const subs=BUMN_MASTER.filter(s=>s.parent_name===b.name);
       const pct=allComms.length?Math.round(pol/allComms.length*100):0,bc=pct>=50?'#dc2626':pct>=25?'#ca8a04':'#16a34a';
       return`<div class="card" onclick="navTo(1,'${b.name}','${b.name}')">
-        <div class="ct">${logoOrFallback(b.name)}<div><div class="title">${b.name}</div><div class="sub">${b.sector} · ${subs.length} anak perusahaan</div></div></div>
+        <div class="ct">${logoOrFallback(b.name)}<div><div class="title">${b.name}</div><div class="sub">${b.sector}${subs.length?' · '+subs.length+' anak perusahaan':''}</div></div></div>
         <div class="nums"><div class="num-i"><div class="v">${allComms.length}</div><div class="l">Komisaris</div></div><div class="num-i"><div class="v" style="color:var(--red)">${pol}</div><div class="l">Politik</div></div><div class="num-i"><div class="v" style="color:var(--orange)">${legal}</div><div class="l">Hukum</div></div></div>
         <div class="bar"><div class="bar-f" style="width:${pct}%;background:${bc}"></div></div>
       </div>`}).join('')}</div>`;
   }
 
   else if(navStack.length===2){
-    // Level 2: Show BUMN detail — subsidiaries + commissioners
+    // Level 2: BUMN detail — flat commissioner list with filters
+    // Shows ALL commissioners: parent BUMN + all subsidiaries in one list
     const bumn=navStack[1].id;
     const bumnInfo=BUMN_MASTER.find(b=>b.name===bumn)||{};
-    const comms=D.filter(c=>c.bumn===bumn);
-    const pol=comms.filter(c=>c.status==='kader_partai'||c.status==='relawan_pemenangan').length;
-    const legal=comms.filter(c=>c.legal_record?.has_legal_issue).length;
     const subs=BUMN_MASTER.filter(s=>s.parent_name===bumn);
-    const sector=bumnInfo.sector||comms[0]?.sector||'';
+    // All commissioners: direct + from subsidiaries
+    const allComms=D.filter(c=>c.bumn===bumn||c.parent_bumn===bumn);
+    const directComms=D.filter(c=>c.bumn===bumn);
+    const subComms=D.filter(c=>c.parent_bumn===bumn);
+    const pol=allComms.filter(c=>c.status==='kader_partai'||c.status==='relawan_pemenangan').length;
+    const legal=allComms.filter(c=>c.legal_record?.has_legal_issue).length;
+    const wealthCount=allComms.filter(c=>c.wealth).length;
+    const sector=bumnInfo.sector||'';
+
+    // Build filter options
+    const subNames=['',bumn].concat(subs.map(s=>s.name));
+    const parties=[...new Set(allComms.map(c=>c.party).filter(Boolean))].sort();
 
     content.innerHTML=`<div class="card" style="margin-bottom:16px">
-      <div class="ct">${logoOrFallback(bumn)}<div><div class="title" style="font-size:20px">${bumn}</div><div class="sub">${sector}</div></div>
-        <div class="nums" style="margin-left:auto"><div class="num-i"><div class="v">${comms.length}</div><div class="l">Komisaris</div></div><div class="num-i"><div class="v" style="color:var(--red)">${pol}</div><div class="l">Politik</div></div><div class="num-i"><div class="v" style="color:var(--orange)">${legal}</div><div class="l">Hukum</div></div></div>
+      <div class="ct">${logoOrFallback(bumn)}<div><div class="title" style="font-size:20px">${bumn}</div><div class="sub">${sector}${subs.length?' · '+subs.length+' anak perusahaan':''}</div></div>
+        <div class="nums" style="margin-left:auto"><div class="num-i"><div class="v">${allComms.length}</div><div class="l">Komisaris</div></div><div class="num-i"><div class="v" style="color:var(--red)">${pol}</div><div class="l">Politik</div></div><div class="num-i"><div class="v" style="color:var(--orange)">${legal}</div><div class="l">Hukum</div></div><div class="num-i"><div class="v" style="color:var(--green)">${wealthCount}</div><div class="l">LHKPN</div></div></div>
       </div>
     </div>
-    ${subs.length?`<div class="sh" style="margin-top:20px"><h2>Anak Perusahaan</h2><p>${subs.length} anak perusahaan · klik untuk lihat detail</p></div>
-    <div class="grid grid-2">${subs.map(s=>{const subComms=D.filter(c=>c.bumn===s.name);return`<div class="card" onclick="navTo(2,'${s.name.replace(/'/g,"\\'")}','${s.name.replace(/'/g,"\\'")}')"><div class="ct"><div class="ico ico-energy">🏙</div><div><div class="title">${s.name}</div><div class="sub">${s.sector} · ${subComms.length} komisaris</div></div></div></div>`}).join('')}</div>`:''}
-    <div class="sh" style="margin-top:20px"><h2>Komisaris</h2><p>${comms.length} komisaris · klik untuk profil lengkap</p></div>
-    <div class="flt"><select id="fStat" onchange="filterComms2()"><option value="">Semua Status</option><option value="kader_partai">Kader Partai</option><option value="relawan_pemenangan">Relawan</option><option value="pejabat">Pejabat</option><option value="profesional">Profesional</option></select><input id="fSearch" placeholder="Cari nama..." oninput="filterComms2()"></div>
-    <div class="comm-list" id="commList"></div>`;
-    renderCommList(comms);
-  } else if(navStack.length>=3){
-    // Level 3: Show subsidiary detail — commissioners of subsidiary
-    const subName=navStack[2].id;
-    const parent=navStack[1].id;
-    const subInfo=BUMN_MASTER.find(b=>b.name===subName)||{};
-    const subComms=D.filter(c=>c.bumn===subName);
-    const isFallback=subComms.length===0;
-    const displayComms=isFallback?D.filter(c=>c.bumn===parent):subComms;
-    const pol=displayComms.filter(c=>c.status==='kader_partai'||c.status==='relawan_pemenangan').length;
-    const legal=displayComms.filter(c=>c.legal_record?.has_legal_issue).length;
-    const note=isFallback?`<div class="disc" style="margin-bottom:16px"><strong>Catatan:</strong> Data komisaris spesifik untuk ${subName} belum tersedia. Menampilkan komisaris ${parent} (induk).</div>`:'';
-
-    content.innerHTML=`<div class="card" style="margin-bottom:16px">
-      <div class="ct"><div class="ico ico-energy">🏙</div><div><div class="title" style="font-size:20px">${subName}</div><div class="sub">${subInfo.sector||''} · Anak dari ${parent}</div></div>
-        <div class="nums" style="margin-left:auto"><div class="num-i"><div class="v">${displayComms.length}</div><div class="l">Komisaris</div></div><div class="num-i"><div class="v" style="color:var(--red)">${pol}</div><div class="l">Politik</div></div><div class="num-i"><div class="v" style="color:var(--orange)">${legal}</div><div class="l">Hukum</div></div></div>
-      </div>
+    ${subs.length?`<div class="disc" style="margin-bottom:16px"><strong>${directComms.length}</strong> komisaris induk + <strong>${subComms.length}</strong> komisaris anak perusahaan. Gunakan filter untuk mengeksplor.</div>`:''}
+    <div class="sh" style="margin-top:20px"><h2>Komisaris</h2><p>${allComms.length} komisaris · klik untuk profil lengkap</p></div>
+    <div class="flt">
+      <select id="fStat" onchange="filterComms2()">
+        <option value="">Semua Status</option>
+        <option value="kader_partai">Kader Partai</option>
+        <option value="relawan_pemenangan">Relawan</option>
+        <option value="pejabat">Pejabat</option>
+        <option value="profesional">Profesional</option>
+        <option value="belum_dianalisis">Belum Dianalisis</option>
+      </select>
+      <select id="fCompany" onchange="filterComms2()">
+        <option value="">Semua Perusahaan</option>
+        <option value="${bumn}">${bumn} (induk)</option>
+        ${subs.map(s=>{const sc=D.filter(c=>c.bumn===s.name);return`<option value="${s.name}">${s.name} (${sc.length})</option>`}).join('')}
+      </select>
+      <select id="fParty" onchange="filterComms2()">
+        <option value="">Semua Partai</option>
+        ${parties.map(p=>`<option value="${p}">${p}</option>`).join('')}
+      </select>
+      <select id="fRole" onchange="filterComms2()">
+        <option value="">Semua Jabatan</option>
+        <option value="Komisaris Utama">Komisaris Utama</option>
+        <option value="Komisaris Independen">Komisaris Independen</option>
+        <option value="Komisaris">Komisaris</option>
+      </select>
+      <input id="fSearch" placeholder="Cari nama..." oninput="filterComms2()">
     </div>
-    ${note}
-    <div class="sh" style="margin-top:20px"><h2>Komisaris</h2><p>${displayComms.length} komisaris${isFallback?' (dari induk '+parent+')':''}</p></div>
     <div class="comm-list" id="commList"></div>`;
-    renderCommList(displayComms);
+    renderCommList(allComms);
   }
 }
 
-function filterComms2(){const fs=document.getElementById('fStat')?.value||'',sr=document.getElementById('fSearch')?.value?.toLowerCase()||'';let c=D.filter(x=>x.bumn===navStack[1].id);if(fs)c=c.filter(x=>x.status===fs);if(sr)c=c.filter(x=>x.name.toLowerCase().includes(sr));renderCommList(c)}
+function filterComms2(){
+  const bumn=navStack[1].id;
+  const fs=document.getElementById('fStat')?.value||'';
+  const fc=document.getElementById('fCompany')?.value||'';
+  const fp=document.getElementById('fParty')?.value||'';
+  const fr=document.getElementById('fRole')?.value||'';
+  const sr=document.getElementById('fSearch')?.value?.toLowerCase()||'';
+  let c=D.filter(x=>x.bumn===bumn||x.parent_bumn===bumn);
+  if(fs)c=c.filter(x=>x.status===fs);
+  if(fc)c=c.filter(x=>(fc===bumn?x.bumn===bumn:x.bumn===fc));
+  if(fp)c=c.filter(x=>x.party===fp);
+  if(fr)c=c.filter(x=>(x.role||'').includes(fr));
+  if(sr)c=c.filter(x=>x.name.toLowerCase().includes(sr));
+  renderCommList(c);
+}
 
 function renderCommList(comms){document.getElementById('commList').innerHTML=comms.map(c=>{const s=S[c.status],r=risk(c),legalFlag=c.legal_record?.has_legal_issue?' \u26A0':'';
 const photo=c.photo_url?`<img src="${c.photo_url}" class="photo" alt="${c.name}" onerror="this.outerHTML='<div class=&quot;photo-ph&quot;>${initials(c.name)}</div>'">`:`<div class="photo-ph">${initials(c.name)}</div>`;
-return`<div class="comm-item" onclick='openD(${D.indexOf(c)})'>${photo}<div class="ci-left"><div class="ci-name">${c.name}${legalFlag}</div><div class="ci-role">${c.role||'Komisaris'}${c.age?' · '+c.age+' thn':''}${c.wealth?' · '+c.wealth.replace('Rp',''):''}</div><div class="ci-aff">${c.political_affiliation||'Tidak ada afiliasi terverifikasi'}</div></div>
+return`<div class="comm-item" onclick='openD(${D.indexOf(c)})'>${photo}<div class="ci-left"><div class="ci-name">${c.name}${legalFlag}</div><div class="ci-role">${c.role||'Komisaris'}${c.is_subsidiary?' · '+c.bumn:''}${c.age?' · '+c.age+' thn':''}</div><div class="ci-aff">${c.political_affiliation||'Tidak ada afiliasi terverifikasi'}</div></div>
 <div class="ci-badges"><span class="badge ${s.b}">${s.l}</span>${c.party!=='Non-Partisan'?`<span class="badge b-blue">${c.party}</span>`:''}<span class="risk ${r}">${r==='high'?'Tinggi':r==='med'?'Sedang':'Rendah'}</span></div></div>`}).join('')||'<p style="color:var(--t4);padding:20px">Tidak ada hasil.</p>'}
 
 // ── Drawer ──
