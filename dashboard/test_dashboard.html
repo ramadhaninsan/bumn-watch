@@ -1,0 +1,1837 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Peta Politik Komisaris BUMN — Dashboard Transparansi</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
+<style>
+:root {
+  --primary: #12436D;
+  --primary-light: #2B69A8;
+  --primary-lighter: #E8EFF6;
+  --accent: #F46A25;
+  --accent-light: #F89B6D;
+  --accent-lighter: #FCE7DA;
+  --bg: #FFFFFF;
+  --bg-alt: #F7F8FA;
+  --bg-card: #FFFFFF;
+  --border: #E3E6EB;
+  --border-strong: #C5CBD3;
+  --text: #1A1A2E;
+  --text-secondary: #5A5F6E;
+  --text-muted: #9094A0;
+  --green: #1B8754;
+  --green-bg: #E6F4EE;
+  --red: #C92A2A;
+  --red-bg: #FDECEC;
+  --amber: #E8A317;
+  --amber-bg: #FFF6E0;
+  --radius: 4px;
+  --font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --sidebar-w: 256px;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--font);
+  background: var(--bg);
+  color: var(--text);
+  font-size: 14px;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ── Layout ── */
+.app { display: flex; min-height: 100vh; }
+.sidebar {
+  width: var(--sidebar-w);
+  background: #0E2F4A;
+  color: #C7D4E0;
+  position: fixed; top: 0; left: 0; bottom: 0;
+  display: flex; flex-direction: column;
+  z-index: 100;
+  transition: transform 0.3s ease;
+}
+.sidebar-header {
+  padding: 22px 20px 18px;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+.sidebar-header .badge-tag {
+  font-size: 10px; font-weight: 700; letter-spacing: 1.2px;
+  color: #6E8CA8; text-transform: uppercase; margin-bottom: 8px;
+}
+.sidebar-header h1 {
+  font-size: 15px; font-weight: 700; color: #fff; line-height: 1.35;
+}
+.sidebar-header .meta {
+  font-size: 11px; color: #6E8CA8; margin-top: 8px;
+}
+.nav { flex: 1; padding: 8px 0; overflow-y: auto; }
+.nav-item {
+  display: flex; align-items: center; gap: 11px;
+  padding: 11px 20px;
+  cursor: pointer;
+  font-size: 13.5px; font-weight: 500;
+  color: #A3B8CC;
+  border-left: 3px solid transparent;
+  transition: all 0.15s ease;
+  user-select: none;
+}
+.nav-item:hover { background: rgba(255,255,255,0.05); color: #fff; }
+.nav-item.active {
+  background: rgba(255,255,255,0.07);
+  color: #fff;
+  border-left-color: var(--accent);
+}
+.nav-item svg { width: 18px; height: 18px; flex-shrink: 0; opacity: 0.8; }
+.nav-count {
+  margin-left: auto;
+  font-size: 11px; font-weight: 600;
+  background: rgba(255,255,255,0.08);
+  color: #8FA5BC;
+  padding: 2px 7px; border-radius: 10px;
+}
+.nav-item.active .nav-count { background: var(--accent); color: #fff; }
+.sidebar-footer {
+  padding: 14px 20px;
+  border-top: 1px solid rgba(255,255,255,0.08);
+  font-size: 11px; color: #6E8CA8; line-height: 1.6;
+}
+.sidebar-footer a { color: var(--accent-light); text-decoration: none; }
+
+.main {
+  flex: 1;
+  margin-left: var(--sidebar-w);
+  min-width: 0;
+}
+.content { padding: 32px 36px 80px; max-width: 1280px; }
+.section { display: none; }
+.section.active { display: block; animation: fadeIn 0.25s ease; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+
+/* ── Mobile toggle ── */
+.menu-btn {
+  display: none;
+  position: fixed; top: 14px; right: 14px; z-index: 200;
+  background: var(--primary); color: #fff; border: none;
+  width: 40px; height: 40px; border-radius: var(--radius);
+  cursor: pointer; font-size: 20px; align-items: center; justify-content: center;
+}
+.overlay {
+  display: none;
+  position: fixed; inset: 0;
+  background: rgba(0,0,0,0.3); z-index: 99;
+}
+.overlay.show { display: block; }
+
+/* ── Typography ── */
+.section-title {
+  font-size: 22px; font-weight: 700; color: var(--primary);
+  margin-bottom: 4px; letter-spacing: -0.3px;
+}
+.section-sub {
+  font-size: 14px; color: var(--text-secondary);
+  margin-bottom: 28px;
+}
+h3.block-title {
+  font-size: 15px; font-weight: 600; color: var(--text);
+  margin-bottom: 14px; padding-bottom: 10px;
+  border-bottom: 1px solid var(--border);
+}
+
+/* ── KPI Cards ── */
+.kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 14px;
+  margin-bottom: 32px;
+}
+.kpi-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px 22px;
+  position: relative;
+  overflow: hidden;
+}
+.kpi-card::before {
+  content: '';
+  position: absolute; top: 0; left: 0;
+  width: 3px; height: 100%;
+}
+.kpi-card.blue::before { background: var(--primary); }
+.kpi-card.orange::before { background: var(--accent); }
+.kpi-card.green::before { background: var(--green); }
+.kpi-card.red::before { background: var(--red); }
+.kpi-label {
+  font-size: 11px; font-weight: 600; letter-spacing: 0.8px;
+  text-transform: uppercase; color: var(--text-muted);
+  margin-bottom: 8px;
+}
+.kpi-value {
+  font-size: 32px; font-weight: 800; color: var(--text);
+  line-height: 1.1; letter-spacing: -1px;
+}
+.kpi-value .unit { font-size: 14px; font-weight: 500; color: var(--text-secondary); }
+.kpi-sub {
+  font-size: 12px; color: var(--text-secondary);
+  margin-top: 6px;
+}
+
+/* ── Chart containers ── */
+.chart-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 18px;
+  margin-bottom: 24px;
+}
+.chart-grid-3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+  margin-bottom: 24px;
+}
+.chart-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px;
+}
+.chart-card.full { grid-column: 1 / -1; }
+.chart-card h4 {
+  font-size: 13.5px; font-weight: 600; color: var(--text);
+  margin-bottom: 4px;
+}
+.chart-card .chart-desc {
+  font-size: 12px; color: var(--text-muted);
+  margin-bottom: 14px;
+}
+.chart-container { width: 100%; }
+.chart-source {
+  font-size: 11px; color: var(--text-muted);
+  margin-top: 10px; padding-top: 8px;
+  border-top: 1px solid var(--border);
+  font-style: italic;
+}
+.chart-source a { color: var(--primary-light); text-decoration: none; }
+.chart-source a:hover { text-decoration: underline; }
+
+/* ── Risk badges ── */
+.risk-badge {
+  display: inline-flex; align-items: center; gap: 5px;
+  font-size: 11px; font-weight: 600;
+  padding: 3px 9px; border-radius: 3px;
+  text-transform: uppercase; letter-spacing: 0.4px;
+  white-space: nowrap;
+}
+.risk-high { background: var(--red-bg); color: var(--red); }
+.risk-medium { background: var(--amber-bg); color: var(--amber); }
+.risk-low { background: var(--green-bg); color: var(--green); }
+.risk-dot {
+  width: 6px; height: 6px; border-radius: 50%; display: inline-block;
+}
+.risk-high .risk-dot { background: var(--red); }
+.risk-medium .risk-dot { background: var(--amber); }
+.risk-low .risk-dot { background: var(--green); }
+
+/* ── Status badges ── */
+.status-badge {
+  display: inline-block;
+  font-size: 11px; font-weight: 600;
+  padding: 2px 8px; border-radius: 3px;
+}
+.status-kader_partai { background: var(--red-bg); color: var(--red); }
+.status-relawan_pemenangan { background: var(--amber-bg); color: var(--amber); }
+.status-pejabat { background: var(--primary-lighter); color: var(--primary); }
+.status-profesional { background: var(--green-bg); color: var(--green); }
+
+/* ── Directory table ── */
+.dir-controls {
+  display: flex; gap: 12px; flex-wrap: wrap;
+  margin-bottom: 18px; align-items: center;
+}
+.dir-search {
+  flex: 1; min-width: 200px;
+  position: relative;
+}
+.dir-search input {
+  width: 100%; padding: 9px 14px 9px 36px;
+  border: 1px solid var(--border); border-radius: var(--radius);
+  font-size: 13px; font-family: var(--font); color: var(--text);
+  outline: none; transition: border-color 0.2s;
+}
+.dir-search input:focus { border-color: var(--primary-light); }
+.dir-search svg {
+  position: absolute; left: 12px; top: 50%; transform: translateY(-50%);
+  width: 15px; height: 15px; color: var(--text-muted);
+}
+.dir-filter {
+  display: flex; gap: 6px; flex-wrap: wrap;
+}
+.dir-filter select {
+  padding: 8px 12px;
+  border: 1px solid var(--border); border-radius: var(--radius);
+  font-size: 12px; font-family: var(--font); color: var(--text);
+  background: #fff; cursor: pointer; outline: none;
+}
+.dir-filter select:focus { border-color: var(--primary-light); }
+
+.dir-table-wrap {
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  margin-bottom: 24px;
+}
+.dir-table {
+  width: 100%; border-collapse: collapse; font-size: 13px;
+}
+.dir-table thead {
+  background: var(--bg-alt);
+  border-bottom: 1px solid var(--border);
+}
+.dir-table th {
+  text-align: left; padding: 10px 14px;
+  font-size: 11px; font-weight: 600; letter-spacing: 0.5px;
+  text-transform: uppercase; color: var(--text-secondary);
+  cursor: pointer; user-select: none; white-space: nowrap;
+}
+.dir-table th:hover { color: var(--primary); }
+.dir-table th .sort-ico { opacity: 0.4; margin-left: 4px; }
+.dir-table th.sorted .sort-ico { opacity: 1; color: var(--accent); }
+.dir-table tbody tr {
+  border-bottom: 1px solid var(--border);
+  cursor: pointer; transition: background 0.12s;
+}
+.dir-table tbody tr:hover { background: var(--primary-lighter); }
+.dir-table tbody tr:last-child { border-bottom: none; }
+.dir-table td {
+  padding: 11px 14px; vertical-align: middle;
+}
+.dir-table .name-cell {
+  font-weight: 600; color: var(--text);
+}
+.dir-table .bumn-cell { color: var(--text-secondary); font-weight: 500; }
+.dir-table .party-cell { color: var(--text-secondary); font-size: 12px; }
+.dir-result-count {
+  font-size: 12px; color: var(--text-muted); margin-bottom: 10px;
+}
+
+/* ── Profile Panel ── */
+.profile-panel {
+  display: none;
+  position: fixed; inset: 0;
+  background: rgba(0,0,0,0.35);
+  z-index: 200;
+  align-items: flex-start; justify-content: center;
+  padding: 30px 20px; overflow-y: auto;
+}
+.profile-panel.show { display: flex; animation: fadeIn 0.2s ease; }
+.profile-card {
+  background: #fff;
+  border-radius: 6px;
+  width: 100%; max-width: 820px;
+  margin: auto;
+  overflow: hidden;
+}
+.profile-header {
+  padding: 24px 28px 20px;
+  border-bottom: 1px solid var(--border);
+  background: var(--bg-alt);
+}
+.profile-header-top {
+  display: flex; justify-content: space-between; align-items: flex-start;
+  gap: 16px; margin-bottom: 14px;
+}
+.profile-name {
+  font-size: 22px; font-weight: 700; color: var(--text);
+  letter-spacing: -0.3px;
+}
+.profile-bumn {
+  font-size: 14px; color: var(--text-secondary); margin-top: 4px;
+}
+.profile-close {
+  background: none; border: none; cursor: pointer;
+  font-size: 22px; color: var(--text-muted); padding: 0;
+  line-height: 1; flex-shrink: 0;
+}
+.profile-close:hover { color: var(--text); }
+.profile-meta-row {
+  display: flex; gap: 10px; flex-wrap: wrap;
+}
+.profile-meta-item {
+  display: flex; flex-direction: column; gap: 2px;
+}
+.profile-meta-label {
+  font-size: 10px; font-weight: 600; letter-spacing: 0.6px;
+  text-transform: uppercase; color: var(--text-muted);
+}
+.profile-meta-value {
+  font-size: 13px; font-weight: 500; color: var(--text);
+}
+.profile-tabs {
+  display: flex; border-bottom: 1px solid var(--border);
+  background: var(--bg-alt); padding: 0 12px;
+  overflow-x: auto;
+}
+.profile-tab {
+  padding: 12px 16px;
+  font-size: 12.5px; font-weight: 500;
+  color: var(--text-secondary); cursor: pointer;
+  border-bottom: 2px solid transparent;
+  transition: all 0.15s; white-space: nowrap;
+}
+.profile-tab:hover { color: var(--text); }
+.profile-tab.active {
+  color: var(--primary); border-bottom-color: var(--accent);
+  font-weight: 600;
+}
+.profile-body { padding: 24px 28px; max-height: 55vh; overflow-y: auto; }
+.profile-tab-content { display: none; }
+.profile-tab-content.active { display: block; }
+
+/* ── Timeline ── */
+.timeline {
+  position: relative; padding-left: 24px;
+}
+.timeline::before {
+  content: ''; position: absolute;
+  left: 7px; top: 4px; bottom: 4px;
+  width: 2px; background: var(--border);
+}
+.timeline-item {
+  position: relative; padding-bottom: 20px;
+}
+.timeline-item:last-child { padding-bottom: 0; }
+.timeline-dot {
+  position: absolute; left: -24px; top: 4px;
+  width: 12px; height: 12px; border-radius: 50%;
+  background: var(--primary); border: 2px solid #fff;
+  box-shadow: 0 0 0 1px var(--border);
+}
+.timeline-item.accent .timeline-dot { background: var(--accent); }
+.timeline-period {
+  font-size: 11px; font-weight: 600; color: var(--text-muted);
+  margin-bottom: 2px;
+}
+.timeline-title {
+  font-size: 13.5px; font-weight: 600; color: var(--text);
+}
+.timeline-org {
+  font-size: 12.5px; color: var(--text-secondary);
+}
+
+/* ── Info blocks ── */
+.info-block {
+  background: var(--bg-alt);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 16px 18px;
+  margin-bottom: 14px;
+}
+.info-block-label {
+  font-size: 11px; font-weight: 600; letter-spacing: 0.5px;
+  text-transform: uppercase; color: var(--text-muted);
+  margin-bottom: 6px;
+}
+.info-block-value {
+  font-size: 14px; color: var(--text); line-height: 1.6;
+}
+.info-block-value.large {
+  font-size: 20px; font-weight: 700; color: var(--primary);
+}
+
+/* ── Legal panel ── */
+.legal-panel {
+  border-radius: var(--radius);
+  padding: 18px;
+  margin-bottom: 14px;
+  border: 1px solid var(--border);
+}
+.legal-panel.alert { border-color: var(--red); background: var(--red-bg); }
+.legal-panel.warn { border-color: var(--amber); background: var(--amber-bg); }
+.legal-panel.ok { border-color: var(--green); background: var(--green-bg); }
+.legal-panel.neutral { background: var(--bg-alt); }
+.legal-header {
+  display: flex; align-items: center; gap: 10px;
+  margin-bottom: 10px;
+}
+.legal-case-type {
+  font-size: 13.5px; font-weight: 600; color: var(--text);
+}
+.legal-desc {
+  font-size: 13px; color: var(--text-secondary); line-height: 1.65;
+  margin-bottom: 10px;
+}
+.legal-detail-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 12px;
+  margin-top: 10px;
+}
+.legal-detail-item .label {
+  font-size: 11px; font-weight: 600; color: var(--text-muted);
+  text-transform: uppercase; letter-spacing: 0.4px;
+}
+.legal-detail-item .value {
+  font-size: 13px; color: var(--text); margin-top: 2px;
+}
+
+/* ── Source links ── */
+.source-list {
+  display: flex; flex-direction: column; gap: 8px;
+}
+.source-link {
+  display: flex; align-items: flex-start; gap: 8px;
+  padding: 10px 14px;
+  background: var(--bg-alt); border: 1px solid var(--border);
+  border-radius: var(--radius);
+  font-size: 12.5px; color: var(--text-secondary);
+  text-decoration: none; transition: all 0.15s;
+  word-break: break-all;
+}
+.source-link:hover {
+  border-color: var(--primary-light); color: var(--primary);
+  background: var(--primary-lighter);
+}
+.source-link svg { flex-shrink: 0; margin-top: 2px; }
+.source-domain {
+  font-weight: 600; color: var(--text);
+}
+
+/* ── Compare section ── */
+.compare-controls {
+  display: flex; gap: 16px; align-items: center; flex-wrap: wrap;
+  margin-bottom: 22px;
+}
+.compare-select-group {
+  display: flex; gap: 10px; flex-wrap: wrap; flex: 1;
+}
+.compare-select {
+  flex: 1; min-width: 180px;
+}
+.compare-select label {
+  display: block; font-size: 11px; font-weight: 600;
+  letter-spacing: 0.5px; text-transform: uppercase;
+  color: var(--text-muted); margin-bottom: 5px;
+}
+.compare-select select {
+  width: 100%; padding: 9px 12px;
+  border: 1px solid var(--border); border-radius: var(--radius);
+  font-size: 13px; font-family: var(--font); color: var(--text);
+  background: #fff; cursor: pointer; outline: none;
+}
+.compare-select select:focus { border-color: var(--primary-light); }
+.compare-cards {
+  display: grid; gap: 18px;
+  margin-bottom: 24px;
+}
+.compare-cards.cols-2 { grid-template-columns: repeat(2, 1fr); }
+.compare-cards.cols-3 { grid-template-columns: repeat(3, 1fr); }
+.compare-col {
+  background: #fff; border: 1px solid var(--border);
+  border-radius: var(--radius); overflow: hidden;
+}
+.compare-col-header {
+  padding: 16px 20px; background: var(--bg-alt);
+  border-bottom: 1px solid var(--border);
+}
+.compare-col-name {
+  font-size: 16px; font-weight: 700; color: var(--text);
+}
+.compare-col-bumn {
+  font-size: 13px; color: var(--text-secondary); margin-top: 3px;
+}
+.compare-col-body { padding: 16px 20px; }
+.compare-row {
+  display: flex; justify-content: space-between; align-items: flex-start;
+  padding: 8px 0; border-bottom: 1px solid var(--border);
+  gap: 12px;
+}
+.compare-row:last-child { border-bottom: none; }
+.compare-row .label {
+  font-size: 11px; font-weight: 600; color: var(--text-muted);
+  text-transform: uppercase; letter-spacing: 0.4px;
+  white-space: nowrap; flex-shrink: 0;
+}
+.compare-row .value {
+  font-size: 13px; color: var(--text); text-align: right;
+}
+
+/* ── Findings ── */
+.finding-item {
+  background: #fff; border: 1px solid var(--border);
+  border-left: 4px solid var(--accent);
+  border-radius: var(--radius);
+  padding: 20px 24px;
+  margin-bottom: 16px;
+}
+.finding-item.high { border-left-color: var(--red); }
+.finding-item.medium { border-left-color: var(--amber); }
+.finding-item.low { border-left-color: var(--green); }
+.finding-header {
+  display: flex; align-items: center; gap: 10px;
+  margin-bottom: 8px;
+}
+.finding-title {
+  font-size: 15px; font-weight: 600; color: var(--text);
+}
+.finding-tag {
+  font-size: 10px; font-weight: 700; letter-spacing: 0.5px;
+  text-transform: uppercase;
+  padding: 2px 8px; border-radius: 3px;
+  background: var(--accent-lighter); color: var(--accent);
+}
+.finding-tag.high { background: var(--red-bg); color: var(--red); }
+.finding-tag.medium { background: var(--amber-bg); color: var(--amber); }
+.finding-tag.low { background: var(--green-bg); color: var(--green); }
+.finding-body {
+  font-size: 13.5px; color: var(--text-secondary); line-height: 1.7;
+}
+.finding-body a { color: var(--primary-light); text-decoration: none; }
+.finding-body a:hover { text-decoration: underline; }
+
+/* ── Empty state ── */
+.empty-state {
+  text-align: center; padding: 40px 20px;
+  color: var(--text-muted); font-size: 13px;
+}
+
+/* ── Utility ── */
+.hidden { display: none !important; }
+.tag {
+  display: inline-block; font-size: 11px; font-weight: 500;
+  padding: 2px 8px; border-radius: 3px;
+  background: var(--bg-alt); color: var(--text-secondary);
+  border: 1px solid var(--border);
+}
+
+/* ── Responsive ── */
+@media (max-width: 1024px) {
+  .chart-grid, .chart-grid-3 { grid-template-columns: 1fr; }
+  .compare-cards.cols-2, .compare-cards.cols-3 { grid-template-columns: 1fr; }
+}
+@media (max-width: 768px) {
+  :root { --sidebar-w: 0px; }
+  .sidebar { transform: translateX(-100%); z-index: 150; }
+  .sidebar.open { transform: none; width: 256px; }
+  .main { margin-left: 0; }
+  .menu-btn { display: flex; }
+  .content { padding: 20px 16px 60px; }
+  .kpi-grid { grid-template-columns: 1fr; }
+  .dir-table { font-size: 12px; }
+  .dir-table th, .dir-table td { padding: 8px 10px; }
+  .legal-detail-grid { grid-template-columns: 1fr; }
+  .profile-body { max-height: 45vh; }
+}
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: #C5CBD3; border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: #9094A0; }
+</style>
+</head>
+<body>
+
+<div class="app">
+  <!-- ── Sidebar ── -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <div class="badge-tag">Dashboard Transparansi</div>
+      <h1>Peta Politik Komisaris BUMN</h1>
+      <div class="meta" id="sidebar-meta">37 Komisaris · 6 BUMN</div>
+    </div>
+    <nav class="nav">
+      <div class="nav-item active" data-section="overview">
+        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 5a1 1 0 011-1h4a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM14 5a1 1 0 011-1h4a1 1 0 011 1v3a1 1 0 01-1 1h-4a1 1 0 01-1-1V5zM14 13a1 1 0 011-1h4a1 1 0 011 1v6a1 1 0 01-1 1h-4a1 1 0 01-1-1v-6zM4 15a1 1 0 011-1h4a1 1 0 011 1v4a1 1 0 01-1 1H5a1 1 0 01-1-1v-4z"/></svg>
+        Ringkasan
+      </div>
+      <div class="nav-item" data-section="directory">
+        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 10h16M4 14h16M4 18h16"/></svg>
+        Direktori
+        <span class="nav-count" id="nav-dir-count">37</span>
+      </div>
+      <div class="nav-item" data-section="network">
+        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"/></svg>
+        Jaringan
+      </div>
+      <div class="nav-item" data-section="compare">
+        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M8 7v10m8-10v10M3 12h5m8 0h5"/></svg>
+        Bandingkan
+      </div>
+      <div class="nav-item" data-section="findings">
+        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+        Temuan
+      </div>
+    </nav>
+    <div class="sidebar-footer">
+      Data dikumpulkan dari sumber publik.<br>
+      LHKPN via <a href="https://elhkpn.kpk.go.id" target="_blank">e-LHKPN KPK</a>.<br>
+      <span id="gen-date">Generated: —</span>
+    </div>
+  </aside>
+
+  <div class="overlay" id="overlay" onclick="toggleSidebar()"></div>
+  <button class="menu-btn" onclick="toggleSidebar()">☰</button>
+
+  <!-- ── Main Content ── -->
+  <div class="main">
+    <div class="content">
+
+      <!-- ════════════════════════════════════════════ -->
+      <!-- SECTION 1: OVERVIEW                          -->
+      <!-- ════════════════════════════════════════════ -->
+      <div class="section active" id="section-overview">
+        <h2 class="section-title">Ringkasan Eksekutif</h2>
+        <p class="section-sub">Analisis afiliasi politik dan profil 37 komisaris di 6 BUMN strategis Indonesia.</p>
+
+        <div class="kpi-grid" id="kpi-grid"></div>
+
+        <div class="chart-grid">
+          <div class="chart-card">
+            <h4>Distribusi Status Politik</h4>
+            <div class="chart-desc">Klasifikasi afiliasi politik komisaris BUMN</div>
+            <div class="chart-container" id="chart-status"></div>
+            <div class="chart-source">Sumber: Pemetaan dari laporan resmi BUMN, media, dan data partai. <a href="#" onclick="goToSection('directory');return false;">Lihat detail di Direktori</a></div>
+          </div>
+          <div class="chart-card">
+            <h4>Afiliasi Partai</h4>
+            <div class="chart-desc">Distribusi komisaris berdasarkan partai atau kelompok afiliasi</div>
+            <div class="chart-container" id="chart-party"></div>
+            <div class="chart-source">Sumber: Data DPP partai, KPU, dan laporan media. Termasuk TKN dan relawan pemenangan.</div>
+          </div>
+        </div>
+
+        <div class="chart-grid">
+          <div class="chart-card">
+            <h4>Distribusi Usia</h4>
+            <div class="chart-desc">Sebaran usia komisaris BUMN</div>
+            <div class="chart-container" id="chart-age"></div>
+            <div class="chart-source">Sumber: Data biografi publik, Wikipedia, dan profil resmi BUMN.</div>
+          </div>
+          <div class="chart-card">
+            <h4>Kekayaan (LHKPN)</h4>
+            <div class="chart-desc">Laporan kekayaan komisaris yang memiliki data LHKPN</div>
+            <div class="chart-container" id="chart-wealth"></div>
+            <div class="chart-source">Sumber: <a href="https://elhkpn.kpk.go.id" target="_blank">e-LHKPN KPK</a> dan laporan kepemilikan saham BUMN.</div>
+          </div>
+        </div>
+
+        <div class="chart-grid">
+          <div class="chart-card">
+            <h4>Status Hukum</h4>
+            <div class="chart-desc">Rekam jejak hukum komisaris BUMN</div>
+            <div class="chart-container" id="chart-legal"></div>
+            <div class="chart-source">Sumber: Putusan MA, rilis KPK, dan laporan media (13 dari 37 telah diteliti).</div>
+          </div>
+          <div class="chart-card">
+            <h4>Distribusi Sektor BUMN</h4>
+            <div class="chart-desc">Jumlah komisaris per sektor industri BUMN</div>
+            <div class="chart-container" id="chart-sector"></div>
+            <div class="chart-source">Sumber: Data dewan komisaris resmi masing-masing BUMN (Telkom, Pertamina, PLN, Bank Mandiri, BRI, Indosat).</div>
+          </div>
+        </div>
+
+        <div class="chart-grid">
+          <div class="chart-card full">
+            <h4>Alur: Partai → BUMN → Status Politik</h4>
+            <div class="chart-desc">Visualisasi sankey diagram alur afiliasi politik komisaris BUMN</div>
+            <div class="chart-container" id="chart-sankey" style="height:420px"></div>
+            <div class="chart-source">Sumber: Kombinasi data dewan komisaris BUMN, afiliasi partai, dan klasifikasi status politik.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ════════════════════════════════════════════ -->
+      <!-- SECTION 2: DIRECTORY                         -->
+      <!-- ════════════════════════════════════════════ -->
+      <div class="section" id="section-directory">
+        <h2 class="section-title">Direktori Komisaris</h2>
+        <p class="section-sub">Cari, filter, dan klik baris untuk melihat profil lengkap setiap komisaris.</p>
+
+        <div class="dir-controls">
+          <div class="dir-search">
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+            <input type="text" id="dir-search-input" placeholder="Cari nama, BUMN, partai..." oninput="renderDirectory()">
+          </div>
+          <div class="dir-filter">
+            <select id="filter-bumn" onchange="renderDirectory()">
+              <option value="">Semua BUMN</option>
+            </select>
+            <select id="filter-status" onchange="renderDirectory()">
+              <option value="">Semua Status</option>
+              <option value="kader_partai">Kader Partai</option>
+              <option value="relawan_pemenangan">Relawan Pemenangan</option>
+              <option value="pejabat">Pejabat</option>
+              <option value="profesional">Profesional</option>
+            </select>
+            <select id="filter-legal" onchange="renderDirectory()">
+              <option value="">Semua Status Hukum</option>
+              <option value="has_issue">Ada Catatan Hukum</option>
+              <option value="cleared">Cleared</option>
+              <option value="unresearched">Belum Diteliti</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="dir-result-count" id="dir-count"></div>
+
+        <div class="dir-table-wrap">
+          <table class="dir-table" id="dir-table">
+            <thead>
+              <tr>
+                <th onclick="sortDir('name')">Nama <span class="sort-ico">↕</span></th>
+                <th onclick="sortDir('bumn')">BUMN <span class="sort-ico">↕</span></th>
+                <th onclick="sortDir('role')">Jabatan <span class="sort-ico">↕</span></th>
+                <th onclick="sortDir('status')">Status Politik <span class="sort-ico">↕</span></th>
+                <th onclick="sortDir('party')">Partai <span class="sort-ico">↕</span></th>
+                <th onclick="sortDir('age')">Usia <span class="sort-ico">↕</span></th>
+                <th onclick="sortDir('legal')">Hukum <span class="sort-ico">↕</span></th>
+              </tr>
+            </thead>
+            <tbody id="dir-tbody"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- ════════════════════════════════════════════ -->
+      <!-- SECTION 3: NETWORK                            -->
+      <!-- ════════════════════════════════════════════ -->
+      <div class="section" id="section-network">
+        <h2 class="section-title">Jaringan Koneksi</h2>
+        <p class="section-sub">Grafik jaringan hubungan antara komisaris, BUMN, partai, dan afiliasi politik. Seret node untuk eksplorasi.</p>
+
+        <div class="chart-card">
+          <h4>Grafik Jaringan Afinitas Politik</h4>
+          <div class="chart-desc">Node biru = BUMN, Node oranye = Partai/Afiliasi, Node hijau = Komisaris profesional, Node merah = Komisaris dengan afiliasi politik</div>
+          <div class="chart-container" id="chart-network" style="height:600px"></div>
+          <div class="chart-source">Sumber: Pemetaan dari data dewan komisaris resmi BUMN dan data afiliasi politik publik.</div>
+        </div>
+      </div>
+
+      <!-- ════════════════════════════════════════════ -->
+      <!-- SECTION 4: COMPARE                           -->
+      <!-- ════════════════════════════════════════════ -->
+      <div class="section" id="section-compare">
+        <h2 class="section-title">Perbandingan Komisaris</h2>
+        <p class="section-sub">Bandingkan profil 2–3 komisaris berdampingan.</p>
+
+        <div class="compare-controls">
+          <div class="compare-select-group">
+            <div class="compare-select">
+              <label>Komisaris 1</label>
+              <select id="compare-1" onchange="renderCompare()"></select>
+            </div>
+            <div class="compare-select">
+              <label>Komisaris 2</label>
+              <select id="compare-2" onchange="renderCompare()"></select>
+            </div>
+            <div class="compare-select">
+              <label>Komisaris 3 (opsional)</label>
+              <select id="compare-3" onchange="renderCompare()">
+                <option value="">— Tidak ada —</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div class="compare-cards" id="compare-cards"></div>
+      </div>
+
+      <!-- ════════════════════════════════════════════ -->
+      <!-- SECTION 5: FINDINGS                          -->
+      <!-- ════════════════════════════════════════════ -->
+      <div class="section" id="section-findings">
+        <h2 class="section-title">Temuan Kunci</h2>
+        <p class="section-sub">Insight dan observasi penting dari analisis data komisaris BUMN.</p>
+
+        <div id="findings-list"></div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ── Profile Panel (modal) ── -->
+<div class="profile-panel" id="profile-panel" onclick="if(event.target===this)closeProfile()">
+  <div class="profile-card" id="profile-card">
+    <!-- dynamically populated -->
+  </div>
+</div>
+
+<script>
+// ════════════════════════════════════════════════════════
+// DATA INJECTION POINT — replaced by scraper pipeline
+// ════════════════════════════════════════════════════════
+const RAW_DATA = {"database_name": "BUMN Watch — Database Komisaris BUMN Indonesia", "generated": "2026-06-27T06:03:14.503706", "total_commissioners": 37, "commissioners": [{"name": "Ossy Dermawan", "bumn": "Telkom", "role": "Komisaris", "sector": "Telekomunikasi", "status": "kader_partai", "party": "Demokrat", "political_affiliation": "Partai Demokrat (Wasekjen DPP)", "evidence": "Wakil Sekretaris Jenderal DPP Partai Demokrat. Wamen ATR/BPN di Kabinet Prabowo. Staf pribadi SBY 2014-2018. Diangkat Telkom commissioner May 2025.", "sources": ["https://www.beritasatu.com/nasional/2848866/profil-ossy-dermawan-wasekjen-partai-demokrat-yang-dipanggil-prabowo-subianto-ke-kediamannya", "https://id.wikipedia.org/wiki/Ossy_Dermawan", "https://www.cnbcindonesia.com/news/20241016004452-4-580078/staf-pribadi-sby-ossy-dermawan-prabowo-tugaskan-saya-sebagai-wamen", "https://market.bisnis.com/read/20250527/192/1880519/dewan-komisaris-telkom-tlkm-dirombak-2-politisi-masuk"], "birth_year": 1976, "age": 49, "education": [{"degree": "BSc", "university": "Norwich University, USA", "major": "Business Administration & CIS", "year": 2000}, {"degree": "MSc", "university": "Nanyang Technological University, Singapura", "major": "Strategic Studies", "year": 2014}], "career": [{"role": "Perwira TNI AD", "org": "TNI Angkatan Darat", "period": "2001-2014"}, {"role": "Asisten Pribadi Presiden SBY", "org": "Kepresidenan RI", "period": "2014-2018"}, {"role": "Wakil Menteri ATR/BPN", "org": "Kementerian ATR/BPN", "period": "2024-sekarang"}, {"role": "Komisaris", "org": "PT Telkom Indonesia", "period": "2025-sekarang"}], "commissioner_since": "2025-05-28", "wealth": null, "wealth_source": null, "legal_record": {"has_legal_issue": false, "case_type": null, "case_description": "Tidak ada masalah hukum. Catatan administratif: belum melaporkan LHKPN per Oktober 2024 (kepatuhan administratif, bukan pidana).", "verdict": null, "sentence_duration": null, "legal_status": "cleared"}}, {"name": "Ismail", "bumn": "Telkom", "role": "Komisaris", "sector": "Telekomunikasi", "status": "pejabat", "party": "Non-Partisan", "political_affiliation": "None (Sekjen Komdigi)", "evidence": "Sekjen Kementerian Komunikasi dan Digital. Career civil servant since 1993. ITB graduate. No party affiliation.", "sources": ["https://www.antaranews.com/berita/4580838/profil-ismail-sekretaris-jenderal-komdigi-yang-baru-dilantik", "https://www.idnfinancials.com/id/news/54876/lima-pejabat-negara-masuk-komisaris-tlkm-berikut-sosoknya"], "birth_year": null, "age": null, "education": [], "career": [], "commissioner_since": null, "wealth": null, "wealth_source": null, "legal_record": {"has_legal_issue": null, "case_type": null, "case_description": "Belum diteliti — riset lebih lanjut diperlukan.", "verdict": null, "sentence_duration": null, "legal_status": "unresearched"}}, {"name": "Rionald Silaban", "bumn": "Telkom", "role": "Komisaris", "sector": "Telekomunikasi", "status": "pejabat", "party": "Non-Partisan", "political_affiliation": "None (Dirjen DJKN)", "evidence": "Dirjen Kekayaan Negara Kemenkeu. No party affiliation or TKN role found.", "sources": ["https://www.tempo.co/ekonomi/wamen-komdigi-hingga-dirjen-kemenkeu-masuk-jajaran-komisaris-telkom-1583587", "https://market.bisnis.com/read/20250527/192/1880519/dewan-komisaris-telkom-tlkm-dirombak-2-politisi-masuk"], "birth_year": null, "age": null, "education": [], "career": [], "commissioner_since": null, "wealth": null, "wealth_source": null, "legal_record": {"has_legal_issue": null, "case_type": null, "case_description": "Belum diteliti — riset lebih lanjut diperlukan.", "verdict": null, "sentence_duration": null, "legal_status": "unresearched"}}, {"name": "Yohanes Surya", "bumn": "Telkom", "role": "Komisaris Independen", "sector": "Telekomunikasi", "status": "profesional", "party": "Non-Partisan", "political_affiliation": "None", "evidence": "Renowned physicist, physics olympiad coach. No party links. Resigned Nov 2025.", "sources": ["https://www.tempo.co/ekonomi/sosok-yohanes-surya-perintis-olimpiade-fisika-yang-mundur-dari-komisaris-telkom-2092010", "https://www.idnfinancials.com/id/news/54876/lima-pejabat-negara-masuk-komisaris-tlkm-berikut-sosoknya"], "birth_year": null, "age": null, "education": [], "career": [], "commissioner_since": null, "wealth": null, "wealth_source": null, "legal_record": {"has_legal_issue": null, "case_type": null, "case_description": "Belum diteliti — riset lebih lanjut diperlukan.", "verdict": null, "sentence_duration": null, "legal_status": "unresearched"}}, {"name": "Deswandhy Agusman", "bumn": "Telkom", "role": "Komisaris Independen", "sector": "Telekomunikasi", "status": "profesional", "party": "Yayasan Prabowo", "political_affiliation": "Chairman Yayasan Prabowo Subianto Djojohadikusumo (since 2022)", "evidence": "Career finance professional. Chairman of Yayasan Prabowo Subianto — significant political link despite no formal party membership.", "sources": ["https://www.telkom.co.id/sites/about-telkom/id_ID/page/dewan-komisaris-197", "https://www.idnfinancials.com/id/news/54876/lima-pejabat-negara-masuk-komisaris-tlkm-berikut-sosoknya"], "birth_year": null, "age": null, "education": [], "career": [], "commissioner_since": null, "wealth": null, "wealth_source": null, "legal_record": {"has_legal_issue": null, "case_type": null, "case_description": "Belum diteliti — riset lebih lanjut diperlukan.", "verdict": null, "sentence_duration": null, "legal_status": "unresearched"}}, {"name": "Bambang Suswantono", "bumn": "Pertamina", "role": "Komisaris", "sector": "Energi", "status": "pejabat", "party": "Non-Partisan", "political_affiliation": "None (TNI Mar Purn)", "evidence": "Letjen TNI Mar (Purn). Former Danpaspampres, Irjen TNI, Irjen Kemenhan/ESDM. No party affiliation found.", "sources": ["https://www.tribunnews.com/nasional/2024/06/10/profil-letjen-tni-mar-purn-bambang-suswantono-komisaris-pertamina-juga-eks-komandan-paspampres", "https://www.cnnindonesia.com/ekonomi/20230922185909-92-1002604/profil-bambang-suswantono-dari-perwira-jadi-komisaris-baru-pertamina", "https://id.wikipedia.org/wiki/Bambang_Suswantono"], "birth_year": null, "age": null, "education": [], "career": [], "commissioner_since": null, "wealth": null, "wealth_source": null, "legal_record": {"has_legal_issue": null, "case_type": null, "case_description": "Belum diteliti — riset lebih lanjut diperlukan.", "verdict": null, "sentence_duration": null, "legal_status": "unresearched"}}, {"name": "Condro Kirono", "bumn": "Pertamina", "role": "Komisaris Independen", "sector": "Energi", "status": "relawan_pemenangan", "party": "TKN Prabowo", "political_affiliation": "TKN Prabowo-Gibran (Wakil Ketua)", "evidence": "Wakil Ketua TKN Prabowo-Gibran Pilpres 2024. Komjen Pol Purn. Appointed Pertamina commissioner June 2024.", "sources": ["https://www.fortuneidn.com/business/12-nama-komisaris-bumn-dari-relawan-pemenangan-prabowo-gibran-00-my5jv-tybjpj", "https://www.cnbcindonesia.com/news/20231106173024-4-486812/simak-susunan-lengkap-tim-kampanye-nasional-prabowo-gibran", "https://www.tempo.co/ekonomi/deretan-pendukung-prabowo-gibran-yang-kini-jadi-bos-bumn-1164207", "https://tirto.id/prabowo-belum-dilantik-tapi-orang-dekatnya-mulai-kuasai-bumn-gZzc"], "birth_year": 1961, "age": 64, "education": [{"degree": "Akpol", "university": "Akademi Kepolisian", "major": "Kepolisian", "year": 1984}, {"degree": "S2 MM", "university": "Tidak disebutkan", "major": "Manajemen", "year": null}, {"degree": "S2 MHum", "university": "Tidak disebutkan", "major": "Humaniora", "year": null}], "career": [{"role": "Kapolda Jawa Timur", "org": "Polri", "period": "2007"}, {"role": "Kapolda Metro Jaya", "org": "Polri", "period": "2008"}, {"role": "Kakorlantas", "org": "Polri", "period": "2014"}, {"role": "Wakil Ketua TKN", "org": "TKN Prabowo-Gibran", "period": "2024"}, {"role": "Komisaris Independen", "org": "PT Pertamina", "period": "2024-sekarang"}], "commissioner_since": "2024-06-10", "wealth": "Rp64 miliar", "wealth_source": "LHKPN e-LHKPN KPK (tidak punya utang)", "legal_record": {"has_legal_issue": false, "case_type": null, "case_description": "Tidak ada masalah hukum ditemukan. Mantan Kabaharkam Polri. Tidak ada kasus KPK, tuduhan pidana, atau dugaan korupsi.", "verdict": null, "sentence_duration": null, "legal_status": "cleared"}}, {"name": "Sondaryani", "bumn": "Pertamina", "role": "Komisaris Independen", "sector": "Energi", "status": "profesional", "party": "Non-Partisan", "political_affiliation": "None found", "evidence": "Oil industry professional. Former Ketua Ikatan Alumni Perminyakan Trisakti. No direct political evidence.", "sources": ["https://www.tempo.co/ekonomi/rekam-jejak-raden-adjeng-sondaryani-yang-ditunjuk-jadi-komisaris-independen-pertamina-1163490", "https://www.metrotvnews.com/read/NOlCnErd-profil-singkat-jajaran-komisaris-baru-pertamina-dari-iwan-bule-hingga-raden-adjeng"], "birth_year": null, "age": null, "education": [], "career": [], "commissioner_since": null, "wealth": null, "wealth_source": null, "legal_record": {"has_legal_issue": null, "case_type": null, "case_description": "Belum diteliti — riset lebih lanjut diperlukan.", "verdict": null, "sentence_duration": null, "legal_status": "unresearched"}}, {"name": "Iggi H. Achsien", "bumn": "Pertamina", "role": "Komisaris Independen", "sector": "Energi", "status": "profesional", "party": "Non-Partisan", "political_affiliation": "None found", "evidence": "Finance/banking professional. MBA ITB. No party links found.", "sources": ["https://www.linkedin.com/in/iggi-achsien-44a07378/", "https://www.ntvnews.id/news/014075/profil-simon-aloisius-mantiri-bendahara-tkn-prabowo-gibran-yang-jadi-komut-pertamina-gantikan-ahok?page=2"], "birth_year": null, "age": null, "education": [], "career": [], "commissioner_since": null, "wealth": null, "wealth_source": null, "legal_record": {"has_legal_issue": null, "case_type": null, "case_description": "Belum diteliti — riset lebih lanjut diperlukan.", "verdict": null, "sentence_duration": null, "legal_status": "unresearched"}}, {"name": "Alexander Lay", "bumn": "Pertamina", "role": "Komisaris Independen", "sector": "Energi", "status": "relawan_pemenangan", "party": "Relawan Jokowi", "political_affiliation": "Relawan Jokowi 2019 (not Prabowo)", "evidence": "One of 10 lawyers who defended Jokowi in 2019 pilpres court case. Former Stafsus Mensesneg. Appointed Pertamina commissioner 2017.", "sources": ["https://www.tribunnews.com/nasional/2024/06/10/profil-alexander-lay-komisaris-independen-pertamina-yang-baru-mantan-relawan-jokowi", "https://www.cnnindonesia.com/ekonomi/20170913141505-85-241439/relawan-jokowi-alexander-lay-didapuk-jadi-komisaris-pertamina", "https://www.dunia-energi.com/staf-khusus-mensesneg-ditunjuk-jadi-komisaris-pertamina/"], "birth_year": null, "age": null, "education": [], "career": [], "commissioner_since": null, "wealth": null, "wealth_source": null, "legal_record": {"has_legal_issue": null, "case_type": null, "case_description": "Belum diteliti — riset lebih lanjut diperlukan.", "verdict": null, "sentence_duration": null, "legal_status": "unresearched"}}, {"name": "Burhanuddin Abdullah", "bumn": "PLN", "role": "President Commissioner", "sector": "Energi", "status": "kader_partai", "party": "Gerindra", "political_affiliation": "Partai Gerindra + TKN Prabowo-Gibran (Ketua Dewan Pakar)", "evidence": "Ketua Dewan Pakar TKN Prabowo-Gibran. Ketua Dewan Pakar Partai Gerindra. Former Gubernur BI. Appointed PLN Komut July 2024.", "sources": ["https://www.fortuneidn.com/business/12-nama-komisaris-bumn-dari-relawan-pemenangan-prabowo-gibran-00-my5jv-tybjpj", "https://www.tempo.co/ekonomi/sosok-burhanuddin-abdullah-dari-gubernur-bi-tersangka-kpk-tkn-prabowo-hingga-komisaris-utama-pln-36800", "https://www.kompas.com/tren/read/2024/07/25/083000365/profil-burhanuddin-abdullah-ketua-dewan-pakar-tkn-yang-jadi-komut-pln", "https://www.tempo.co/ekonomi/deretan-pendukung-prabowo-gibran-yang-kini-jadi-bos-bumn-1164207"], "birth_year": 1947, "age": 78, "education": [{"degree": "S1 Ir", "university": "Universitas Padjadjaran", "major": "Pertanian", "year": 1974}, {"degree": "MA", "university": "Michigan State University", "major": "Ekonomi", "year": 1984}, {"degree": "Dr (HC)", "university": "Universitas Diponegoro", "major": "Ekonomi", "year": 2006}], "career": [{"role": "Staff", "org": "IMF Asia Pacific Dept", "period": null}, {"role": "Menteri Koordinator Perekonomian", "org": "Pemerintah RI (Gus Dur)", "period": "2001"}, {"role": "Gubernur Bank Indonesia", "org": "Bank Indonesia", "period": "2003-2008"}, {"role": "Ketua Dewan Pakar TKN", "org": "TKN Prabowo-Gibran", "period": "2024"}, {"role": "Komisaris Utama", "org": "PT PLN", "period": "2024-sekarang"}], "commissioner_since": "2024-07-23", "wealth": null, "wealth_source": "Pernah dipidana 5 tahun penjara kasus korupsi BI", "legal_record": {"has_legal_issue": true, "case_type": "Korupsi - Aliran Dana YPPI Bank Indonesia (Rp100M)", "case_description": "Mantan Gubernur BI ditetapkan KPK sebagai tersangka kasus korupsi aliran dana Yayasan Pengembangan Perbankan Indonesia. Dituduh menyetujui pengambilan dana YPPI untuk membayar pejabat & DPR.", "verdict": "Bersalah - Pasal 2(1) UU 31/1999 jo UU 20/2001", "sentence_duration": "5 tahun (banding 5.5 tahun, kasasi MA 3 tahun) + denda Rp200-250 juta", "legal_status": "terpidana (sudah bebas)"}}, {"name": "Aminuddin Ma'ruf", "bumn": "PLN", "role": "Commissioner", "sector": "Energi", "status": "relawan_pemenangan", "party": "TKN Prabowo", "political_affiliation": "TKN Prabowo-Gibran (Wakil Sekretaris) + alumni PMII", "evidence": "Wakil Sekretaris TKN Prabowo-Gibran. Founder Samawi (relawan Jokowi 2019). Now Wakil Kepala BP BUMN + PLN Commissioner.", "sources": ["https://www.nu.or.id/nasional/profil-7-alumni-pmii-yang-duduk-di-kabinet-merah-putih-prabowo-88Wy4", "https://www.antaranews.com/berita/4403313/sosok-aminuddin-maruf-eks-stafsus-jokowi-menuju-kabinet-prabowo", "https://nasional.kompas.com/read/2023/11/07/12193031/orang-orang-lingkaran-istana-yang-masuk-tim-kampanye-prabowo-gibran"], "birth_year": 1986, "age": 38, "education": [{"degree": "S1", "university": "Universitas Negeri Jakarta", "major": "Ekonomi dan Administrasi", "year": 2010}, {"degree": "S2", "university": "Universitas Airlangga", "major": "Sedang menempuh", "year": null}], "career": [{"role": "Ketua Umum PB PMII", "org": "PMII", "period": "2014-2016"}, {"role": "Staf Khusus Presiden Jokowi", "org": "Kepresidenan RI", "period": null}, {"role": "Wakil Sekretaris TKN", "org": "TKN Prabowo-Gibran", "period": "2024"}, {"role": "Wakil Kepala BP BUMN", "org": "BP BUMN", "period": "2024-sekarang"}, {"role": "Komisaris", "org": "PT PLN", "period": "2024-sekarang"}], "commissioner_since": "2024-11-14", "wealth": null, "wealth_source": null, "legal_record": {"has_legal_issue": null, "case_type": null, "case_description": "Belum diteliti — riset lebih lanjut diperlukan.", "verdict": null, "sentence_duration": null, "legal_status": "unresearched"}}, {"name": "Dadan Kusdiana", "bumn": "PLN", "role": "Commissioner", "sector": "Energi", "status": "pejabat", "party": "Non-Partisan", "political_affiliation": "None (Sekjen ESDM)", "evidence": "Career bureaucrat at Kementerian ESDM. Removed from Sekjen by Prabowo Sep 2025.", "sources": ["https://finance.detik.com/energi/d-6304727/profil-komisaris-baru-pln-dadan-kusdiana-yang-gantikan-rida-mulyana", "https://jccnetwork.id/2025/09/16/dadan-kusdiana-dicopot-ahmad-erani-yustika-ditunjuk-jadi-sekjen-kementerian-esdm/"], "birth_year": 1968, "age": 57, "education": [{"degree": "S1", "university": "IPB University", "major": "Mekanisasi Pertanian", "year": 1992}, {"degree": "S2", "university": "Kyoto University, Japan", "major": "Energy Science", "year": 2001}, {"degree": "S3", "university": "Kyoto University, Japan", "major": "Ilmu Lingkungan dan Energi", "year": 2004}], "career": [{"role": "Direktur Bioenergi", "org": "Kementerian ESDM", "period": "2013-2015"}, {"role": "Dirjen EBTKE", "org": "Kementerian ESDM", "period": "2020-2022"}, {"role": "Sekjen Kementerian ESDM", "org": "Kementerian ESDM", "period": null}, {"role": "Komisaris", "org": "PT PLN", "period": "2022-sekarang"}], "commissioner_since": "2022-09-21", "wealth": null, "wealth_source": null, "legal_record": {"has_legal_issue": null, "case_type": null, "case_description": "Belum diteliti — riset lebih lanjut diperlukan.", "verdict": null, "sentence_duration": null, "legal_status": "unresearched"}}, {"name": "Jisman Parada Hutajulu", "bumn": "PLN", "role": "Commissioner", "sector": "Energi", "status": "pejabat", "party": "Non-Partisan", "political_affiliation": "None (Dirjen Ketenagalistrikan)", "evidence": "Career bureaucrat at ESDM. Removed from Dirjen by Prabowo Sep 2025.", "sources": ["https://katadata.co.id/berita/industri/6736c51da4c78/profil-jisman-hutajulu-dirjen-ketenagalistrikan-jadi-komisaris-baru-pln", "https://web.pln.co.id/tentang-kami/jisman-parada"], "birth_year": 1967, "age": 59, "education": [{"degree": "S1", "university": "ISTN Jakarta", "major": "Teknik Elektro", "year": 1992}, {"degree": "S2", "university": null, "major": "Magister Manajemen", "year": null}], "career": [{"role": "Direktur Pembinaan Program Ketenagalistrikan", "org": "Kementerian ESDM", "period": "2018"}, {"role": "Komisaris", "org": "MIND ID", "period": null}, {"role": "Dirjen Ketenagalistrikan", "org": "Kementerian ESDM", "period": "2023-2025"}, {"role": "Komisaris", "org": "PT PLN", "period": "2024-sekarang"}], "commissioner_since": "2024-11-14", "wealth": null, "wealth_source": null, "legal_record": {"has_legal_issue": null, "case_type": null, "case_description": "Belum diteliti — riset lebih lanjut diperlukan.", "verdict": null, "sentence_duration": null, "legal_status": "unresearched"}}, {"name": "Bambang Eko Suhariyanto", "bumn": "PLN", "role": "Commissioner", "sector": "Energi", "status": "relawan_pemenangan", "party": "TKN Prabowo", "political_affiliation": "TKD Prabowo-Gibran Jatim + Wamensesneg", "evidence": "Marsda TNI Purn. Staf Ahli Menhan Prabowo. Wamensesneg Kabinet Prabowo. Listed in TKD Prabowo-Gibran Jatim. Rangkap as PLN commissioner.", "sources": ["https://www.antaranews.com/berita/4409861/profil-bambang-eko-suhariyanto", "https://www.beritasatu.com/nasional/2849054/profil-bambang-eko-suhariyanto-staf-ahli-menhan-yang-dipanggil-prabowo", "https://www.kompas.com/tren/read/2024/10/21/061500365/profil-bambang-eko-suhariyanto-wakil-menteri-sekretaris-negara-pemerintahan", "https://www.suarasurabaya.net/politik/2023/dua-eks-gubernur-jatim-hadiri-konsolidasi-tkd-prabowo-gibran-di-surabaya/"], "birth_year": 1961, "age": 64, "education": [{"degree": "S1", "university": "Universitas Jember", "major": "Hukum", "year": 1987}, {"degree": "S2", "university": "Universitas Indonesia", "major": "Magister Hukum", "year": 2003}, {"degree": "S3", "university": "Universitas Brawijaya", "major": "Doktor Ilmu Hukum", "year": 2018}], "career": [{"role": "Kepala Biro Hukum Setjen Kementerian Pertahanan", "org": "Kementerian Pertahanan", "period": null}, {"role": "Staf Ahli Menteri Pertahanan Prabowo", "org": "Kementerian Pertahanan", "period": "2018"}, {"role": "Wakil Menteri Sekretaris Negara", "org": "Kemensetneg", "period": "2024-sekarang"}, {"role": "Komisaris", "org": "PT PLN", "period": "2025-sekarang"}], "commissioner_since": "2025-06-18", "wealth": null, "wealth_source": null, "legal_record": {"has_legal_issue": null, "case_type": null, "case_description": "Belum diteliti — riset lebih lanjut diperlukan.", "verdict": null, "sentence_duration": null, "legal_status": "unresearched"}}, {"name": "Yazid Fanani", "bumn": "PLN", "role": "Independent Commissioner", "sector": "Energi", "status": "profesional", "party": "Non-Partisan", "political_affiliation": "None (Irjen Pol Purn)", "evidence": "Retired Inspector General of Police. No direct political party or TKN links found.", "sources": ["https://www.tempo.co/ekonomi/daftar-45-purnawirawan-tni-dan-polri-yang-menjabat-komisaris-bumn-siapa-saja--1725594", "https://www.cnnindonesia.com/ekonomi/20250616141331-92-1240217/daftar-45-pensiunan-tni-dan-polri-yang-jadi-komisaris-bumn", "https://manadozone.com/2024/11/14/rups-pt-pln-tempatkan-yazid-fanani-komisaris-baru/"], "birth_year": 1965, "age": 61, "education": [{"degree": "Akpol", "university": "Akademi Kepolisian", "major": "Kepolisian", "year": 1988}, {"degree": "S2", "university": null, "major": "M.Si.", "year": null}], "career": [{"role": "Wakil Ketua Komisi Sidang Kode Etik Polri (pemecatan Ferdy Sambo)", "org": "Polri", "period": "2022"}, {"role": "Kepala STIK Lemdikpol", "org": "Polri", "period": "2020"}, {"role": "Komisaris Independen", "org": "PT PLN", "period": "2024-sekarang"}], "commissioner_since": "2024-11-14", "wealth": null, "wealth_source": null, "legal_record": {"has_legal_issue": null, "case_type": null, "case_description": "Belum diteliti — riset lebih lanjut diperlukan.", "verdict": null, "sentence_duration": null, "legal_status": "unresearched"}}, {"name": "Mutanto Juwono", "bumn": "PLN", "role": "Independent Commissioner", "sector": "Energi", "status": "relawan_pemenangan", "party": "TKN Prabowo", "political_affiliation": "Badan Pemenangan Nasional Prabowo-Sandi 2019", "evidence": "Marsma TNI Purn. Anggota Bapanas Prabowo-Sandi 2019. Now PLN Independent Commissioner.", "sources": ["https://www.slideshare.net/slideshow/tim-pemenangan-prabowosandi/117056988", "https://www.tempo.co/ekonomi/daftar-45-purnawirawan-tni-dan-polri-yang-menjabat-komisaris-bumn-siapa-saja--1725594", "https://aktual.com/prabowo-kembali-tunjuk-purnawirawan-pimpin-bumn-inilah-daftar-60-pejabat-negara-dan-bumn-berlatar-anggota-tni/3/"], "birth_year": 1947, "age": 78, "education": [{"degree": "Militer", "university": "Akademi Angkatan Udara (AAU)", "major": "Penerbang TNI AU", "year": null}], "career": [{"role": "Purnawirawan Marsma TNI AU", "org": "TNI AU", "period": null}, {"role": "Anggota Bapanas", "org": "Badan Pemenangan Nasional Prabowo-Sandi", "period": "2019"}, {"role": "Komisaris Independen", "org": "PT PLN", "period": "2024-sekarang"}], "commissioner_since": "2024-11-14", "wealth": null, "wealth_source": null, "legal_record": {"has_legal_issue": null, "case_type": null, "case_description": "Belum diteliti — riset lebih lanjut diperlukan.", "verdict": null, "sentence_duration": null, "legal_status": "unresearched"}}, {"name": "Andi Arief", "bumn": "PLN", "role": "Independent Commissioner", "sector": "Energi", "status": "kader_partai", "party": "Demokrat", "political_affiliation": "Partai Demokrat (Ketua Bappilu DPP) + KIM", "evidence": "Ketua Bappilu DPP Demokrat. Resigned from Bappilu after PLN appointment. Demokrat was part of KIM supporting Prabowo-Gibran.", "sources": ["https://www.tempo.co/ekonomi/profil-andi-arief-kader-demokrat-yang-diangkat-jadi-komisaris-baru-pln-37107", "https://nasional.kompas.com/read/2024/07/26/10240551/andi-arief-jadi-komisaris-pln-demokrat-beliau-sudah-mundur-dari-bappilu", "https://www.tribunnews.com/nasional/2024/07/23/profil-andi-arief-politisi-demokrat-yang-diangkat-jadi-komisaris-pln-pernah-jadi-stafsus-sby", "https://www.kompas.com/tren/read/2024/07/24/130000665/11-relawan-prabowo-gibran-yang-dapat-jatah-komisaris-bumn-terbaru-andi"], "birth_year": 1970, "age": 55, "education": [{"degree": "S1 (tidak selesai)", "university": "Universitas Gadjah Mada", "major": "Ilmu Pemerintahan", "year": "1993-1994"}, {"degree": "S1 Hukum", "university": "Universitas Indonesia / STHI Jentera", "major": "Hukum", "year": null}], "career": [{"role": "Aktivis SMID/PRD (korban penculikan 1998)", "org": "SMID/PRD", "period": "1990s"}, {"role": "Komisaris", "org": "PT Pos Indonesia", "period": "2006"}, {"role": "Staf Khusus Presiden SBY", "org": "Kepresidenan RI", "period": null}, {"role": "Ketua Bappilu DPP", "org": "Partai Demokrat", "period": "2020-2025"}, {"role": "Komisaris Independen", "org": "PT PLN", "period": "2024-sekarang"}], "commissioner_since": "2024-07-23", "wealth": null, "wealth_source": "Honorarium Komisaris PLN ~Rp190 juta/bulan", "legal_record": {"has_legal_issue": true, "case_type": "Narkoba (2019) + Saksi KPK (2022-2023)", "case_description": "1) Ditangkap Bareskrim 3 Maret 2019 di Hotel Peninsula untuk diduga pemakaian sabu. Tes urine positif. Diklasifikasi sebagai 'pengguna/korban' - dirujuk ke BNN untuk rehabilitasi. Tidak ada vonis. 2) Diperiksa KPK sebagai SAKSI (bukan tersangka) dalam kasus korupsi Bupati Mamberamo Tengah & Pemkab Penajam Paser Utara. Mengakui terima Rp50 juta tapi dikembalikan ke KPK.", "verdict": "Tidak ada vonis. Kasus narkoba tidak dilanjutkan ke penyidikan.", "sentence_duration": null, "legal_status": "cleared"}}, {"name": "Yuliot", "bumn": "Bank Mandiri", "role": "Komisaris", "sector": "Perbankan", "status": "pejabat", "party": "Non-Partisan", "political_affiliation": "None (Wamen ESDM, teknokrat BKPM)", "evidence": "Career teknokrat at BKPM since 1988. Wamen ESDM in Kabinet Prabowo. No party affiliation.", "sources": ["https://www.cnbcindonesia.com/news/20241021151419-4-581740/baru-dilantik-jadi-wamen-esdm-yuliot-dapat-tugas-ini-dari-bahlil", "https://ekonomi.bisnis.com/read/20241021/44/1809240/profil-harta-yuliot-tanjung-wakil-menteri-esdm-pendamping-bahlil", "https://www.kabarbursa.com/makro/bank-mandiri-tunjuk-pengurus-baru-yuliot-jadi-komisaris"], "birth_year": 1963, "age": 62, "education": [{"degree": "S1", "university": "Universitas Andalas", "major": "Produksi Ternak", "year": null}, {"degree": "S2", "university": "PPM School of Management", "major": "Magister Manajemen", "year": null}], "career": [{"role": "Karir dimulai", "org": "BKPM", "period": "1988"}, {"role": "Deputi Bidang Pengembangan Iklim Penanaman Modal", "org": "BKPM", "period": "2020-2023"}, {"role": "Wakil Menteri ESDM", "org": "Kementerian ESDM", "period": "2024-sekarang"}, {"role": "Komisaris", "org": "PT Bank Mandiri", "period": "2025-sekarang"}], "commissioner_since": "2025-08-04", "wealth": null, "wealth_source": null, "legal_record": {"has_legal_issue": null, "case_type": null, "case_description": "Belum diteliti — riset lebih lanjut diperlukan.", "verdict": null, "sentence_duration": null, "legal_status": "unresearched"}}, {"name": "Mia Amiati", "bumn": "Bank Mandiri", "role": "Komisaris Independen", "sector": "Perbankan", "status": "pejabat", "party": "Non-Partisan", "political_affiliation": "Suspected political connection (Kajati Jatim)", "evidence": "Retired Kajati Jatim Mar 2025. Appointed Mandiri commissioner Mar 2025. Rumored connection to Jaksa Agung. Media describes as 'jatah' appointment.", "sources": ["https://newsurban.id/2025/03/29/pensiun-dari-kejaksaan-kajati-jatim-mia-amiati-dapat-jatah-komisaris-independen-bank-mandiri/", "https://monitorindonesia.com/ekonomi/read/2025/03/605571/mia-amiati-diduga-istri-kedua-jaksa-agung-hingga-kepala-bpkp-yusuf-ateh-dapat-jatah-komisaris-bank-mandiri", "https://ketik.co.id/berita/asyik-jelang-pensiun-kajati-jatim-mia-amiati-dapat-jatah-komisaris-bank-mandiri"], "birth_year": 1965, "age": 61, "education": [{"degree": "S1", "university": "Universitas Padjadjaran", "major": "Sastra Indonesia", "year": null}, {"degree": "S1", "university": "Universitas Islam Jakarta", "major": "Hukum", "year": null}, {"degree": "Profesor", "university": "Universitas Padjadjaran", "major": "Hukum", "year": 2012}], "career": [{"role": "Jaksa (sejak 1995)", "org": "Kejaksaan RI", "period": "1995-2025"}, {"role": "Kepala Kejaksaan Tinggi Jawa Timur (perempuan pertama)", "org": "Kejaksaan RI", "period": null}, {"role": "Komisaris Independen", "org": "PT Bank Mandiri", "period": "2025-sekarang"}], "commissioner_since": "2025-03-25", "wealth": "Rp4.17 miliar", "wealth_source": "LHKPN (Desember 2023)", "legal_record": {"has_legal_issue": true, "case_type": "KKN / Konflik Kepentingan (etika, bukan pidana)", "case_description": "Dilaporkan ke KASN oleh organisasi Jaga Adhyaksa (Komjak) karena diduga menjadi 'istri kedua' Jaksa Agung ST Burhanuddin. Bukti: duplikasi KTP Jaksa Agung & konfirmasi kelurahan bahwa Mia tinggal di alamat yang sama. Melanggar Tap MPR XI/1998 tentang bersih dari KKN.", "verdict": "Tidak ada vonis pidana. KASN melakukan telaah. Tidak ada sanksi formal yang dipublikasikan.", "sentence_duration": null, "legal_status": "cleared (isu etika)"}}, {"name": "Zulkifli Zaini", "bumn": "Bank Mandiri", "role": "Komisaris Utama/Independen", "sector": "Perbankan", "status": "profesional", "party": "Non-Partisan", "political_affiliation": "None (career banker)", "evidence": "Career banker since 1983. Mantan Dirut Bank Mandiri (2010-2013), Dirut PLN (2019-2021). No party membership found.", "sources": ["https://id.wikipedia.org/wiki/Zulkifli_Zaini", "https://money.kompas.com/read/2025/12/20/140548226/profil-zulkifli-zaini-komisaris-utama-baru-bank-mandiri", "https://money.kompas.com/read/2025/12/20/104512626/bank-mandiri-rombak-jajaran-komisaris-angkat-zulkifli-zaini-jadi-komut"], "birth_year": 1956, "age": 69, "education": [{"degree": "S1", "university": "Institut Teknologi Bandung", "major": "Teknik Sipil", "year": 1980}, {"degree": "MBA", "university": "Washington University, St. Louis, USA", "major": "Administrasi Bisnis", "year": null}], "career": [{"role": "Karir dimulai", "org": "Bapindo", "period": "1988"}, {"role": "Direktur Utama", "org": "PT Bank Mandiri", "period": "2010-2013"}, {"role": "Direktur Utama", "org": "PT PLN", "period": "2019-2021"}, {"role": "Komisaris Utama PTPN III", "org": "PT Perkebunan Nusantara III", "period": "2021-2025"}, {"role": "Komisaris Utama/Independen", "org": "PT Bank Mandiri", "period": "2025-sekarang"}], "commissioner_since": "2025-12-19", "wealth": null, "wealth_source": null, "legal_record": {"has_legal_issue": null, "case_type": null, "case_description": "Belum diteliti — riset lebih lanjut diperlukan.", "verdict": null, "sentence_duration": null, "legal_status": "unresearched"}}, {"name": "B. Bintoro Kunto Pardewo", "bumn": "Bank Mandiri", "role": "Komisaris Independen", "sector": "Perbankan", "status": "profesional", "party": "Non-Partisan", "political_affiliation": "None (BI career)", "evidence": "Career Bank Indonesia official. Former Komisaris Danareksa. No party affiliation.", "sources": ["https://www.idntimes.com/business/finance/bank-mandiri-segarkan-komisaris-02-hs754-l7v4ld", "https://katadata.co.id/info/6948f8abde37a/rupslb-bank-mandiri-rombak-3-komisaris-simak-profil-singkatnya", "https://www.theiconomics.com/change-management/bintoro-kunto-pardewo-dari-komasaris-danareksa-menjadi-komisaris-independen-bank-mandiri/"], "birth_year": null, "age": null, "education": [{"degree": "S1", "university": "Universitas Indonesia", "major": "Teknik Mesin", "year": null}, {"degree": "MBA", "university": "Iowa State University, USA", "major": "Business Administration", "year": null}, {"degree": "S3", "university": "Universitas Indonesia", "major": "Finance", "year": null}], "career": [{"role": "Executive Analyst & Deputi Direktur", "org": "Bank Indonesia", "period": null}, {"role": "Komisaris", "org": "PT Danareksa", "period": "2025"}, {"role": "Komisaris Independen", "org": "PT Bank Mandiri", "period": "2025-sekarang"}], "commissioner_since": "2025-12-19", "wealth": "Rp2.06 miliar", "wealth_source": "LHKPN (per 31 Des 2024)", "legal_record": {"has_legal_issue": null, "case_type": null, "case_description": "Belum diteliti — riset lebih lanjut diperlukan.", "verdict": null, "sentence_duration": null, "legal_status": "unresearched"}}, {"name": "Kartika Wirjoatmodjo", "bumn": "BRI", "role": "Komisaris Utama", "sector": "Perbankan", "status": "pejabat", "party": "Relawan Jokowi", "political_affiliation": "TKN Jokowi-Ma'ruf 2019 + Wamen BUMN", "evidence": "Part of TKN Jokowi-Ma'ruf 2019. Wamen BUMN under Jokowi and Prabowo. Listed as 'Relawan Jokowi yang Jadi Menteri-Komisaris BUMN'.", "sources": ["https://www.cnbcindonesia.com/news/20201103150646-4-199019/relawan-jokowi-yang-jadi-menteri-komisaris-bumn-ini-listnya", "https://www.tempo.co/ekonomi/sah-kartika-wirjoatmodjo-jadi-komisaris-utama-bank-bri-652036", "https://www.arahpena.com/bumn/77916429519/profil-kartika-wirjoatmodjo-eks-wamen-bumn-yang-menjabat-sebagai-komisaris-utama-bri"], "birth_year": 1973, "age": 52, "education": [{"degree": "S1 SE", "university": "Universitas Indonesia", "major": "Akuntansi", "year": 1996}, {"degree": "MBA", "university": "Erasmus University Rotterdam, Belanda", "major": "Business Administration", "year": 2001}], "career": [{"role": "Managing Director", "org": "PT Mandiri Sekuritas", "period": "2008-2011"}, {"role": "Kepala Eksekutif", "org": "Lembaga Penjamin Simpanan (LPS)", "period": "2014-2015"}, {"role": "Direktur Utama", "org": "PT Bank Mandiri", "period": "2016-2019"}, {"role": "Wakil Menteri BUMN", "org": "Kementerian BUMN", "period": "2019-sekarang"}, {"role": "Komisaris Utama", "org": "PT BRI", "period": "2020-sekarang"}], "commissioner_since": "2020-02-18", "wealth": "Rp119.03 miliar", "wealth_source": "LHKPN KPK (per 27 Maret 2024)", "legal_record": {"has_legal_issue": true, "case_type": "Didesak periksa KPK kasus EDC BRI Rp2.1T (bukan tersangka)", "case_description": "CBA (Center for Budget Analysis) secara publik mendesak KPK memeriksa Wirjoatmodjo dalam kasus korupsi pengadaan mesin EDC BRI (Rp2.1 triliun, kerugian negara Rp744.5 miliar). 5 tersangka sudah ditetapkan tapi Wirjoatmodjo belum ditetapkan sebagai tersangka.", "verdict": null, "sentence_duration": null, "legal_status": "cleared (belum tersangka)"}}, {"name": "Parman Nataatmadja", "bumn": "BRI", "role": "Wakil Komisaris Utama/Komisaris Independen", "sector": "Perbankan", "status": "profesional", "party": "Non-Partisan", "political_affiliation": "None (career banker)", "evidence": "Career banker (BCA, BRI Syariah, PNM). No party membership or relawan role found.", "sources": ["https://indonews.id/artikel/343044/Parman-Nataadmadja-Ditunjuk-Jadi-Wakomut-Bank-BRI-Ini-Profilnya/", "https://www.tempo.co/ekonomi/daftar-lengkap-susunan-komisaris-dan-direksi-bri-usai-rupslb-2100028", "https://banktanah.id/en/leader-profile/"], "birth_year": 1959, "age": 67, "education": [{"degree": "S1", "university": "Universitas Indonesia", "major": "Ekonomi, Manajemen", "year": 1985}, {"degree": "S2", "university": "State University of New York at Buffalo, USA", "major": "Finance", "year": 1988}], "career": [{"role": "Banker", "org": "BCA New York", "period": "1988"}, {"role": "Direktur Utama", "org": "PT Permodalan Nasional Madani", "period": "2008"}, {"role": "Staf Khusus Menteri BUMN", "org": "Kementerian BUMN", "period": "2018"}, {"role": "Komisaris Utama Bank BRI Syariah", "org": "PT Bank BRI Syariah", "period": "2019"}, {"role": "Wakil Komisaris Utama/Komisaris Independen", "org": "PT BRI", "period": "2025-sekarang"}], "commissioner_since": "2025-03-24", "wealth": null, "wealth_source": null, "legal_record": {"has_legal_issue": null, "case_type": null, "case_description": "Belum diteliti — riset lebih lanjut diperlukan.", "verdict": null, "sentence_duration": null, "legal_status": "unresearched"}}, {"name": "Awan Nurmawan Nuh", "bumn": "BRI", "role": "Komisaris", "sector": "Perbankan", "status": "pejabat", "party": "Non-Partisan", "political_affiliation": "None (Irjen Kemenkeu)", "evidence": "Former Irjen Kementerian Keuangan. Career bureaucrat. No party affiliation.", "sources": ["https://www.suara.com/bisnis/2023/03/14/163154/profil-awan-nurmawan-nuh-irjen-kemenkeu-jadi-komisaris-baru-bri", "https://finansial.bisnis.com/read/20230313/90/1636727/rupst-bri-bbri-tunjuk-irjen-kemenkeu-awan-nurmawan-nuh-jadi-komisaris"], "birth_year": null, "age": null, "education": [], "career": [], "commissioner_since": null, "wealth": null, "wealth_source": null, "legal_record": {"has_legal_issue": null, "case_type": null, "case_description": "Belum diteliti — riset lebih lanjut diperlukan.", "verdict": null, "sentence_duration": null, "legal_status": "unresearched"}}, {"name": "Helvi Yuni Moraza", "bumn": "BRI", "role": "Komisaris", "sector": "Perbankan", "status": "kader_partai", "party": "Gerindra", "political_affiliation": "Partai Gerindra (Sekjen DPP) + Wamen UMKM", "evidence": "Former Sekjen DPP Partai Gerindra. Now Wamen UMKM in Kabinet Prabowo. Summoned to Prabowo's Kertanegara for cabinet selection.", "sources": ["https://id.wikipedia.org/wiki/Helvi_Yuni_Moraza", "https://www.antaranews.com/berita/4404809/profil-helvi-yuni-moraza-calon-wamen-dalam-kabinet-prabowo", "https://kabar24.bisnis.com/read/20250327/15/1865157/deretan-politisi-dapat-jatah-kursi-komisaris-bumn"], "birth_year": 1967, "age": 58, "education": [{"degree": "S1 SE", "university": "Universitas Andalas", "major": "Ekonomi", "year": 1991}, {"degree": "S2 MM", "university": "Universitas Pasundan", "major": "Manajemen", "year": 2023}], "career": [{"role": "Sekretaris Jenderal DPP Korwil Tangerang", "org": "Partai Gerindra", "period": null}, {"role": "Komisaris Independen", "org": "PT Len Industri / Defend ID", "period": "2021-2024"}, {"role": "Wakil Menteri UMKM", "org": "Kementerian UMKM", "period": "2024-sekarang"}, {"role": "Komisaris", "org": "PT BRI", "period": "2025-sekarang"}], "commissioner_since": "2025-03-24", "wealth": null, "wealth_source": null, "legal_record": {"has_legal_issue": true, "case_type": "Rangkap jabatan / Konflik kepentingan (etika)", "case_description": "Wamen UMKM yang merangkap Komisaris BRI. Di kritik melanggar prinsip UNCAC dan menciptakan konflik kepentingan. Tirto.id secara spesifik menyebutnya bersama Yuliot & Wirjoatmodjo sebagai contoh rangkap jabatan bermasalah.", "verdict": null, "sentence_duration": null, "legal_status": "cleared (isu etika)"}}, {"name": "Edi Susianto", "bumn": "BRI", "role": "Komisaris Independen", "sector": "Perbankan", "status": "profesional", "party": "Non-Partisan", "political_affiliation": "None (BI career)", "evidence": "Career Bank Indonesia official since 1993. No party affiliation.", "sources": ["https://www.tempo.co/ekonomi/pejabat-bank-indonesia-edi-susianto-ditunjuk-jadi-komisaris-independen-bri-1224063", "https://www.cnbcindonesia.com/market/20250325114328-17-621496/orang-penting-bi-ini-jadi-komisaris-independen-di-bri"], "birth_year": null, "age": null, "education": [], "career": [], "commissioner_since": null, "wealth": null, "wealth_source": null, "legal_record": {"has_legal_issue": null, "case_type": null, "case_description": "Belum diteliti — riset lebih lanjut diperlukan.", "verdict": null, "sentence_duration": null, "legal_status": "unresearched"}}, {"name": "Lukmanul Khakim", "bumn": "BRI", "role": "Komisaris Independen", "sector": "Perbankan", "status": "kader_partai", "party": "PKB", "political_affiliation": "Partai Kebangkitan Bangsa (PKB) — Ketua DPP", "evidence": "Ketua DPP PKB Bidang Perdagangan. Former DPRD DKI Jakarta. Cawagub Jatim 2024. Described as 'anak buah Cak Imin'. Labeled Independent Commissioner despite clear PKB ties.", "sources": ["https://www.suara.com/bisnis/2025/03/25/122343/anak-buah-cak-imin-jadi-komisaris-independen-di-bri", "https://kabar24.bisnis.com/read/20250327/15/1865157/deretan-politisi-dapat-jatah-kursi-komisaris-bumn", "https://www.cnbcindonesia.com/research/20250326142536-128-621956/lengkap-ini-jajaran-direksi-komisaris-bri-bni-mandiri"], "birth_year": 1983, "age": 43, "education": [{"degree": "S1", "university": "UIN Syarif Hidayatullah Jakarta", "major": "Syariah dan Hukum", "year": null}, {"degree": "S2", "university": "Universitas Krisnadwipayana", "major": "Ilmu Administrasi", "year": null}], "career": [{"role": "Anggota DPR RI Fraksi PKB", "org": "DPR RI", "period": "2014-2019"}, {"role": "Ketua Bidang Perdagangan DPP PKB", "org": "Partai PKB", "period": "2019-2024"}, {"role": "Calon Wakil Gubernur Jawa Timur", "org": "PKB", "period": "2024"}, {"role": "Komisaris Independen", "org": "PT BRI", "period": "2025-sekarang"}], "commissioner_since": "2025-03-24", "wealth": null, "wealth_source": null, "legal_record": {"has_legal_issue": null, "case_type": null, "case_description": "Belum diteliti — riset lebih lanjut diperlukan.", "verdict": null, "sentence_duration": null, "legal_status": "unresearched"}}, {"name": "Angga Raka Prabowo", "bumn": "Telkom", "role": "Komisaris Utama", "sector": "Telekomunikasi", "status": "kader_partai", "party": "Gerindra", "political_affiliation": "Partai Gerindra (Wasekjen) + TKN Prabowo-Gibran (Direktur Media Kampanye)", "evidence": "Kader Gerindra since 2008. Wasekjen DPP Gerindra. Direktur Media Kampanye TKN Prabowo-Gibran 2024. Sekretaris pribadi Prabowo (2014-2017). Now Wamen Komdigital + Komut Telkom.", "sources": ["https://id.wikipedia.org/wiki/Angga_Raka_Prabowo", "https://news.detik.com/berita/d-7497025/angga-raka-prabowo-kader-gerindra-loyalis-prabowo-kini-jadi-wamenkominfo", "https://www.tempo.co/ekonomi/sosok-angga-raka-prabowo-petinggi-gerindra-yang-menjadi-wakil-menteri-komunikasi-21484", "https://money.kompas.com/read/2025/05/27/213825326/rupst-telkom-2025-ini-susunan-lengkap-direksi-dan-komisaris-baru-tlkm"], "birth_year": 1989, "age": 36, "education": [{"degree": "S1", "university": "Universitas Jayabaya", "major": "Hubungan Internasional", "year": 2011}], "career": [{"role": "Tim Media Partai Gerindra", "org": "Partai Gerindra", "period": "2012-2014"}, {"role": "Sekretaris Pribadi Ketua Umum Gerindra", "org": "Partai Gerindra", "period": "2014-2019"}, {"role": "Direktur Media Kampanye", "org": "TKN Prabowo-Gibran", "period": "2024"}, {"role": "Wakil Menteri Komunikasi dan Digital", "org": "Kementerian Komdigi RI", "period": "2024-sekarang"}, {"role": "Komisaris Utama", "org": "PT Telkom Indonesia", "period": "2025-sekarang"}], "commissioner_since": "2025-05-27", "wealth": null, "wealth_source": null, "legal_record": {"has_legal_issue": false, "case_type": null, "case_description": "Tidak ada masalah hukum. Catatan: Orang berbeda bernama 'Augusz Dewanggara alias Angga' ditangkap KPK dalam kasus suap audit BPK Juni 2026 — BUKAN orang yang sama dengan Angga Raka Prabowo.", "verdict": null, "sentence_duration": null, "legal_status": "cleared"}}, {"name": "Silmy Karim", "bumn": "Telkom", "role": "Komisaris", "sector": "Telekomunikasi", "status": "pejabat", "party": "Non-Partisan", "political_affiliation": "None (professional, now KPK tersangka)", "evidence": "Dirut Krakatau Steel, Dirjen Imigrasi, Wamen Imipas. No formal party membership. Recently became KPK tersangka, dismissed by Prabowo June 2026.", "sources": ["https://id.wikipedia.org/wiki/Silmy_Karim", "https://nasional.kompas.com/read/2026/06/04/19585351/prabowo-berhentikan-silmy-karim-dari-wamen-imipas", "https://www.kompas.id/artikel/en-rekam-jejak-silmy-karim-teknokrat-yang-terjerat-pusaran-korupsi-imigrasi"], "birth_year": 1974, "age": 51, "education": [{"degree": "S1 SE", "university": "Universitas Trisakti", "major": "Ekonomi", "year": 1997}, {"degree": "S2 ME", "university": "Universitas Indonesia", "major": "Perencanaan dan Kebijakan Publik", "year": 2007}], "career": [{"role": "Komisaris", "org": "PT PAL Indonesia", "period": "2011-2014"}, {"role": "Direktur Utama", "org": "PT Pindad", "period": "2014-2016"}, {"role": "Direktur Utama", "org": "PT Krakatau Steel", "period": "2018-2023"}, {"role": "Dirjen Imigrasi", "org": "Kemenkumham", "period": "2023-2024"}, {"role": "Wakil Menteri Imigrasi dan Pemasyarakatan", "org": "Kemenimipas", "period": "2024-2026"}, {"role": "Komisaris", "org": "PT Telkom Indonesia", "period": "2023-sekarang"}], "commissioner_since": "2023-05-30", "wealth": "Rp234.59 miliar", "wealth_source": "LHKPN KPK 2025 (aset Rp243.59M - utang Rp8.99M)", "legal_record": {"has_legal_issue": true, "case_type": "Korupsi - Pemerasan & Gratifikasi (KPK OTT)", "case_description": "Ditetapkan tersangka KPK 4 Juni 2026 via OTT. Kasus pemerasan izin tinggal WNA & gratifikasi di Ditjen Imigrasi. Aliran dana haram Rp366 miliar. KPK menyita aset Rp17.5 miliar.", "verdict": null, "sentence_duration": null, "legal_status": "tersangka"}}, {"name": "Suahasil Nazara", "bumn": "PLN", "role": "Vice President Commissioner", "sector": "Energi", "status": "pejabat", "party": "Non-Partisan", "political_affiliation": "None (technocrat, Professor FEB UI)", "evidence": "Professor Economics FEB UI. Wamenkeu since 2019 (Jokowi and Prabowo). Non-partisan technocrat.", "sources": ["https://id.wikipedia.org/wiki/Suahasil_Nazara", "https://www.kemenkeu.go.id/profile/profile-pejabat/wakil-menteri-keuangan-suahasil-nazara", "https://www.antaranews.com/berita/4406305/sosok-suahasil-nazara-kandidat-wamen-keuangan-dalam-kabinet-prabowo"], "birth_year": 1970, "age": 55, "education": [{"degree": "S1", "university": "Universitas Indonesia", "major": "Ekonomi", "year": 1994}, {"degree": "S2", "university": "Cornell University, USA", "major": "MSc", "year": 1997}, {"degree": "S3", "university": "University of Illinois Urbana-Champaign, USA", "major": "PhD", "year": 2003}], "career": [{"role": "Guru Besar Profesor Ekonomi", "org": "FEB Universitas Indonesia", "period": "2009-sekarang"}, {"role": "Kepala Badan Kebijakan Fiskal", "org": "Kementerian Keuangan", "period": "2016-2019"}, {"role": "Wakil Menteri Keuangan", "org": "Kementerian Keuangan", "period": "2019-sekarang"}, {"role": "Wakil Komisaris Utama", "org": "PT PLN", "period": "2024-sekarang"}], "commissioner_since": "2024-11-14", "wealth": "Rp129.8 miliar", "wealth_source": "LHKPN KPK", "legal_record": {"has_legal_issue": null, "case_type": null, "case_description": "Belum diteliti — riset lebih lanjut diperlukan.", "verdict": null, "sentence_duration": null, "legal_status": "unresearched"}}, {"name": "Nezar Patria", "bumn": "Indosat", "role": "Komisaris Utama", "sector": "Telekomunikasi", "status": "pejabat", "party": "Non-Partisan", "political_affiliation": "None (journalist/activist)", "evidence": "Career journalist (Tempo), activist (Reformasi 1998, Kontras). Wamenkominfo/Komdigital. No party membership.", "sources": ["https://id.wikipedia.org/wiki/Nezar_Patria", "https://www.kompas.com/tren/read/2024/10/20/222333765/profil-nezar-patria-wakil-menteri-komunikasi-dan-digital-kabinet-prabowo", "https://www.antaranews.com/berita/4408085/profil-wamen-kominfo-nezar-patria-yang-masuk-kabinet-prabowo"], "birth_year": null, "age": null, "education": [], "career": [], "commissioner_since": null, "wealth": null, "wealth_source": null, "legal_record": {"has_legal_issue": null, "case_type": null, "case_description": "Belum diteliti — riset lebih lanjut diperlukan.", "verdict": null, "sentence_duration": null, "legal_status": "unresearched"}}, {"name": "M. Rudy Salahuddin Ramto", "bumn": "Bank Mandiri", "role": "Wakil Komisaris Utama", "sector": "Perbankan", "status": "pejabat", "party": "Non-Partisan", "political_affiliation": "None (Sekretaris Kemeninvest)", "evidence": "Sekretaris Kementerian Investasi/BKPM. Career bureaucrat. No party affiliation.", "sources": ["https://bkpm.go.id/index.php/id/tentang-bkpm/eselon/rudy-salahuddin-2", "https://money.kompas.com/read/2023/12/15/175411626/m-rudy-salahuddin-ramto-jadi-komisaris-jasa-raharja", "https://infobanknews.com/bank-mandiri-segarkan-komisaris-pertebal-pengawasan-di-tengah-ekspansi/amp/"], "birth_year": null, "age": null, "education": [], "career": [], "commissioner_since": null, "wealth": null, "wealth_source": null, "legal_record": {"has_legal_issue": null, "case_type": null, "case_description": "Belum diteliti — riset lebih lanjut diperlukan.", "verdict": null, "sentence_duration": null, "legal_status": "unresearched"}}, {"name": "Luky Alfirman", "bumn": "Bank Mandiri", "role": "Komisaris", "sector": "Perbankan", "status": "pejabat", "party": "Non-Partisan", "political_affiliation": "None (Dirjen Kemenkeu, teknokrat)", "evidence": "Career Kemenkeu official. Former Dirjen Anggaran. Described as 'anak buah Sri Mulyani'. No party affiliation.", "sources": ["https://www.tvonenews.com/berita/nasional/434230-dari-arsitek-apbn-ke-kursi-panas-profil-dan-kekayaan-luky-alfirman-yang-dicopot-dari-jabatannya-di-kemenkeu", "https://www.tribunnews.com/nasional/7820337/profil-luky-alfirman-eks-anak-buah-sri-mulyani-yang-dicopot-purbaya-dari-dirjen-anggaran-kemenkeu", "https://lps.go.id/dewan-komisioner/luky-alfirman/"], "birth_year": 1970, "age": 56, "education": [{"degree": "S1", "university": "Institut Teknologi Bandung", "major": "Teknik Industri", "year": 1994}, {"degree": "S2", "university": "University of Colorado, USA", "major": "MA Ekonomi", "year": 2000}, {"degree": "S3", "university": "University of Colorado, USA", "major": "PhD Economics", "year": null}], "career": [{"role": "Dirjen Perimbangan Keuangan", "org": "Kementerian Keuangan", "period": null}, {"role": "Dirjen Anggaran (dicopot)", "org": "Kementerian Keuangan", "period": "2025-2026"}, {"role": "Komisaris", "org": "PT Bank Mandiri", "period": "2025-sekarang"}], "commissioner_since": "2025-08-04", "wealth": "Rp52.8 miliar", "wealth_source": "LHKPN (Februari 2025, tanpa utang)", "legal_record": {"has_legal_issue": true, "case_type": "Pencopotan administratif (bukan pidana)", "case_description": "Dicopot dari posisi Dirjen Anggaran Kemenkeu oleh Menkeu Purbaya April 2026 terkait persetujuan anggaran 25.000 motor listrik untuk program MBG yang diduga melalui celah software. Tindakan administratif, BUKAN investigasi pidana.", "verdict": "Tidak ada proses pidana. Pencopotan administratif saja.", "sentence_duration": null, "legal_status": "cleared"}}, {"name": "Dony Oskaria", "bumn": "Pertamina", "role": "Wakil Komisaris Utama", "sector": "Energi", "status": "pejabat", "party": "Non-Partisan", "political_affiliation": "None (explicitly non-partisan)", "evidence": "Career at CT Corp. Wamen BUMN, COO Danantara, Kepala BP BUMN. Explicitly described as 'profesional murni, bukan kader partai'.", "sources": ["https://id.wikipedia.org/wiki/Dony_Oskaria", "https://serayunews.com/dony-oskaria-dari-partai-apa-resmi-dilantik-jadi-kepala-bp-bumn-rangkap-jabatan-coo-danantara", "https://www.suara.com/bisnis/2025/02/24/172700/3-rangkap-jabatan-donny-oskaria-paman-raffi-ahmad-wamen-bumn-wakil-komisaris-utama-pertamina-dan-kini-bos-danantara"], "birth_year": 1969, "age": 56, "education": [{"degree": "S1", "university": "Universitas Andalas", "major": "Akuntansi", "year": 1989}, {"degree": "S1", "university": "Universitas Padjadjaran", "major": "Hubungan Internasional", "year": 1996}, {"degree": "MBA", "university": "Asian Institute of Technology", "major": "Business Administration", "year": 2009}], "career": [{"role": "Managing Director", "org": "PT Bank Mega", "period": "2012-2014"}, {"role": "Komisaris", "org": "PT Garuda Indonesia", "period": "2014-2019"}, {"role": "Wakil Direktur Utama", "org": "PT Garuda Indonesia", "period": "2020-2021"}, {"role": "Wakil Menteri BUMN", "org": "Kementerian BUMN", "period": "2024-2025"}, {"role": "COO", "org": "BPI Danantara", "period": "2025-sekarang"}, {"role": "Wakil Komisaris Utama", "org": "PT Pertamina", "period": "2024-sekarang"}], "commissioner_since": "2024-11-04", "wealth": "Rp33.5 miliar", "wealth_source": "LHKPN KPK (total aset Rp46.68M dikurangi utang Rp16.79M)", "legal_record": {"has_legal_issue": false, "case_type": "Saksi dalam kasus Garuda (bukan tersangka)", "case_description": "Diperiksa Kejagung sebagai mantan Komisaris Garuda (2014) dalam investigasi korupsi sewa pesawat Garuda. Diperiksa sebagai SAKSI, bukan tersangka. Tidak ada tuntutan pidana.", "verdict": null, "sentence_duration": null, "legal_status": "cleared"}}, {"name": "Mochamad Iriawan", "bumn": "Pertamina", "role": "Komisaris Utama", "sector": "Energi", "status": "kader_partai", "party": "Gerindra", "political_affiliation": "Partai Gerindra (Wakil Ketua Dewan Pembina)", "evidence": "Komjen Pol Purn. Joined Gerindra April 2023. Wakil Ketua Dewan Pembina DPP Gerindra. Ran as DPR candidate 2024 (failed). Appointed Komut Pertamina Nov 2024.", "sources": ["https://www.tribunnews.com/nasional/2024/11/04/komjen-pol-purn-dr-drs-h-mochamad-iriawan-sh-mm-mh", "https://www.tempo.co/ekonomi/sosok-iwan-bule-yang-diangkat-erick-thohir-jadi-komisaris-utama-pertamina-1163443", "https://ekonomi.bisnis.com/read/20241104/44/1812995/profil-iwan-bule-yang-baru-diangkat-jadi-komut-pertamina", "https://www.tempo.co/ekonomi/diangkat-jadi-komisaris-utama-pertamina-inilah-rekam-jejak-iwan-bule-dan-harta-kekayaannya-1164837"], "birth_year": 1962, "age": 63, "education": [{"degree": "Akpol", "university": "Akademi Kepolisian", "major": "Kepolisian", "year": 1984}, {"degree": "S1 SH", "university": "Universitas Abulyatama", "major": "Hukum", "year": 1997}, {"degree": "S2 MM", "university": "Tidak disebutkan", "major": "Manajemen", "year": 2001}, {"degree": "S3 MH", "university": "Tidak disebutkan", "major": "Hukum", "year": null}], "career": [{"role": "Kapolda Jawa Barat", "org": "Polri", "period": "2008"}, {"role": "Ketua Umum", "org": "PSSI", "period": "2019-2023"}, {"role": "Sekretaris Utama", "org": "Lemhannas", "period": null}, {"role": "Komisaris Utama", "org": "PT Pertamina", "period": "2024-sekarang"}], "commissioner_since": "2024-11-04", "wealth": "Rp8.19 miliar + USD 20.000", "wealth_source": "LHKPN (Sept 2014)", "legal_record": {"has_legal_issue": false, "case_type": null, "case_description": "Hadir dalam konferensi pers dengan Jaksa Agung terkait kasus korupsi tata kelola minyak Pertamina (Rp193.7 triliun), tetapi TIDAK ditetapkan sebagai tersangka. Namanya muncul dalam kasus Nurhadi sebagai orang yang dimintai bantuan oleh saksi, tetapi tidak dituntut. Diperiksa sebagai SAKSI dalam tragedi Kanjuruhan.", "verdict": null, "sentence_duration": null, "legal_status": "cleared"}}, {"name": "Rizal Mallarangeng", "bumn": "Telkom", "role": "Komisaris Independen", "sector": "Telekomunikasi", "status": "kader_partai", "party": "Golkar", "political_affiliation": "Partai Golkar (former Waketum) + Chairman Yayasan Prabowo", "evidence": "Former Waketum DPP Golkar. Chairman Yayasan Prabowo Subianto Djojohadikusumo since 2022. Reclassified from Independen to Komisaris in June 2026 RUPST.", "sources": ["https://en.wikipedia.org/wiki/Rizal_Mallarangeng", "https://www.telkom.co.id/sites/profil-telkom/id_ID/page/dewan-komisaris-197", "https://www.liputan6.com/bisnis/read/4284316/fokus-jadi-komisaris-telkom-rizal-mallarangeng-mundur-dari-golkar", "https://www.kabarbursa.com/market-hari-ini/profil-rizal-mallarangeng-lima-tahun-duduk-manis-jadi-komisaris-telkom-tlkm"], "birth_year": 1964, "age": 61, "education": [{"degree": "S1", "university": "Universitas Gadjah Mada", "major": "Ilmu Komunikasi", "year": 1990}, {"degree": "MA", "university": "Ohio State University, USA", "major": "Perbandingan Politik", "year": 1994}, {"degree": "PhD", "university": "Ohio State University, USA", "major": "Perbandingan Politik", "year": 2000}], "career": [{"role": "Staf Khusus Menko Perekonomian", "org": "Kemenko Perekonomian", "period": "2004-2006"}, {"role": "Pendiri", "org": "Fox Indonesia", "period": "2008"}, {"role": "Wakil Ketua Umum", "org": "Partai Golkar", "period": null}, {"role": "Chairman Yayasan Prabowo", "org": "Yayasan Prabowo Subianto", "period": "2022-sekarang"}, {"role": "Komisaris Independen", "org": "PT Telkom Indonesia", "period": "2020-sekarang"}], "commissioner_since": "2020-06-19", "wealth": "3.24 juta lembar saham Telkom", "wealth_source": "Laporan Kepemilikan Saham Telkom", "legal_record": {"has_legal_issue": false, "case_type": null, "case_description": "Tidak ada masalah hukum pribadi. Adiknya, Andi Mallarangeng, divonis kasus Hambalang — tetapi Rizal tidak pernah ditetapkan sebagai tersangka. Rizal pernah menggugat Tempo atas cover story 'Tiga Mallarangeng' yang menyiratkan keterlibatannya.", "verdict": null, "sentence_duration": null, "legal_status": "cleared"}}]};
+
+// Normalize data into a flat array
+const DATA = (function() {
+  let arr;
+  if (Array.isArray(RAW_DATA)) arr = RAW_DATA;
+  else if (RAW_DATA.commissioners) arr = RAW_DATA.commissioners;
+  else if (RAW_DATA.data) arr = RAW_DATA.data;
+  else arr = [];
+
+  return arr.map((c, i) => {
+    // Handle both 'status' and 'political_status' fields
+    const status = c.status || c.political_status || 'profesional';
+    const party = c.party || (c.political_affiliation && c.political_affiliation !== 'None' ? c.political_affiliation : 'Non-Partisan');
+    const lr = c.legal_record || {};
+    return {
+      _id: i,
+      name: c.name || 'N/A',
+      bumn: c.bumn || 'N/A',
+      role: c.role || 'Komisaris',
+      sector: c.sector || 'N/A',
+      status: status,
+      party: party,
+      political_affiliation: c.political_affiliation || '',
+      evidence: c.evidence || '',
+      sources: c.sources || [],
+      birth_year: c.birth_year || null,
+      age: c.age || (c.birth_year ? new Date().getFullYear() - c.birth_year : null),
+      education: c.education || [],
+      career: c.career || [],
+      commissioner_since: c.commissioner_since || '',
+      wealth: c.wealth || null,
+      wealth_source: c.wealth_source || null,
+      legal_record: {
+        has_legal_issue: lr.has_legal_issue || false,
+        case_type: lr.case_type || null,
+        case_description: lr.case_description || '',
+        verdict: lr.verdict || null,
+        sentence_duration: lr.sentence_duration || null,
+        legal_status: lr.legal_status || 'unresearched'
+      }
+    };
+  });
+})();
+
+// ════════════════════════════════════════════════════════
+// CONSTANTS & HELPERS
+// ════════════════════════════════════════════════════════
+const STATUS_LABELS = {
+  'kader_partai': 'Kader Partai',
+  'relawan_pemenangan': 'Relawan Pemenangan',
+  'pejabat': 'Pejabat',
+  'profesional': 'Profesional'
+};
+const STATUS_COLORS = {
+  'kader_partai': '#C92A2A',
+  'relawan_pemenangan': '#E8A317',
+  'pejabat': '#12436D',
+  'profesional': '#1B8754'
+};
+const CHART_HEIGHT = 280;
+const charts = {};
+
+function esc(str) {
+  if (!str) return '';
+  return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+function domainFromUrl(url) {
+  try {
+    const u = new URL(url);
+    return u.hostname.replace('www.','');
+  } catch(e) { return url.substring(0, 60); }
+}
+
+function riskLevel(c) {
+  const lr = c.legal_record;
+  if (lr.legal_status === 'tersangka' || lr.legal_status === 'terpidana (sudah bebas)') return 'high';
+  if (c.status === 'kader_partai' || lr.has_legal_issue) return 'medium';
+  return 'low';
+}
+
+function riskBadge(c) {
+  const level = riskLevel(c);
+  const labels = { high: 'Risiko Tinggi', medium: 'Risiko Sedang', low: 'Risiko Rendah' };
+  return `<span class="risk-badge risk-${level}"><span class="risk-dot"></span>${labels[level]}</span>`;
+}
+
+function statusBadge(status) {
+  const label = STATUS_LABELS[status] || status;
+  return `<span class="status-badge status-${status}">${label}</span>`;
+}
+
+function legalBadge(c) {
+  const lr = c.legal_record;
+  if (lr.legal_status === 'tersangka') return '<span class="risk-badge risk-high"><span class="risk-dot"></span>Tersangka</span>';
+  if (lr.legal_status === 'terpidana (sudah bebas)') return '<span class="risk-badge risk-high"><span class="risk-dot"></span>Terpidana</span>';
+  if (lr.has_legal_issue && lr.legal_status.startsWith('cleared')) return '<span class="risk-badge risk-medium"><span class="risk-dot"></span>Cleared</span>';
+  if (lr.has_legal_issue) return '<span class="risk-badge risk-medium"><span class="risk-dot"></span>Catatan</span>';
+  if (lr.legal_status === 'cleared') return '<span class="risk-badge risk-low"><span class="risk-dot"></span>Cleared</span>';
+  return '<span class="risk-badge risk-low" style="background:#F0F1F3;color:#9094A0"><span class="risk-dot" style="background:#9094A0"></span>Belum Diteliti</span>';
+}
+
+function parseWealth(wealth) {
+  if (!wealth) return null;
+  // Extract numeric value in miliar
+  const miliarMatch = wealth.match(/Rp?([\d.,]+)\s*miliar/i);
+  if (miliarMatch) return parseFloat(miliarMatch[1].replace(/\./g,'').replace(',','.'));
+  return null;
+}
+
+// ════════════════════════════════════════════════════════
+// NAVIGATION
+// ════════════════════════════════════════════════════════
+function goToSection(name) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.getElementById('section-' + name).classList.add('active');
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  document.querySelector(`.nav-item[data-section="${name}"]`).classList.add('active');
+  if (window.innerWidth <= 768) toggleSidebar(false);
+  window.scrollTo(0, 0);
+  // Trigger chart resize for lazy-init sections
+  if (name === 'overview') setTimeout(initOverviewCharts, 50);
+  if (name === 'network') setTimeout(initNetworkChart, 50);
+}
+
+document.querySelectorAll('.nav-item').forEach(n => {
+  n.addEventListener('click', () => goToSection(n.dataset.section));
+});
+
+function toggleSidebar(force) {
+  const sb = document.getElementById('sidebar');
+  const ov = document.getElementById('overlay');
+  if (force === false) { sb.classList.remove('open'); ov.classList.remove('show'); return; }
+  sb.classList.toggle('open');
+  ov.classList.toggle('show');
+}
+
+// ════════════════════════════════════════════════════════
+// OVERVIEW SECTION
+// ════════════════════════════════════════════════════════
+function initOverview() {
+  // KPIs
+  const total = DATA.length;
+  const political = DATA.filter(c => c.status === 'kader_partai' || c.status === 'relawan_pemenangan').length;
+  const legalIssues = DATA.filter(c => c.legal_record.has_legal_issue).length;
+  const tersangka = DATA.filter(c => c.legal_record.legal_status === 'tersangka').length;
+  const withWealth = DATA.filter(c => c.wealth).length;
+  const bumnCount = new Set(DATA.map(c => c.bumn)).size;
+
+  document.getElementById('kpi-grid').innerHTML = `
+    <div class="kpi-card blue">
+      <div class="kpi-label">Total Komisaris</div>
+      <div class="kpi-value">${total}</div>
+      <div class="kpi-sub">di ${bumnCount} BUMN strategis</div>
+    </div>
+    <div class="kpi-card orange">
+      <div class="kpi-label">Afiliasi Politik</div>
+      <div class="kpi-value">${political}<span class="unit"> / ${total}</span></div>
+      <div class="kpi-sub">${Math.round(political/total*100)}% memiliki afiliasi politik aktif</div>
+    </div>
+    <div class="kpi-card red">
+      <div class="kpi-label">Catatan Hukum</div>
+      <div class="kpi-value">${legalIssues}<span class="unit"> / ${total}</span></div>
+      <div class="kpi-sub">${tersangka} berstatus tersangka/terpidana</div>
+    </div>
+    <div class="kpi-card green">
+      <div class="kpi-label">Data LHKPN</div>
+      <div class="kpi-value">${withWealth}<span class="unit"> / ${total}</span></div>
+      <div class="kpi-sub">${Math.round(withWealth/total*100)}% melaporkan kekayaan</div>
+    </div>
+  `;
+
+  initOverviewCharts();
+}
+
+function initOverviewCharts() {
+  // Status distribution
+  const statusCounts = {};
+  DATA.forEach(c => { statusCounts[c.status] = (statusCounts[c.status]||0) + 1; });
+  charts.status = echarts.init(document.getElementById('chart-status'));
+  document.getElementById('chart-status').style.height = CHART_HEIGHT + 'px';
+  charts.status.setOption({
+    tooltip: { trigger: 'item', formatter: '{b}: {c} ({d}%)' },
+    legend: { bottom: 0, textStyle: { fontSize: 11, fontFamily: 'Inter' } },
+    series: [{
+      type: 'pie', radius: ['38%','65%'], center: ['50%','42%'],
+      itemStyle: { borderColor: '#fff', borderWidth: 2 },
+      label: { fontSize: 11, fontFamily: 'Inter' },
+      data: Object.entries(statusCounts).map(([k,v]) => ({
+        name: STATUS_LABELS[k] || k, value: v,
+        itemStyle: { color: STATUS_COLORS[k] || '#999' }
+      }))
+    }]
+  });
+
+  // Party distribution
+  const partyCounts = {};
+  DATA.forEach(c => { partyCounts[c.party] = (partyCounts[c.party]||0) + 1; });
+  const partyColors = ['#12436D','#F46A25','#2B69A8','#1B8754','#E8A317','#C92A2A','#8B5CF6','#EC4899','#14B8A6','#6366F1'];
+  charts.party = echarts.init(document.getElementById('chart-party'));
+  document.getElementById('chart-party').style.height = CHART_HEIGHT + 'px';
+  charts.party.setOption({
+    tooltip: { trigger: 'axis', axisPointer: { type: 'shadow' } },
+    grid: { left: 90, right: 20, top: 10, bottom: 30 },
+    xAxis: { type: 'value', splitLine: { lineStyle: { type: 'dashed', color: '#E3E6EB' } } },
+    yAxis: { type: 'category', data: Object.keys(partyCounts).sort((a,b)=>partyCounts[b]-partyCounts[a]), axisLabel: { fontSize: 11, fontFamily: 'Inter' } },
+    series: [{
+      type: 'bar', barWidth: 16,
+      itemStyle: { color: '#12436D', borderRadius: [0,2,2,0] },
+      data: Object.keys(partyCounts).sort((a,b)=>partyCounts[b]-partyCounts[a]).map((k,i) => ({ value: partyCounts[k], itemStyle: { color: partyColors[i % partyColors.length] }}))
+    }]
+  });
+
+  // Age distribution
+  const ageGroups = {'<40': 0, '40-49': 0, '50-59': 0, '60+': 0, 'N/A': 0};
+  DATA.forEach(c => {
+    if (!c.age) ageGroups['N/A']++;
+    else if (c.age < 40) ageGroups['<40']++;
+    else if (c.age < 50) ageGroups['40-49']++;
+    else if (c.age < 60) ageGroups['50-59']++;
+    else ageGroups['60+']++;
+  });
+  charts.age = echarts.init(document.getElementById('chart-age'));
+  document.getElementById('chart-age').style.height = CHART_HEIGHT + 'px';
+  charts.age.setOption({
+    tooltip: { trigger: 'axis' },
+    grid: { left: 30, right: 20, top: 20, bottom: 30 },
+    xAxis: { type: 'category', data: Object.keys(ageGroups), axisLabel: { fontSize: 11, fontFamily: 'Inter' } },
+    yAxis: { type: 'value', minInterval: 1, splitLine: { lineStyle: { type: 'dashed', color: '#E3E6EB' } } },
+    series: [{
+      type: 'bar', barWidth: 30,
+      itemStyle: { color: '#2B69A8', borderRadius: [2,2,0,0] },
+      data: Object.values(ageGroups)
+    }]
+  });
+
+  // Wealth distribution
+  const wealthData = DATA.filter(c => parseWealth(c.wealth) !== null)
+    .map(c => ({ name: c.name, value: parseWealth(c.wealth), bumn: c.bumn }))
+    .sort((a,b) => b.value - a.value);
+  charts.wealth = echarts.init(document.getElementById('chart-wealth'));
+  document.getElementById('chart-wealth').style.height = CHART_HEIGHT + 'px';
+  charts.wealth.setOption({
+    tooltip: { trigger: 'axis', axisPointer: { type: 'shadow' }, formatter: p => `${p[0].name}<br/>Kekayaan: Rp ${p[0].value} miliar<br/>BUMN: ${wealthData[p[0].dataIndex].bumn}` },
+    grid: { left: 100, right: 20, top: 10, bottom: 30 },
+    xAxis: { type: 'value', axisLabel: { fontSize: 11, fontFamily: 'Inter', formatter: '{value}M' }, splitLine: { lineStyle: { type: 'dashed', color: '#E3E6EB' } } },
+    yAxis: { type: 'category', data: wealthData.map(d => d.name), axisLabel: { fontSize: 10, fontFamily: 'Inter' } },
+    series: [{
+      type: 'bar', barWidth: 14,
+      itemStyle: { color: '#F46A25', borderRadius: [0,2,2,0] },
+      data: wealthData.map(d => d.value)
+    }]
+  });
+
+  // Legal status
+  const legalCounts = { 'Tersangka': 0, 'Terpidana (Bebas)': 0, 'Cleared (Catatan)': 0, 'Cleared': 0, 'Belum Diteliti': 0 };
+  DATA.forEach(c => {
+    const ls = c.legal_record.legal_status;
+    if (ls === 'tersangka') legalCounts['Tersangka']++;
+    else if (ls === 'terpidana (sudah bebas)') legalCounts['Terpidana (Bebas)']++;
+    else if (ls.startsWith('cleared') && c.legal_record.has_legal_issue) legalCounts['Cleared (Catatan)']++;
+    else if (ls === 'cleared') legalCounts['Cleared']++;
+    else legalCounts['Belum Diteliti']++;
+  });
+  charts.legal = echarts.init(document.getElementById('chart-legal'));
+  document.getElementById('chart-legal').style.height = CHART_HEIGHT + 'px';
+  charts.legal.setOption({
+    tooltip: { trigger: 'item', formatter: '{b}: {c} ({d}%)' },
+    legend: { bottom: 0, textStyle: { fontSize: 10, fontFamily: 'Inter' }, type: 'scroll' },
+    series: [{
+      type: 'pie', radius: ['35%','60%'], center: ['50%','42%'],
+      itemStyle: { borderColor: '#fff', borderWidth: 2 },
+      label: { fontSize: 10, fontFamily: 'Inter' },
+      data: [
+        { name: 'Tersangka', value: legalCounts['Tersangka'], itemStyle: { color: '#C92A2A' } },
+        { name: 'Terpidana (Bebas)', value: legalCounts['Terpidana (Bebas)'], itemStyle: { color: '#E5565F' } },
+        { name: 'Cleared (Catatan)', value: legalCounts['Cleared (Catatan)'], itemStyle: { color: '#E8A317' } },
+        { name: 'Cleared', value: legalCounts['Cleared'], itemStyle: { color: '#1B8754' } },
+        { name: 'Belum Diteliti', value: legalCounts['Belum Diteliti'], itemStyle: { color: '#D3D6DC' } }
+      ].filter(d => d.value > 0)
+    }]
+  });
+
+  // Sector distribution
+  const sectorCounts = {};
+  DATA.forEach(c => { sectorCounts[c.sector] = (sectorCounts[c.sector]||0) + 1; });
+  charts.sector = echarts.init(document.getElementById('chart-sector'));
+  document.getElementById('chart-sector').style.height = CHART_HEIGHT + 'px';
+  const sectorColors = ['#12436D','#F46A25','#1B8754','#2B69A8','#E8A317','#8B5CF6'];
+  charts.sector.setOption({
+    tooltip: { trigger: 'item', formatter: '{b}: {c} ({d}%)' },
+    legend: { bottom: 0, textStyle: { fontSize: 11, fontFamily: 'Inter' } },
+    series: [{
+      type: 'pie', radius: '60%', center: ['50%','42%'],
+      itemStyle: { borderColor: '#fff', borderWidth: 2 },
+      label: { fontSize: 11, fontFamily: 'Inter' },
+      data: Object.entries(sectorCounts).map(([k,v],i) => ({
+        name: k, value: v, itemStyle: { color: sectorColors[i % sectorColors.length] }
+      }))
+    }]
+  });
+
+  // Sankey: Party → BUMN → Status
+  const parties = [...new Set(DATA.map(c => c.party))];
+  const bumns = [...new Set(DATA.map(c => c.bumn))];
+  const statuses = [...new Set(DATA.map(c => c.status))];
+
+  const sankeyNodes = [
+    ...parties.map(p => ({ name: p })),
+    ...bumns.map(b => ({ name: b })),
+    ...statuses.map(s => ({ name: STATUS_LABELS[s] || s }))
+  ];
+
+  const sankeyLinks = [];
+  // Party → BUMN
+  const partyBumnMap = {};
+  DATA.forEach(c => {
+    const key = c.party + '|||' + c.bumn;
+    partyBumnMap[key] = (partyBumnMap[key] || 0) + 1;
+  });
+  Object.entries(partyBumnMap).forEach(([k,v]) => {
+    const [party, bumn] = k.split('|||');
+    sankeyLinks.push({ source: party, target: bumn, value: v });
+  });
+  // BUMN → Status
+  const bumnStatusMap = {};
+  DATA.forEach(c => {
+    const key = c.bumn + '|||' + c.status;
+    bumnStatusMap[key] = (bumnStatusMap[key] || 0) + 1;
+  });
+  Object.entries(bumnStatusMap).forEach(([k,v]) => {
+    const [bumn, status] = k.split('|||');
+    sankeyLinks.push({ source: bumn, target: STATUS_LABELS[status] || status, value: v });
+  });
+
+  charts.sankey = echarts.init(document.getElementById('chart-sankey'));
+  charts.sankey.setOption({
+    tooltip: { trigger: 'item' },
+    series: [{
+      type: 'sankey', layout: 'none',
+      left: 10, right: 120, top: 10, bottom: 10,
+      nodeWidth: 14, nodeGap: 6,
+      label: { fontSize: 11, fontFamily: 'Inter', color: '#1A1A2E' },
+      lineStyle: { color: 'gradient', opacity: 0.35, curveness: 0.5 },
+      data: sankeyNodes,
+      links: sankeyLinks,
+      itemStyle: { borderColor: '#fff', borderWidth: 1 }
+    }]
+  });
+}
+
+// ════════════════════════════════════════════════════════
+// DIRECTORY SECTION
+// ════════════════════════════════════════════════════════
+let dirSortKey = 'name';
+let dirSortDir = 1;
+
+function initDirectory() {
+  // Populate BUMN filter
+  const bumns = [...new Set(DATA.map(c => c.bumn))].sort();
+  const filterBumn = document.getElementById('filter-bumn');
+  bumns.forEach(b => {
+    const opt = document.createElement('option');
+    opt.value = b; opt.textContent = b;
+    filterBumn.appendChild(opt);
+  });
+  renderDirectory();
+}
+
+function sortDir(key) {
+  if (dirSortKey === key) dirSortDir *= -1;
+  else { dirSortKey = key; dirSortDir = 1; }
+  renderDirectory();
+}
+
+function renderDirectory() {
+  const search = document.getElementById('dir-search-input').value.toLowerCase();
+  const filterBumn = document.getElementById('filter-bumn').value;
+  const filterStatus = document.getElementById('filter-status').value;
+  const filterLegal = document.getElementById('filter-legal').value;
+
+  let filtered = DATA.filter(c => {
+    if (search && !c.name.toLowerCase().includes(search) && !c.bumn.toLowerCase().includes(search) && !c.party.toLowerCase().includes(search) && !c.political_affiliation.toLowerCase().includes(search)) return false;
+    if (filterBumn && c.bumn !== filterBumn) return false;
+    if (filterStatus && c.status !== filterStatus) return false;
+    if (filterLegal === 'has_issue' && !c.legal_record.has_legal_issue) return false;
+    if (filterLegal === 'cleared' && c.legal_record.legal_status.indexOf('cleared') === -1) return false;
+    if (filterLegal === 'unresearched' && c.legal_record.legal_status !== 'unresearched') return false;
+    return true;
+  });
+
+  // Sort
+  filtered.sort((a, b) => {
+    let va, vb;
+    if (dirSortKey === 'legal') {
+      const order = { 'tersangka': 0, 'terpidana (sudah bebas)': 1, 'cleared (isu etika)': 2, 'cleared (belum tersangka)': 3, 'cleared': 4, 'unresearched': 5 };
+      va = order[a.legal_record.legal_status] ?? 9;
+      vb = order[b.legal_record.legal_status] ?? 9;
+    } else if (dirSortKey === 'age') {
+      va = a.age || 0; vb = b.age || 0;
+    } else {
+      va = (a[dirSortKey] || '').toString().toLowerCase();
+      vb = (b[dirSortKey] || '').toString().toLowerCase();
+    }
+    if (va < vb) return -1 * dirSortDir;
+    if (va > vb) return 1 * dirSortDir;
+    return 0;
+  });
+
+  // Update sort indicators
+  document.querySelectorAll('.dir-table th').forEach(th => th.classList.remove('sorted'));
+  const thIdx = { name: 0, bumn: 1, role: 2, status: 3, party: 4, age: 5, legal: 6 };
+  const ths = document.querySelectorAll('.dir-table th');
+  if (ths[thIdx[dirSortKey]]) {
+    ths[thIdx[dirSortKey]].classList.add('sorted');
+    ths[thIdx[dirSortKey]].querySelector('.sort-ico').textContent = dirSortDir > 0 ? '↑' : '↓';
+  }
+
+  document.getElementById('dir-count').textContent = `${filtered.length} dari ${DATA.length} komisaris`;
+
+  const tbody = document.getElementById('dir-tbody');
+  if (filtered.length === 0) {
+    tbody.innerHTML = '<tr><td colspan="7" class="empty-state">Tidak ada hasil yang cocok dengan filter.</td></tr>';
+    return;
+  }
+
+  tbody.innerHTML = filtered.map(c => `
+    <tr onclick="openProfile(${c._id})">
+      <td class="name-cell">${esc(c.name)}</td>
+      <td class="bumn-cell">${esc(c.bumn)}</td>
+      <td class="party-cell">${esc(c.role)}</td>
+      <td>${statusBadge(c.status)}</td>
+      <td class="party-cell">${esc(c.party === 'Non-Partisan' ? 'Non-Partisan' : c.party)}</td>
+      <td>${c.age ? c.age : '—'}</td>
+      <td>${legalBadge(c)}</td>
+    </tr>
+  `).join('');
+}
+
+// ════════════════════════════════════════════════════════
+// PROFILE PANEL
+// ════════════════════════════════════════════════════════
+function openProfile(id) {
+  const c = DATA[id];
+  if (!c) return;
+
+  const lr = c.legal_record;
+  const legalClass = lr.legal_status === 'tersangka' || lr.legal_status === 'terpidana (sudah bebas)' ? 'alert' :
+    lr.has_legal_issue ? 'warn' : lr.legal_status === 'cleared' ? 'ok' : 'neutral';
+
+  const legalStatusLabels = {
+    'tersangka': 'Tersangka Aktif',
+    'terpidana (sudah bebas)': 'Terpidana (Sudah Bebas)',
+    'cleared': 'Cleared',
+    'cleared (isu etika)': 'Cleared (Isu Etika)',
+    'cleared (belum tersangka)': 'Cleared (Belum Tersangka)',
+    'unresearched': 'Belum Diteliti'
+  };
+
+  // Build career timeline
+  const careerHtml = c.career && c.career.length > 0 ? `
+    <div class="timeline">
+      ${c.career.map((j,i) => `
+        <div class="timeline-item ${i === c.career.length-1 ? 'accent' : ''}">
+          <div class="timeline-dot"></div>
+          <div class="timeline-period">${esc(j.period || '')}</div>
+          <div class="timeline-title">${esc(j.role || '')}</div>
+          <div class="timeline-org">${esc(j.org || '')}</div>
+        </div>
+      `).join('')}
+    </div>
+  ` : '<div class="empty-state">Data karier belum tersedia.</div>';
+
+  // Build education timeline
+  const eduHtml = c.education && c.education.length > 0 ? `
+    <div class="timeline">
+      ${c.education.map((e,i) => `
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-period">${e.year || ''}</div>
+          <div class="timeline-title">${esc(e.degree || '')} — ${esc(e.major || '')}</div>
+          <div class="timeline-org">${esc(e.university || '')}</div>
+        </div>
+      `).join('')}
+    </div>
+  ` : '<div class="empty-state">Data pendidikan belum tersedia.</div>';
+
+  // Build legal panel
+  const legalHtml = lr.has_legal_issue || lr.legal_status === 'cleared' || lr.case_description ? `
+    <div class="legal-panel ${legalClass}">
+      <div class="legal-header">
+        ${legalBadge(c)}
+        <span class="legal-case-type">${esc(lr.case_type || (lr.has_legal_issue ? 'Kasus Hukum' : 'Tidak Ada Catatan Hukum'))}</span>
+      </div>
+      ${lr.case_description ? `<div class="legal-desc">${esc(lr.case_description)}</div>` : ''}
+      <div class="legal-detail-grid">
+        <div class="legal-detail-item">
+          <div class="label">Status</div>
+          <div class="value">${esc(legalStatusLabels[lr.legal_status] || lr.legal_status)}</div>
+        </div>
+        <div class="legal-detail-item">
+          <div class="label">Verdict</div>
+          <div class="value">${esc(lr.verdict || '—')}</div>
+        </div>
+        <div class="legal-detail-item">
+          <div class="label">Hukuman</div>
+          <div class="value">${esc(lr.sentence_duration || '—')}</div>
+        </div>
+      </div>
+    </div>
+  ` : '<div class="empty-state">Belum ada data hukum yang diteliti untuk komisaris ini.</div>';
+
+  // Build sources
+  const sourcesHtml = c.sources && c.sources.length > 0 ? `
+    <div class="source-list">
+      ${c.sources.map(s => `
+        <a href="${esc(s)}" target="_blank" class="source-link">
+          <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+          <span><span class="source-domain">${esc(domainFromUrl(s))}</span> — ${esc(s)}</span>
+        </a>
+      `).join('')}
+    </div>
+  ` : '<div class="empty-state">Tidak ada sumber yang tercatat.</div>';
+
+  // Wealth display
+  const wealthDisplay = c.wealth ? `
+    <div class="info-block">
+      <div class="info-block-label">Kekayaan (LHKPN)</div>
+      <div class="info-block-value large">${esc(c.wealth)}</div>
+      ${c.wealth_source ? `<div style="font-size:12px;color:var(--text-muted);margin-top:6px;">Sumber: ${esc(c.wealth_source)}</div>` : ''}
+    </div>
+  ` : '<div class="info-block"><div class="info-block-label">Kekayaan (LHKPN)</div><div class="info-block-value" style="color:var(--text-muted)">Data LHKPN belum tersedia.</div></div>';
+
+  document.getElementById('profile-card').innerHTML = `
+    <div class="profile-header">
+      <div class="profile-header-top">
+        <div>
+          <div class="profile-name">${esc(c.name)}</div>
+          <div class="profile-bumn">${esc(c.bumn)} — ${esc(c.sector)}</div>
+        </div>
+        <button class="profile-close" onclick="closeProfile()">&times;</button>
+      </div>
+      <div class="profile-meta-row">
+        <div class="profile-meta-item">
+          <span class="profile-meta-label">Jabatan</span>
+          <span class="profile-meta-value">${esc(c.role)}</span>
+        </div>
+        <div class="profile-meta-item">
+          <span class="profile-meta-label">Status</span>
+          <span class="profile-meta-value">${statusBadge(c.status)}</span>
+        </div>
+        <div class="profile-meta-item">
+          <span class="profile-meta-label">Partai</span>
+          <span class="profile-meta-value">${esc(c.party)}</span>
+        </div>
+        <div class="profile-meta-item">
+          <span class="profile-meta-label">Usia</span>
+          <span class="profile-meta-value">${c.age ? c.age + ' tahun' : 'N/A'}${c.birth_year ? ' (b. ' + c.birth_year + ')' : ''}</span>
+        </div>
+        <div class="profile-meta-item">
+          <span class="profile-meta-label">Risiko</span>
+          <span class="profile-meta-value">${riskBadge(c)}</span>
+        </div>
+        <div class="profile-meta-item">
+          <span class="profile-meta-label">Sejak</span>
+          <span class="profile-meta-value">${c.commissioner_since ? esc(c.commissioner_since) : 'N/A'}</span>
+        </div>
+      </div>
+    </div>
+    <div class="profile-tabs" id="profile-tabs">
+      <div class="profile-tab active" data-tab="summary" onclick="switchTab('summary')">Ringkasan</div>
+      <div class="profile-tab" data-tab="career" onclick="switchTab('career')">Karier</div>
+      <div class="profile-tab" data-tab="education" onclick="switchTab('education')">Pendidikan</div>
+      <div class="profile-tab" data-tab="legal" onclick="switchTab('legal')">Hukum</div>
+      <div class="profile-tab" data-tab="sources" onclick="switchTab('sources')">Sumber</div>
+    </div>
+    <div class="profile-body">
+      <div class="profile-tab-content active" id="tab-summary">
+        ${c.evidence ? `
+          <div class="info-block">
+            <div class="info-block-label">Evidence / Catatan</div>
+            <div class="info-block-value">${esc(c.evidence)}</div>
+          </div>
+        ` : ''}
+        ${wealthDisplay}
+        ${c.political_affiliation ? `
+          <div class="info-block">
+            <div class="info-block-label">Afiliasi Politik</div>
+            <div class="info-block-value">${esc(c.political_affiliation)}</div>
+          </div>
+        ` : ''}
+        <div class="info-block">
+          <div class="info-block-label">Status Hukum</div>
+          <div class="info-block-value">${esc(legalStatusLabels[lr.legal_status] || lr.legal_status)}</div>
+        </div>
+      </div>
+      <div class="profile-tab-content" id="tab-career">
+        <h3 class="block-title">Riwayat Karier</h3>
+        ${careerHtml}
+      </div>
+      <div class="profile-tab-content" id="tab-education">
+        <h3 class="block-title">Riwayat Pendidikan</h3>
+        ${eduHtml}
+      </div>
+      <div class="profile-tab-content" id="tab-legal">
+        <h3 class="block-title">Catatan Hukum</h3>
+        ${legalHtml}
+      </div>
+      <div class="profile-tab-content" id="tab-sources">
+        <h3 class="block-title">Sumber & Referensi</h3>
+        ${sourcesHtml}
+      </div>
+    </div>
+  `;
+
+  document.getElementById('profile-panel').classList.add('show');
+  document.body.style.overflow = 'hidden';
+}
+
+function switchTab(tab) {
+  document.querySelectorAll('.profile-tab').forEach(t => t.classList.remove('active'));
+  document.querySelector(`.profile-tab[data-tab="${tab}"]`).classList.add('active');
+  document.querySelectorAll('.profile-tab-content').forEach(c => c.classList.remove('active'));
+  document.getElementById('tab-' + tab).classList.add('active');
+}
+
+function closeProfile() {
+  document.getElementById('profile-panel').classList.remove('show');
+  document.body.style.overflow = '';
+}
+
+// ════════════════════════════════════════════════════════
+// NETWORK SECTION
+// ════════════════════════════════════════════════════════
+function initNetworkChart() {
+  if (charts.network) { charts.network.resize(); return; }
+
+  const nodes = [];
+  const links = [];
+  const nodeMap = {};
+
+  function addNode(id, name, category, opts) {
+    if (nodeMap[id]) return id;
+    const node = {
+      id: id, name: name, category: category,
+      symbolSize: opts.size || 30,
+      itemStyle: { color: opts.color },
+      label: { show: true, fontSize: opts.fontSize || 11, fontFamily: 'Inter', color: opts.labelColor || '#1A1A2E' },
+      ...opts.extra
+    };
+    nodes.push(node);
+    nodeMap[id] = node;
+    return id;
+  }
+
+  const bumns = [...new Set(DATA.map(c => c.bumn))];
+  bumns.forEach(b => {
+    addNode('bumn_' + b, b, 0, { size: 50, color: '#12436D', labelColor: '#fff', fontSize: 12, extra: { category: 0 } });
+  });
+
+  // Party nodes
+  const parties = [...new Set(DATA.map(c => c.party))];
+  parties.forEach(p => {
+    const isPolitical = p !== 'Non-Partisan';
+    addNode('party_' + p, p, 1, {
+      size: isPolitical ? 42 : 28, color: isPolitical ? '#F46A25' : '#D3D6DC',
+      labelColor: isPolitical ? '#fff' : '#5A5F6E', fontSize: 11
+    });
+  });
+
+  // Commissioner nodes
+  DATA.forEach(c => {
+    const isPolitical = c.status === 'kader_partai' || c.status === 'relawan_pemenangan';
+    const hasLegal = c.legal_record.legal_status === 'tersangka';
+    const color = hasLegal ? '#C92A2A' : isPolitical ? '#F46A25' : c.status === 'pejabat' ? '#2B69A8' : '#1B8754';
+    addNode('comm_' + c._id, c.name, 2, {
+      size: 22, color: color, labelColor: '#1A1A2E', fontSize: 10,
+      extra: { category: 2 }
+    });
+  });
+
+  // Links: commissioner → BUMN
+  DATA.forEach(c => {
+    links.push({ source: 'comm_' + c._id, target: 'bumn_' + c.bumn, lineStyle: { color: '#C5CBD3', width: 1.5, opacity: 0.5 } });
+  });
+
+  // Links: commissioner → party
+  DATA.forEach(c => {
+    if (c.party !== 'Non-Partisan') {
+      links.push({ source: 'comm_' + c._id, target: 'party_' + c.party, lineStyle: { color: '#F89B6D', width: 1.5, opacity: 0.5 } });
+    }
+  });
+
+  charts.network = echarts.init(document.getElementById('chart-network'));
+  charts.network.setOption({
+    tooltip: {
+      formatter: function(p) {
+        if (p.dataType === 'node') {
+          const c = DATA.find(d => 'comm_' + d._id === p.data.id);
+          if (c) return `<b>${esc(c.name)}</b><br/>BUMN: ${esc(c.bumn)}<br/>Partai: ${esc(c.party)}<br/>Status: ${STATUS_LABELS[c.status] || c.status}`;
+          return p.data.name;
+        }
+        return p.data.source + ' → ' + p.data.target;
+      }
+    },
+    legend: [{
+      data: ['BUMN', 'Partai/Afiliasi', 'Komisaris'],
+      bottom: 10,
+      textStyle: { fontFamily: 'Inter', fontSize: 12 }
+    }],
+    series: [{
+      type: 'graph',
+      layout: 'force',
+      roam: true,
+      draggable: true,
+      force: {
+        repulsion: 200,
+        edgeLength: 80,
+        gravity: 0.08,
+        layoutAnimation: true
+      },
+      categories: [
+        { name: 'BUMN' },
+        { name: 'Partai/Afiliasi' },
+        { name: 'Komisaris' }
+      ],
+      data: nodes,
+      links: links,
+      lineStyle: { opacity: 0.4 },
+      emphasis: {
+        focus: 'adjacency',
+        lineStyle: { width: 3, opacity: 0.8 },
+        label: { fontSize: 13, fontWeight: 'bold' }
+      }
+    }]
+  });
+}
+
+// ════════════════════════════════════════════════════════
+// COMPARE SECTION
+// ════════════════════════════════════════════════════════
+function initCompare() {
+  const opts = DATA.map(c => `<option value="${c._id}">${esc(c.name)} — ${esc(c.bumn)}</option>`).join('');
+  document.getElementById('compare-1').innerHTML = '<option value="">— Pilih —</option>' + opts;
+  document.getElementById('compare-2').innerHTML = '<option value="">— Pilih —</option>' + opts;
+
+  // Set defaults
+  document.getElementById('compare-1').value = DATA[0]._id;
+  document.getElementById('compare-2').value = DATA.find(c => c.status === 'kader_partai')?._id ?? DATA[1]._id;
+  document.getElementById('compare-3').innerHTML = '<option value="">— Tidak ada —</option>' + opts;
+
+  renderCompare();
+}
+
+function renderCompare() {
+  const ids = [
+    document.getElementById('compare-1').value,
+    document.getElementById('compare-2').value,
+    document.getElementById('compare-3').value
+  ].filter(v => v !== '');
+
+  const container = document.getElementById('compare-cards');
+  if (ids.length < 2) {
+    container.innerHTML = '<div class="empty-state">Pilih minimal 2 komisaris untuk dibandingkan.</div>';
+    return;
+  }
+
+  container.className = 'compare-cards cols-' + ids.length;
+
+  container.innerHTML = ids.map(id => {
+    const c = DATA[parseInt(id)];
+    if (!c) return '';
+
+    const careerList = c.career && c.career.length > 0
+      ? c.career.map(j => `<div style="margin-bottom:6px;"><span style="font-weight:500;">${esc(j.role)}</span><br/><span style="color:var(--text-muted);font-size:11px;">${esc(j.org)} · ${esc(j.period)}</span></div>`).join('')
+      : '<span style="color:var(--text-muted);">N/A</span>';
+
+    const eduList = c.education && c.education.length > 0
+      ? c.education.map(e => `<div style="margin-bottom:6px;"><span style="font-weight:500;">${esc(e.degree)}</span> — ${esc(e.major)}<br/><span style="color:var(--text-muted);font-size:11px;">${esc(e.university)} · ${e.year || ''}</span></div>`).join('')
+      : '<span style="color:var(--text-muted);">N/A</span>';
+
+    const lr = c.legal_record;
+
+    return `
+      <div class="compare-col">
+        <div class="compare-col-header">
+          <div class="compare-col-name">${esc(c.name)}</div>
+          <div class="compare-col-bumn">${esc(c.bumn)} · ${esc(c.sector)}</div>
+          <div style="margin-top:8px;display:flex;gap:6px;flex-wrap:wrap;">
+            ${statusBadge(c.status)}
+            ${riskBadge(c)}
+          </div>
+        </div>
+        <div class="compare-col-body">
+          <div class="compare-row">
+            <span class="label">Jabatan</span>
+            <span class="value">${esc(c.role)}</span>
+          </div>
+          <div class="compare-row">
+            <span class="label">Partai</span>
+            <span class="value">${esc(c.party)}</span>
+          </div>
+          <div class="compare-row">
+            <span class="label">Afiliasi</span>
+            <span class="value">${esc(c.political_affiliation || '—')}</span>
+          </div>
+          <div class="compare-row">
+            <span class="label">Usia</span>
+            <span class="value">${c.age ? c.age + ' thn' + (c.birth_year ? ' ('+c.birth_year+')' : '') : 'N/A'}</span>
+          </div>
+          <div class="compare-row">
+            <span class="label">Sejak</span>
+            <span class="value">${esc(c.commissioner_since || 'N/A')}</span>
+          </div>
+          <div class="compare-row">
+            <span class="label">Kekayaan</span>
+            <span class="value">${esc(c.wealth || 'N/A')}</span>
+          </div>
+          <div class="compare-row">
+            <span class="label">Status Hukum</span>
+            <span class="value">${legalBadge(c)}</span>
+          </div>
+          <div style="padding:10px 0;">
+            <div style="font-size:11px;font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.4px;margin-bottom:8px;">Karier</div>
+            ${careerList}
+          </div>
+          <div style="padding:10px 0;border-top:1px solid var(--border);">
+            <div style="font-size:11px;font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.4px;margin-bottom:8px;">Pendidikan</div>
+            ${eduList}
+          </div>
+        </div>
+      </div>
+    `;
+  }).join('');
+}
+
+// ════════════════════════════════════════════════════════
+// FINDINGS SECTION
+// ════════════════════════════════════════════════════════
+function initFindings() {
+  const political = DATA.filter(c => c.status === 'kader_partai' || c.status === 'relawan_pemenangan');
+  const tersangka = DATA.filter(c => c.legal_record.legal_status === 'tersangka');
+  const terpidana = DATA.filter(c => c.legal_record.legal_status === 'terpidana (sudah bebas)');
+  const withWealth = DATA.filter(c => c.wealth);
+  const maxWealth = withWealth.length > 0 ? withWealth.reduce((a,b) => (parseWealth(a.wealth) || 0) > (parseWealth(b.wealth) || 0) ? a : b) : null;
+  const totalWealthVal = withWealth.reduce((sum,c) => sum + (parseWealth(c.wealth) || 0), 0);
+  const bumnGroups = {};
+  DATA.forEach(c => {
+    if (!bumnGroups[c.bumn]) bumnGroups[c.bumn] = [];
+    bumnGroups[c.bumn].push(c);
+  });
+  const politicalByBumn = {};
+  Object.entries(bumnGroups).forEach(([bumn, comms]) => {
+    politicalByBumn[bumn] = comms.filter(c => c.status === 'kader_partai' || c.status === 'relawan_pemenangan').length;
+  });
+  const topPoliticalBumn = Object.entries(politicalByBumn).sort((a,b)=>b[1]-a[1])[0];
+
+  const findings = [];
+
+  // Finding 1: Political penetration
+  findings.push({
+    level: 'medium',
+    tag: 'POLITISASI',
+    title: `${political.length} dari ${DATA.length} komisaris (${Math.round(political.length/DATA.length*100)}%) memiliki afiliasi politik aktif`,
+    body: `Sebanyak <b>${political.length} komisaris BUMN</b> teridentifikasi sebagai kader partai aktif atau relawan pemenangan. Ini mencakup pejabat yang menjabat sebagai wakil menteri (Wamen) sekaligus komisaris BUMN, menimbulkan potensi konflik kepentingan. BUMN dengan komisaris berafiliasi politik terbanyak adalah <b>${topPoliticalBumn[0]}</b> dengan ${topPoliticalBumn[1]} komisaris. <a href="#" onclick="goToSection('directory');return false;">Lihat di Direktori</a>`
+  });
+
+  // Finding 2: Legal red flags
+  if (tersangka.length > 0 || terpidana.length > 0) {
+    const names = [...tersangka, ...terpidana].map(c => c.name).join(', ');
+    findings.push({
+      level: 'high',
+      tag: 'RISIKO HUKUM',
+      title: `${tersangka.length + terpidana.length} komisaris memiliki catatan hukum serius`,
+      body: `<b>${names}</b> memiliki status hukum sebagai tersangka atau terpidana. Kasus terberat melibatkan korupsi dengan aliran dana mencapai Rp366 miliar. Keberadaan komisaris dengan status hukum bermasalah di BUMN strategis menimbulkan kekhawatiran tata kelola. <a href="#" onclick="goToSection('directory');return false;">Lihat detail profil</a>`
+    });
+  }
+
+  // Finding 3: Wealth transparency gap
+  findings.push({
+    level: 'medium',
+    tag: 'TRANSPARANSI LHKPN',
+    title: `Hanya ${withWealth.length} dari ${DATA.length} komisaris (${Math.round(withWealth.length/DATA.length*100)}%) memiliki data LHKPN publik`,
+    body: `Mayoritas komisaris BUMN belum memiliki laporan kekayaan (LHKPN) yang dapat diakses publik. Dari yang tersedia, total kekayaan tercatat mencapai <b>Rp ${totalWealthVal.toFixed(1)} miliar</b>. Komisaris dengan kekayaan tertinggi adalah <b>${maxWealth ? maxWealth.name : 'N/A'}</b> (${maxWealth ? maxWealth.wealth : ''}). Data LHKPN bersumber dari <a href="https://elhkpn.kpk.go.id" target="_blank">e-LHKPN KPK</a>.`
+  });
+
+  // Finding 4: Dual roles (wamen + komisaris)
+  const dualRole = DATA.filter(c => /wamen|wakil menteri/i.test(c.political_affiliation || '') || /wamen|wakil menteri/i.test(c.evidence || ''));
+  if (dualRole.length > 0) {
+    findings.push({
+      level: 'high',
+      tag: 'RANGKAP JABATAN',
+      title: `${dualRole.length} komisaris merangkap jabatan sebagai Wakil Menteri`,
+      body: `Beberapa komisaris BUMN juga menjabat sebagai <b>Wakil Menteri</b> di Kabinet Prabowo, menciptakan potensi konflik kepentingan antara kebijakan pemerintah dan pengawasan BUMN. Termasuk: ${dualRole.map(c => c.name + ' (' + c.bumn + ')').join(', ')}. Praktik rangkap jabatan ini dikritik karena melanggar prinsip UNCAC anti-korupsi.`
+    });
+  }
+
+  // Finding 5: Research coverage gap
+  const unresearched = DATA.filter(c => c.legal_record.legal_status === 'unresearched');
+  findings.push({
+    level: 'low',
+    tag: 'CAKUPAN PENELITIAN',
+    title: `${unresearched.length} dari ${DATA.length} komisaris (${Math.round(unresearched.length/DATA.length*100)}%) belum diteliti rekam jejak hukumnya`,
+    body: `Sebanyak <b>${unresearched.length} komisaris</b> belum memiliki penelitian rekam jejak hukum yang lengkap. Untuk transparansi yang lebih baik, diperlukan penelitian lebih lanjut terhadap rekam jejak hukum seluruh komisaris BUMN, termasuk pemeriksaan putusan MA, rilis KPK, dan laporan media.`
+  });
+
+  // Finding 6: Sectoral analysis
+  const sectorPolitical = {};
+  DATA.forEach(c => {
+    if (c.status === 'kader_partai' || c.status === 'relawan_pemenangan') {
+      sectorPolitical[c.sector] = (sectorPolitical[c.sector] || 0) + 1;
+    }
+  });
+  const sectorEntries = Object.entries(sectorPolitical).sort((a,b)=>b[1]-a[1]);
+  if (sectorEntries.length > 0) {
+    findings.push({
+      level: 'medium',
+      tag: 'ANALISIS SEKTORAL',
+      title: `Sektor ${sectorEntries[0][0]} memiliki komisaris berafiliasi politik terbanyak (${sectorEntries[0][1]})`,
+      body: `Distribusi komisaris berafiliasi politik per sektor: ${sectorEntries.map(([s,n]) => `${s} (${n})`).join(', ')}. Konsentrasi afiliasi politik di sektor tertentu dapat mempengaruhi independensi pengawasan BUMN di sektor tersebut.`
+    });
+  }
+
+  document.getElementById('findings-list').innerHTML = findings.map(f => `
+    <div class="finding-item ${f.level}">
+      <div class="finding-header">
+        <span class="finding-tag ${f.level}">${f.tag}</span>
+        <span class="finding-title">${f.title}</span>
+      </div>
+      <div class="finding-body">${f.body}</div>
+    </div>
+  `).join('');
+}
+
+// ════════════════════════════════════════════════════════
+// INIT
+// ════════════════════════════════════════════════════════
+function init() {
+  // Set metadata
+  if (RAW_DATA.generated) {
+    const d = new Date(RAW_DATA.generated);
+    document.getElementById('gen-date').textContent = 'Generated: ' + d.toLocaleDateString('id-ID', { year: 'numeric', month: 'short', day: 'numeric' });
+  }
+  const bumnCount = new Set(DATA.map(c => c.bumn)).size;
+  document.getElementById('sidebar-meta').textContent = `${DATA.length} Komisaris · ${bumnCount} BUMN`;
+  document.getElementById('nav-dir-count').textContent = DATA.length;
+
+  initOverview();
+  initDirectory();
+  initCompare();
+  initFindings();
+}
+
+document.addEventListener('DOMContentLoaded', init);
+
+// Resize charts on window resize
+window.addEventListener('resize', () => {
+  Object.values(charts).forEach(c => { if (c) c.resize(); });
+});
+
+// ESC to close profile
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') closeProfile();
+});
+</script>
+
+</body>
+</html>
