@@ -1,0 +1,133 @@
+BUMN COMMISSIONER DEEP SEARCH DATABASE
+Generated: 2026-06-26T12:40:57.976529
+Total Commissioners Analyzed: 37
+
+======================================================================
+POLITICAL STATUS BREAKDOWN
+======================================================================
+
+🔴 KADER PARTAI (Party Cadres): 8 (21.6%)
+🟠 RELAWAN PEMENANGAN (Campaign Volunteers): 5 (13.5%)
+🟡 PEJABAT (Government Officials): 15 (40.5%)
+🟢 PROFESIONAL (Genuine Professionals): 9 (24.3%)
+
+⚠️ TOTAL POLITICALLY EXPOSED: 13/37 = 35.1%
+   (kader partai + relawan pemenangan)
+
+======================================================================
+🔴 KADER PARTAI — Konflik Kepentingan Jelas
+======================================================================
+
+1. Angga Raka Prabowo (Telkom — Komisaris Utama)
+   → Partai Gerindra (Wasekjen DPP)
+   → TKN Prabowo-Gibran (Direktur Media Kampanye)
+   → Sekretaris pribadi Prabowo (2014-2017)
+   → Now Wamen Komdigital + Komut Telkom (RANGKAP JABATAN)
+
+2. Mochamad Iriawan (Pertamina — Komisaris Utama)
+   → Partai Gerindra (Wakil Ketua Dewan Pembina DPP)
+   → Joined Gerindra April 2023, ran as DPR candidate 2024 (failed)
+   → Komjen Pol Purn, former Pj Gubernur Jabar, Ketum PSSI
+
+3. Burhanuddin Abdullah (PLN — Komisaris Utama)
+   → Partai Gerindra (Ketua Dewan Pakar)
+   → TKN Prabowo-Gibran (Ketua Dewan Pakar)
+   → Former Gubernur BI, former Menko Perekonomian (Gusdur era)
+
+4. Helvi Yuni Moraza (BRI — Komisaris)
+   → Partai Gerindra (Former Sekjen DPP, Korwil Tangerang)
+   → Now Wamen UMKM Kabinet Prabowo
+   → Summoned to Prabowo's Kertanegara for cabinet selection
+
+5. Ossy Dermawan (Telkom — Komisaris)
+   → Partai Demokrat (Wasekjen DPP, now Kepala BPOKK)
+   → Wamen ATR/BPN in Kabinet Prabowo
+   → Staf pribadi SBY (2014-2018)
+
+6. Andi Arief (PLN — "Independent" Commissioner)
+   → Partai Demokrat (Ketua Bappilu DPP)
+   → Resigned from Bappilu after PLN appointment
+   → Former Stafsus SBY, former Komisaris PT Pos (SBY era)
+   → ⚠️ LABELED "INDEPENDEN" DESPITE CLEAR PARTY TIES
+
+7. Lukmanul Khakim (BRI — "Independent" Commissioner)
+   → Partai Kebangkitan Bangsa/PKB (Ketua DPP Bidag Perdagangan)
+   → Former DPRD DKI Jakarta (2019-2024)
+   → Cawagub Jatim 2024 (failed)
+   → Described as "anak buah Cak Imin"
+   → ⚠️ LABELED "INDEPENDEN" DESPITE CLEAR PARTY TIES
+
+8. Rizal Mallarangeng (Telkom — "Independent" Commissioner → reclassified)
+   → Partai Golkar (former Waketum DPP)
+   → Chairman Yayasan Prabowo Subianto Djojohadikusumo (since 2022)
+   → Former Koordinator Nasional Relawan Golkar Jokowi (Gojo) 2019
+   → Reclassified from "Independen" to "Komisaris" June 2026 RUPST
+   → ⚠️ WAS LABELED "INDEPENDEN" — FINALLY RECLASSIFIED
+
+======================================================================
+🟠 RELAWAN PEMENANGAN — Kampanye Prabowo
+======================================================================
+
+1. Condro Kirono (Pertamina — "Independent" Commissioner)
+   → TKN Prabowo-Gibran (Wakil Ketua)
+   → Komjen Pol Purn, former Kapolda Jateng
+   → ⚠️ LABELED "INDEPENDEN" DESPITE TKN ROLE
+
+2. Aminuddin Ma'ruf (PLN — Commissioner)
+   → TKN Prabowo-Gibran (Wakil Sekretaris)
+   → Founder Samawi (relawan Jokowi 2019)
+   → Now Wakil Kepala BP BUMN + PLN Commissioner (RANGKAP)
+
+3. Bambang Eko Suhariyanto (PLN — Commissioner)
+   → TKD Prabowo-Gibran Jatim (consolidation list)
+   → Staf Ahli Menhan Prabowo
+   → Now Wamensesneg + PLN Commissioner (RANGKAP)
+
+4. Mutanto Juwono (PLN — "Independent" Commissioner)
+   → Badan Pemenangan Nasional Prabowo-Sandi 2019 (Anggota)
+   → Marsma TNI Purn
+   → ⚠️ LABELED "INDEPENDEN" DESPITE CAMPAIGN ROLE
+
+5. Alexander Lay (Pertamina — "Independent" Commissioner)
+   → Relawan Jokowi 2019 (not Prabowo — one of 10 lawyers)
+   → Former Stafsus Mensesneg
+   → Appointed 2017 under Jokowi era
+
+======================================================================
+KEY FINDINGS
+======================================================================
+
+1. GERINDRA DOMINANCE: 4 out of 8 kader partai are Gerindra
+   (Angga Raka, Iriawan, Burhanuddin, Helvi Yuni) — Prabowo's party
+   controls key BUMN commissioner positions
+
+2. FAKE "INDEPENDENT" LABELS: At least 4 commissioners labeled
+   "Independen" have clear party/TKN ties:
+   - Andi Arief (PLN) — Demokrat
+   - Lukmanul Khakim (BRI) — PKB
+   - Condro Kirono (Pertamina) — TKN Prabowo-Gibran
+   - Mutanto Juwono (PLN) — Bapanas Prabowo-Sandi
+
+3. RANGKAP JABATAN: Multiple commissioners simultaneously serve as
+   deputy ministers (Wamen), violating Constitutional Court Decision
+   No. 80/PUU-XXII/2019:
+   - Angga Raka Prabowo (Wamen Komdigital + Komut Telkom)
+   - Bambang Eko Suhariyanto (Wamensesneg + PLN Commissioner)
+   - Aminuddin Ma'ruf (Wakil BP BUMN + PLN Commissioner)
+   - Helvi Yuni Moraza (Wamen UMKM + BRI Commissioner)
+   - Yuliot (Wamen ESDM + Mandiri Commissioner)
+
+4. YAYASAN PRABOWO CONNECTION: Two commissioners are Chairman of
+   Yayasan Prabowo Subianto Djojohadikusumo:
+   - Rizal Mallarangeng (Telkom)
+   - Deswandhy Agusman (Telkom)
+
+5. CORRUPTION RISK: Silmy Karim (Telkom) became KPK tersangka
+   June 2026 while serving as Wamen + BUMN commissioner
+
+6. BY BUMN:
+   - Telkom: 5/8 politically exposed (62.5%)
+   - Pertamina: 2/7 politically exposed (28.6%)
+   - PLN: 5/9 politically exposed (55.6%)
+   - Bank Mandiri: 0/6 kader, but 3 pejabat rangkap
+   - BRI: 2/6 kader partai (33.3%)

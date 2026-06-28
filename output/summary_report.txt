@@ -1,0 +1,100 @@
+BUMN COMMISSIONER DATABASE — POC SUMMARY
+Generated: 2026-06-26T11:18:16.544496
+======================================================================
+
+BUMN: PT Telkom Indonesia (Persero) Tbk
+Sector: Telecommunications
+Source: https://www.telkom.co.id/sites/about-telkom/id_ID/page/dewan-komisaris-197
+Commissioners: 8 (political: 2)
+  ⚠️ POLITICAL Angga Raka Prabowo — Komisaris Utama
+     → Wakil Menteri Komunikasi dan Digital (Wamen Komdigital)
+  ✓ Ossy Dermawan — Komisaris
+  ✓ Ismail — Komisaris
+  ✓ Rionald Silaban — Komisaris
+  ⚠️ POLITICAL Silmy Karim — Komisaris
+     → Wakil Menteri Imigrasi dan Pemasyarakatan
+  ✓ Yohanes Surya — Komisaris Independen
+  ✓ Deswandhy Agusman — Komisaris Independen
+  ✓ Rizal Mallarangeng — Komisaris Independen
+
+BUMN: PT Pertamina (Persero)
+Sector: Energy / Oil & Gas
+Source: https://www.pertamina.com/id/dewan-komisaris
+Commissioners: 8 (political: 0)
+  ✓ Dewan — komisaris
+  ✓ Mochamad Iriawan — Komisaris Utama & Komisaris Independen
+  ✓ Dony Oskaria — Wakil Komisaris Utama
+  ✓ Bambang Suswantono — Komisaris
+  ✓ Condro Kirono — Komisaris Independen
+  ✓ Sondaryani — Komisaris Independen
+  ✓ Iggi H. Achsien — Komisaris Independen
+  ✓ Alexander Lay — Komisaris Independen
+
+BUMN: PT PLN (Persero)
+Sector: Electricity / Power
+Source: 
+Commissioners: 9 (political: 1)
+  ✓ Burhanuddin Abdullah — President Commissioner & Independent Commissioner
+  ⚠️ POLITICAL Suahasil Nazara — Vice President Commissioner
+     → Wakil Menteri Keuangan
+  ✓ Aminuddin Ma'ruf — Commissioner
+  ✓ Dadan Kusdiana — Commissioner
+  ✓ Jisman Parada Hutajulu — Commissioner
+  ✓ Bambang Eko Suhariyanto — Commissioner
+  ✓ Yazid Fanani — Independent Commissioner
+  ✓ Mutanto Juwono — Independent Commissioner
+  ✓ Andi Arief — Independent Commissioner
+  ERROR: Page.goto: NS_ERROR_UNKNOWN_HOST
+Call log:
+  - navigating to "https://web.pln.co.id/en/about-us/board-of-commissioners", waiting until "domcontentloaded"
+
+
+BUMN: PT Bank Mandiri (Persero) Tbk
+Sector: Banking
+Source: https://www.bankmandiri.co.id/dewan-komisaris-direksi
+Commissioners: 11 (political: 2)
+  ✓ Dewan & Direksi — komisaris
+  ✓ Dewan — komisaris
+  ✓ Komisaris Independen — komisaris utama
+  ✓ Wakil — komisaris utama
+  ✓ Yuliot — Komisaris
+  ✓ Mia Amiati — Komisaris Independen
+  ✓ Bintoro K. Pardewo — komisaris independen
+  ✓ Zulkifli Zaini — Komisaris Utama/Independen
+  ⚠️ POLITICAL M. Rudy Salahuddin Ramto — Wakil Komisaris Utama
+     → Detected political keyword: 'menteri'
+  ✓ B. Bintoro Kunto Pardewo — Komisaris Independen
+  ⚠️ POLITICAL Luky Alfirman — Komisaris
+     → Detected political keyword: 'menteri'
+
+BUMN: PT Bank Rakyat Indonesia (Persero) Tbk
+Sector: Banking
+Source: https://bri.co.id/web/guest/dewan-komisaris-direksi
+Commissioners: 6 (political: 0)
+  ✓ Kartika Wirjoatmodjo — Komisaris Utama
+  ✓ Parman Nataatmadja — Wakil Komisaris Utama/Komisaris Independen
+  ✓ Awan Nurmawan Nuh — Komisaris
+  ✓ Helvi Yuni Moraza — Komisaris
+  ✓ Edi Susianto — Komisaris Independen
+  ✓ Lukmanul Khakim — Komisaris Independen
+
+BUMN: PT Garuda Indonesia (Persero) Tbk
+Sector: Aviation
+Source: https://www.garuda-indonesia.com/id/id/corporate-social-responsibility/governance/dewan-komisaris
+Commissioners: 0 (political: 0)
+
+BUMN: PT Indosat Tbk
+Sector: Telecommunications
+Source: 
+Commissioners: 1 (political: 1)
+  ⚠️ POLITICAL Nezar Patria — Komisaris Utama (President Commissioner)
+     → Wakil Menteri Komunikasi dan Digital
+  ERROR: Page.goto: NS_ERROR_UNKNOWN_HOST
+Call log:
+  - navigating to "https://www.indosat.com/about-indosat/corporate-profile/board-of-directors-chief", waiting until "domcontentloaded"
+
+
+======================================================================
+TOTAL BUMN scraped: 7
+TOTAL commissioners: 43
+TOTAL political appointees: 6

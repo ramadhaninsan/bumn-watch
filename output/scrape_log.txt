@@ -1,0 +1,44 @@
+  Trying: https://www.telkom.co.id/sites/about-telkom/id_ID/page/dewan-komisaris-197
+  Page loaded: title='Elevating Your Future | Telkom', text_len=10146
+  Extracted 0 potential commissioner entries
+  Trying structured DOM extraction...
+  DOM extraction found 6 cards
+  Final commissioners count: 0
+  After merge with research data: 8
+  Trying: https://www.pertamina.com/id/dewan-komisaris
+  Page loaded: title='404 - Not Found | PT Pertamina (Persero)', text_len=2831
+  Extracted 1 potential commissioner entries
+  Trying structured DOM extraction...
+  Final commissioners count: 1
+  After merge with research data: 8
+  Trying: https://web.pln.co.id/tentang-kami/dewan-komisaris
+  [ERROR] https://web.pln.co.id/tentang-kami/dewan-komisaris: Page.goto: NS_ERROR_UNKNOWN_HOST
+Call log:
+  - navigating to "https://web.pln.co.id/tentang-kami/dewan-komisaris", waiting until "domcontentloaded"
+
+  Trying: https://web.pln.co.id/en/about-us/board-of-commissioners
+  [ERROR] https://web.pln.co.id/en/about-us/board-of-commissioners: Page.goto: NS_ERROR_UNKNOWN_HOST
+Call log:
+  - navigating to "https://web.pln.co.id/en/about-us/board-of-commissioners", waiting until "domcontentloaded"
+
+  All URLs failed. Using 9 researched entries as fallback.
+  Trying: https://www.bankmandiri.co.id/dewan-komisaris-direksi
+  Page loaded: title='Dewan Komisaris & Direksi', text_len=1653
+  Extracted 7 potential commissioner entries
+  Final commissioners count: 7
+  After merge with research data: 11
+  Trying: https://bri.co.id/web/guest/dewan-komisaris-direksi
+  Page loaded: title='Home BRI - Melayani setulus hati', text_len=596
+  Extracted 0 potential commissioner entries
+  Trying structured DOM extraction...
+  Final commissioners count: 0
+  After merge with research data: 6
+  Trying: https://www.garuda-indonesia.com/id/id/corporate-social-responsibility/governance/dewan-komisaris
+  Page loaded: title='Tunggu sebentar...', text_len=270
+  [WARN] Page text too short (270 chars), might be blocked or empty
+  Trying: https://www.indosat.com/about-indosat/corporate-profile/board-of-directors-chief
+  [ERROR] https://www.indosat.com/about-indosat/corporate-profile/board-of-directors-chief: Page.goto: NS_ERROR_UNKNOWN_HOST
+Call log:
+  - navigating to "https://www.indosat.com/about-indosat/corporate-profile/board-of-directors-chief", waiting until "domcontentloaded"
+
+  All URLs failed. Using 1 researched entries as fallback.

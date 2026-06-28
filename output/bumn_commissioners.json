@@ -1,0 +1,516 @@
+[
+  {
+    "bumn_name": "PT Telkom Indonesia (Persero) Tbk",
+    "short_name": "Telkom",
+    "sector": "Telecommunications",
+    "ticker": "TLKM.JK",
+    "source_url": "https://www.telkom.co.id/sites/about-telkom/id_ID/page/dewan-komisaris-197",
+    "scrape_date": "2026-06-26T11:17:31.421630",
+    "commissioners": [
+      {
+        "name": "Angga Raka Prabowo",
+        "role": "Komisaris Utama",
+        "background": "Wakil Menteri Komunikasi dan Digital (Wamen Komdigital). Diangkat sebagai Komisaris Utama Telkom pada RUPST 27 Mei 2025, menggantikan Bambang Brodjonegoro.",
+        "political_flag": true,
+        "political_affiliation": "Wakil Menteri Komunikasi dan Digital (Wamen Komdigital)",
+        "controversy": "Dual position: deputy minister / political figure + BUMN commissioner. Violates spirit of Constitutional Court Decision No. 80/PUU-XXII/2019.",
+        "raw_text": "Angga Raka Prabowo Wakil Menteri Komunikasi dan Digital (Wamen Komdigital). Diangkat sebagai Komisaris Utama Telkom pada RUPST 27 Mei 2025, menggantikan Bambang Brodjonegoro.",
+        "source": "Kompas, Telkom.co.id"
+      },
+      {
+        "name": "Ossy Dermawan",
+        "role": "Komisaris",
+        "background": "",
+        "political_flag": false,
+        "political_affiliation": "",
+        "controversy": "",
+        "raw_text": "Ossy Dermawan ",
+        "source": "Kompas RUPST 2025"
+      },
+      {
+        "name": "Ismail",
+        "role": "Komisaris",
+        "background": "",
+        "political_flag": false,
+        "political_affiliation": "",
+        "controversy": "",
+        "raw_text": "Ismail ",
+        "source": "Kompas RUPST 2025"
+      },
+      {
+        "name": "Rionald Silaban",
+        "role": "Komisaris",
+        "background": "",
+        "political_flag": false,
+        "political_affiliation": "",
+        "controversy": "",
+        "raw_text": "Rionald Silaban ",
+        "source": "Kompas RUPST 2025"
+      },
+      {
+        "name": "Silmy Karim",
+        "role": "Komisaris",
+        "background": "Wakil Menteri Imigrasi dan Pemasyarakatan. Merangkap jabatan sebagai Komisaris Telkom.",
+        "political_flag": true,
+        "political_affiliation": "Wakil Menteri Imigrasi dan Pemasyarakatan",
+        "controversy": "Dual position: deputy minister / political figure + BUMN commissioner. Violates spirit of Constitutional Court Decision No. 80/PUU-XXII/2019.",
+        "raw_text": "Silmy Karim Wakil Menteri Imigrasi dan Pemasyarakatan. Merangkap jabatan sebagai Komisaris Telkom.",
+        "source": "Kompas"
+      },
+      {
+        "name": "Yohanes Surya",
+        "role": "Komisaris Independen",
+        "background": "",
+        "political_flag": false,
+        "political_affiliation": "",
+        "controversy": "",
+        "raw_text": "Yohanes Surya ",
+        "source": "Kompas RUPST 2025"
+      },
+      {
+        "name": "Deswandhy Agusman",
+        "role": "Komisaris Independen",
+        "background": "Pengalaman di bidang finance dan capital markets. Mantan Independent Commissioner Berau Coal Energy, Maybank Sekuritas Indonesia.",
+        "political_flag": false,
+        "political_affiliation": "",
+        "controversy": "",
+        "raw_text": "Deswandhy Agusman Pengalaman di bidang finance dan capital markets. Mantan Independent Commissioner Berau Coal Energy, Maybank Sekuritas Indonesia.",
+        "source": "Telkom.co.id"
+      },
+      {
+        "name": "Rizal Mallarangeng",
+        "role": "Komisaris Independen",
+        "background": "S1 Ilmu Komunikasi UGM 1990, S2/S3 Comparative Politics Ohio State University. Ketua Yayasan Prabowo Subianto Djojohadikusumo (since 2022).",
+        "political_flag": false,
+        "political_affiliation": "",
+        "controversy": "",
+        "raw_text": "Rizal Mallarangeng S1 Ilmu Komunikasi UGM 1990, S2/S3 Comparative Politics Ohio State University. Ketua Yayasan Prabowo Subianto Djojohadikusumo (since 2022).",
+        "source": "Telkom.co.id"
+      }
+    ],
+    "page_title": "Elevating Your Future | Telkom",
+    "raw_text_length": 10146,
+    "error": ""
+  },
+  {
+    "bumn_name": "PT Pertamina (Persero)",
+    "short_name": "Pertamina",
+    "sector": "Energy / Oil & Gas",
+    "ticker": "None",
+    "source_url": "https://www.pertamina.com/id/dewan-komisaris",
+    "scrape_date": "2026-06-26T11:17:37.506481",
+    "commissioners": [
+      {
+        "name": "Dewan",
+        "role": "komisaris",
+        "background": "Bisnis Kami One Energy, One Pertamina Subholding Upstream Subholding Downstream Subholding Gas Subholding Power & NRE Subholding Integrated Marine Logistics Subholding AP & Services PT Pertamina Bina Medika IHC PT Pertamina Training & Consulting PT Patra Jasa PT Pelita Air Service PT Asuransi Tugu Pratama Indonesia Tbk PT Pertamina Pedeve Indonesia Global Presence Hubungan Investor General Overview CEO Message Shareholders Highlights Operational Highlight Financial Highlight Investor Publications",
+        "political_flag": false,
+        "political_affiliation": "",
+        "controversy": "",
+        "raw_text": "Dewan Bisnis Kami One Energy, One Pertamina Subholding Upstream Subholding Downstream Subholding Gas Subholding Power & NRE Subholding Integrated Marine Logistics Subholding AP & Services PT Pertamina Bina Medika IHC PT Pertamina Training & Consulting PT Patra Jasa PT Pelita Air Service PT Asuransi Tugu Pratama Indonesia Tbk PT Pertamina Pedeve Indonesia Global Presence Hubungan Investor General Overview CEO Message Shareholders Highlights Operational Highlight Financial Highlight Investor Publi"
+      },
+      {
+        "name": "Mochamad Iriawan",
+        "role": "Komisaris Utama & Komisaris Independen",
+        "background": "Komisaris Jenderal Polisi (Purn.) Dr. Drs. H. Mochamad Iriawan, S.H., M.M., M.H. Lahir di Jakarta 31 Maret 1962. Lulusan Akademi Kepolisian 1984. Mantan Sekretaris Lembaga Ketahanan Nasional (2018). Diangkat berdasarkan SK-258/MBU/11/2024 pada 4 November 2024.",
+        "political_flag": false,
+        "political_affiliation": "",
+        "controversy": "",
+        "raw_text": "Mochamad Iriawan Komisaris Jenderal Polisi (Purn.) Dr. Drs. H. Mochamad Iriawan, S.H., M.M., M.H. Lahir di Jakarta 31 Maret 1962. Lulusan Akademi Kepolisian 1984. Mantan Sekretaris Lembaga Ketahanan Nasional (2018). Diangkat berdasarkan SK-258/MBU/11/2024 pada 4 November 2024.",
+        "source": "Pertamina.com"
+      },
+      {
+        "name": "Dony Oskaria",
+        "role": "Wakil Komisaris Utama",
+        "background": "S.IP., M.B.A.",
+        "political_flag": false,
+        "political_affiliation": "",
+        "controversy": "",
+        "raw_text": "Dony Oskaria S.IP., M.B.A.",
+        "source": "Pertamina.com"
+      },
+      {
+        "name": "Bambang Suswantono",
+        "role": "Komisaris",
+        "background": "Letjen TNI (Mar) (Purn) Bambang Suswantono, S.H., M.H., M.Tr. (Han)",
+        "political_flag": false,
+        "political_affiliation": "",
+        "controversy": "",
+        "raw_text": "Bambang Suswantono Letjen TNI (Mar) (Purn) Bambang Suswantono, S.H., M.H., M.Tr. (Han)",
+        "source": "Pertamina.com"
+      },
+      {
+        "name": "Condro Kirono",
+        "role": "Komisaris Independen",
+        "background": "Komisaris Jenderal Polisi (Purn.) Drs. Condro Kirono, M.M., M.Hum.",
+        "political_flag": false,
+        "political_affiliation": "",
+        "controversy": "",
+        "raw_text": "Condro Kirono Komisaris Jenderal Polisi (Purn.) Drs. Condro Kirono, M.M., M.Hum.",
+        "source": "Pertamina.com"
+      },
+      {
+        "name": "Sondaryani",
+        "role": "Komisaris Independen",
+        "background": "S.T. Lulusan Teknik Perminyakan Universitas Trisakti 1987. Country Manager Downhole Technologies NOV Inc. Komisaris Independen Pertamina 2016-2024.",
+        "political_flag": false,
+        "political_affiliation": "",
+        "controversy": "",
+        "raw_text": "Sondaryani S.T. Lulusan Teknik Perminyakan Universitas Trisakti 1987. Country Manager Downhole Technologies NOV Inc. Komisaris Independen Pertamina 2016-2024.",
+        "source": "Pertamina.com"
+      },
+      {
+        "name": "Iggi H. Achsien",
+        "role": "Komisaris Independen",
+        "background": "Lahir di Indramayu 1977. Diangkat berdasarkan SK-222/MBU/07/2021 pada 2 Juli 2021.",
+        "political_flag": false,
+        "political_affiliation": "",
+        "controversy": "",
+        "raw_text": "Iggi H. Achsien Lahir di Indramayu 1977. Diangkat berdasarkan SK-222/MBU/07/2021 pada 2 Juli 2021.",
+        "source": "Pertamina.com"
+      },
+      {
+        "name": "Alexander Lay",
+        "role": "Komisaris Independen",
+        "background": "Pria kelahiran Ende, Flores 1973. Mantan Dewan Pengawas Transparency International Indonesia. Advokat hukum persaingan usaha.",
+        "political_flag": false,
+        "political_affiliation": "",
+        "controversy": "",
+        "raw_text": "Alexander Lay Pria kelahiran Ende, Flores 1973. Mantan Dewan Pengawas Transparency International Indonesia. Advokat hukum persaingan usaha.",
+        "source": "Pertamina.com"
+      }
+    ],
+    "page_title": "404 - Not Found | PT Pertamina (Persero)",
+    "raw_text_length": 2831,
+    "error": ""
+  },
+  {
+    "bumn_name": "PT PLN (Persero)",
+    "short_name": "PLN",
+    "sector": "Electricity / Power",
+    "ticker": "None",
+    "source_url": "",
+    "scrape_date": "2026-06-26T11:17:41.634326",
+    "commissioners": [
+      {
+        "name": "Burhanuddin Abdullah",
+        "role": "President Commissioner & Independent Commissioner",
+        "background": "",
+        "political_flag": false,
+        "political_affiliation": "",
+        "controversy": "",
+        "raw_text": "Burhanuddin Abdullah ",
+        "source": "PLN official website"
+      },
+      {
+        "name": "Suahasil Nazara",
+        "role": "Vice President Commissioner",
+        "background": "Wakil Menteri Keuangan (Wamen Keuangan). Merangkap sebagai Wakil Komisaris Utama PLN.",
+        "political_flag": true,
+        "political_affiliation": "Wakil Menteri Keuangan",
+        "controversy": "Dual position: deputy minister / political figure + BUMN commissioner. Violates spirit of Constitutional Court Decision No. 80/PUU-XXII/2019.",
+        "raw_text": "Suahasil Nazara Wakil Menteri Keuangan (Wamen Keuangan). Merangkap sebagai Wakil Komisaris Utama PLN.",
+        "source": "PLN official, Kompas"
+      },
+      {
+        "name": "Aminuddin Ma'ruf",
+        "role": "Commissioner",
+        "background": "",
+        "political_flag": false,
+        "political_affiliation": "",
+        "controversy": "",
+        "raw_text": "Aminuddin Ma'ruf ",
+        "source": "PLN official website"
+      },
+      {
+        "name": "Dadan Kusdiana",
+        "role": "Commissioner",
+        "background": "",
+        "political_flag": false,
+        "political_affiliation": "",
+        "controversy": "",
+        "raw_text": "Dadan Kusdiana ",
+        "source": "PLN official website"
+      },
+      {
+        "name": "Jisman Parada Hutajulu",
+        "role": "Commissioner",
+        "background": "",
+        "political_flag": false,
+        "political_affiliation": "",
+        "controversy": "",
+        "raw_text": "Jisman Parada Hutajulu ",
+        "source": "PLN official website"
+      },
+      {
+        "name": "Bambang Eko Suhariyanto",
+        "role": "Commissioner",
+        "background": "",
+        "political_flag": false,
+        "political_affiliation": "",
+        "controversy": "",
+        "raw_text": "Bambang Eko Suhariyanto ",
+        "source": "PLN official website"
+      },
+      {
+        "name": "Yazid Fanani",
+        "role": "Independent Commissioner",
+        "background": "",
+        "political_flag": false,
+        "political_affiliation": "",
+        "controversy": "",
+        "raw_text": "Yazid Fanani ",
+        "source": "PLN official website"
+      },
+      {
+        "name": "Mutanto Juwono",
+        "role": "Independent Commissioner",
+        "background": "",
+        "political_flag": false,
+        "political_affiliation": "",
+        "controversy": "",
+        "raw_text": "Mutanto Juwono ",
+        "source": "PLN official website"
+      },
+      {
+        "name": "Andi Arief",
+        "role": "Independent Commissioner",
+        "background": "",
+        "political_flag": false,
+        "political_affiliation": "",
+        "controversy": "",
+        "raw_text": "Andi Arief ",
+        "source": "PLN official website"
+      }
+    ],
+    "page_title": "",
+    "raw_text_length": 0,
+    "error": "Page.goto: NS_ERROR_UNKNOWN_HOST\nCall log:\n  - navigating to \"https://web.pln.co.id/en/about-us/board-of-commissioners\", waiting until \"domcontentloaded\"\n"
+  },
+  {
+    "bumn_name": "PT Bank Mandiri (Persero) Tbk",
+    "short_name": "Bank Mandiri",
+    "sector": "Banking",
+    "ticker": "BMRI.JK",
+    "source_url": "https://www.bankmandiri.co.id/dewan-komisaris-direksi",
+    "scrape_date": "2026-06-26T11:17:41.787805",
+    "commissioners": [
+      {
+        "name": "Dewan & Direksi",
+        "role": "komisaris",
+        "background": "",
+        "political_flag": false,
+        "political_affiliation": "",
+        "controversy": "",
+        "raw_text": "Dewan & Direksi "
+      },
+      {
+        "name": "Dewan",
+        "role": "komisaris",
+        "background": "Zulkifli Zaini",
+        "political_flag": false,
+        "political_affiliation": "",
+        "controversy": "",
+        "raw_text": "Dewan Zulkifli Zaini"
+      },
+      {
+        "name": "Komisaris Independen",
+        "role": "komisaris utama",
+        "background": "Rudy Salahuddin Ramto",
+        "political_flag": false,
+        "political_affiliation": "",
+        "controversy": "",
+        "raw_text": "Komisaris Independen Rudy Salahuddin Ramto"
+      },
+      {
+        "name": "Wakil",
+        "role": "komisaris utama",
+        "background": "Luky Alfirman",
+        "political_flag": false,
+        "political_affiliation": "",
+        "controversy": "",
+        "raw_text": "Wakil Luky Alfirman"
+      },
+      {
+        "name": "Yuliot",
+        "role": "Komisaris",
+        "background": "",
+        "political_flag": false,
+        "political_affiliation": "",
+        "controversy": "",
+        "raw_text": "Yuliot ",
+        "source": "Bankmandiri.co.id"
+      },
+      {
+        "name": "Mia Amiati",
+        "role": "Komisaris Independen",
+        "background": "",
+        "political_flag": false,
+        "political_affiliation": "",
+        "controversy": "",
+        "raw_text": "Mia Amiati ",
+        "source": "Bankmandiri.co.id"
+      },
+      {
+        "name": "Bintoro K. Pardewo",
+        "role": "komisaris independen",
+        "background": "",
+        "political_flag": false,
+        "political_affiliation": "",
+        "controversy": "",
+        "raw_text": "Bintoro K. Pardewo "
+      },
+      {
+        "name": "Zulkifli Zaini",
+        "role": "Komisaris Utama/Independen",
+        "background": "Lahir Palembang 1956. S1 Teknik Sipil ITB, MBA University of Washington. Mantan Direktur Utama Bank Mandiri (2010-2013). Mantan Dirut PLN (2019-2021). Komisaris Utama PTPN III (2021-2025). Diangkat sebagai Komut Mandiri RUPSLB 19 Des 2025, menggantikan Kuswiyoto.",
+        "political_flag": false,
+        "political_affiliation": "",
+        "controversy": "",
+        "raw_text": "Zulkifli Zaini Lahir Palembang 1956. S1 Teknik Sipil ITB, MBA University of Washington. Mantan Direktur Utama Bank Mandiri (2010-2013). Mantan Dirut PLN (2019-2021). Komisaris Utama PTPN III (2021-2025). Diangkat sebagai Komut Mandiri RUPSLB 19 Des 2025, menggantikan Kuswiyoto.",
+        "source": "Bankmandiri.co.id, Infobanknews"
+      },
+      {
+        "name": "M. Rudy Salahuddin Ramto",
+        "role": "Wakil Komisaris Utama",
+        "background": "Sekretaris Kementerian Investasi dan Hilirisasi / Sekretaris Utama BKPM. S1 Teknik Sipil UI, S2/S3 Engineering Management George Washington University. Komisaris PT Aneka Tambang, PT Jasa Raharja, Perum PERURI, PT PLN.",
+        "political_flag": true,
+        "political_affiliation": "Detected political keyword: 'menteri'",
+        "controversy": "Background text contains political affiliation indicators.",
+        "raw_text": "M. Rudy Salahuddin Ramto Sekretaris Kementerian Investasi dan Hilirisasi / Sekretaris Utama BKPM. S1 Teknik Sipil UI, S2/S3 Engineering Management George Washington University. Komisaris PT Aneka Tambang, PT Jasa Raharja, Perum PERURI, PT PLN.",
+        "source": "Bankmandiri.co.id, Infobanknews"
+      },
+      {
+        "name": "B. Bintoro Kunto Pardewo",
+        "role": "Komisaris Independen",
+        "background": "Lahir Bandung 1970. PhD Economics University of Colorado. Executive Analyst & Deputi Direktur Bank Indonesia. Komisaris PT Danareksa. S1 Teknik Mesin UI, MBA Iowa State University.",
+        "political_flag": false,
+        "political_affiliation": "",
+        "controversy": "",
+        "raw_text": "B. Bintoro Kunto Pardewo Lahir Bandung 1970. PhD Economics University of Colorado. Executive Analyst & Deputi Direktur Bank Indonesia. Komisaris PT Danareksa. S1 Teknik Mesin UI, MBA Iowa State University.",
+        "source": "Bankmandiri.co.id, Infobanknews"
+      },
+      {
+        "name": "Luky Alfirman",
+        "role": "Komisaris",
+        "background": "Direktur Jenderal Perimbangan Keuangan, Kementerian Keuangan RI. Dewan Komisaris Lembaga Penjamin Simpanan.",
+        "political_flag": true,
+        "political_affiliation": "Detected political keyword: 'menteri'",
+        "controversy": "Background text contains political affiliation indicators.",
+        "raw_text": "Luky Alfirman Direktur Jenderal Perimbangan Keuangan, Kementerian Keuangan RI. Dewan Komisaris Lembaga Penjamin Simpanan.",
+        "source": "Bankmandiri.co.id"
+      }
+    ],
+    "page_title": "Dewan Komisaris & Direksi",
+    "raw_text_length": 1653,
+    "error": ""
+  },
+  {
+    "bumn_name": "PT Bank Rakyat Indonesia (Persero) Tbk",
+    "short_name": "BRI",
+    "sector": "Banking",
+    "ticker": "BBRI.JK",
+    "source_url": "https://bri.co.id/web/guest/dewan-komisaris-direksi",
+    "scrape_date": "2026-06-26T11:17:46.708677",
+    "commissioners": [
+      {
+        "name": "Kartika Wirjoatmodjo",
+        "role": "Komisaris Utama",
+        "background": "Tetap sebagai Komut BRI pada RUPST 2025.",
+        "political_flag": false,
+        "political_affiliation": "",
+        "controversy": "",
+        "raw_text": "Kartika Wirjoatmodjo Tetap sebagai Komut BRI pada RUPST 2025.",
+        "source": "Investortrust, BRI annual report"
+      },
+      {
+        "name": "Parman Nataatmadja",
+        "role": "Wakil Komisaris Utama/Komisaris Independen",
+        "background": "",
+        "political_flag": false,
+        "political_affiliation": "",
+        "controversy": "",
+        "raw_text": "Parman Nataatmadja ",
+        "source": "Investortrust"
+      },
+      {
+        "name": "Awan Nurmawan Nuh",
+        "role": "Komisaris",
+        "background": "",
+        "political_flag": false,
+        "political_affiliation": "",
+        "controversy": "",
+        "raw_text": "Awan Nurmawan Nuh ",
+        "source": "Investortrust"
+      },
+      {
+        "name": "Helvi Yuni Moraza",
+        "role": "Komisaris",
+        "background": "",
+        "political_flag": false,
+        "political_affiliation": "",
+        "controversy": "",
+        "raw_text": "Helvi Yuni Moraza ",
+        "source": "Investortrust"
+      },
+      {
+        "name": "Edi Susianto",
+        "role": "Komisaris Independen",
+        "background": "",
+        "political_flag": false,
+        "political_affiliation": "",
+        "controversy": "",
+        "raw_text": "Edi Susianto ",
+        "source": "Investortrust"
+      },
+      {
+        "name": "Lukmanul Khakim",
+        "role": "Komisaris Independen",
+        "background": "",
+        "political_flag": false,
+        "political_affiliation": "",
+        "controversy": "",
+        "raw_text": "Lukmanul Khakim ",
+        "source": "Investortrust"
+      }
+    ],
+    "page_title": "Home BRI - Melayani setulus hati",
+    "raw_text_length": 596,
+    "error": ""
+  },
+  {
+    "bumn_name": "PT Garuda Indonesia (Persero) Tbk",
+    "short_name": "Garuda",
+    "sector": "Aviation",
+    "ticker": "GIAA.JK",
+    "source_url": "https://www.garuda-indonesia.com/id/id/corporate-social-responsibility/governance/dewan-komisaris",
+    "scrape_date": "2026-06-26T11:18:02.548943",
+    "commissioners": [],
+    "page_title": "Tunggu sebentar...",
+    "raw_text_length": 270,
+    "error": ""
+  },
+  {
+    "bumn_name": "PT Indosat Tbk",
+    "short_name": "Indosat",
+    "sector": "Telecommunications",
+    "ticker": "ISAT.JK",
+    "source_url": "",
+    "scrape_date": "2026-06-26T11:18:15.928951",
+    "commissioners": [
+      {
+        "name": "Nezar Patria",
+        "role": "Komisaris Utama (President Commissioner)",
+        "background": "Wakil Menteri Komunikasi dan Digital (Wamen Komdigital). Diangkat sebagai President Commissioner PT Indosat Tbk.",
+        "political_flag": true,
+        "political_affiliation": "Wakil Menteri Komunikasi dan Digital",
+        "controversy": "Dual position: deputy minister / political figure + BUMN commissioner. Violates spirit of Constitutional Court Decision No. 80/PUU-XXII/2019.",
+        "raw_text": "Nezar Patria Wakil Menteri Komunikasi dan Digital (Wamen Komdigital). Diangkat sebagai President Commissioner PT Indosat Tbk.",
+        "source": "Kompas, May 2025"
+      }
+    ],
+    "page_title": "",
+    "raw_text_length": 0,
+    "error": "Page.goto: NS_ERROR_UNKNOWN_HOST\nCall log:\n  - navigating to \"https://www.indosat.com/about-indosat/corporate-profile/board-of-directors-chief\", waiting until \"domcontentloaded\"\n"
+  }
+]

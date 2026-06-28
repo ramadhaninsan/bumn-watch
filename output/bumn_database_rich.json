@@ -1,0 +1,1787 @@
+{
+  "database_name": "BUMN Commissioner Database — Rich Demographics",
+  "generated": "2026-06-26T16:14:04.620279",
+  "total": 37,
+  "fields": [
+    "name",
+    "bumn",
+    "role",
+    "sector",
+    "status",
+    "party",
+    "political_affiliation",
+    "evidence",
+    "sources",
+    "birth_year",
+    "age",
+    "education",
+    "career",
+    "commissioner_since",
+    "wealth",
+    "wealth_source"
+  ],
+  "commissioners": [
+    {
+      "name": "Ossy Dermawan",
+      "bumn": "Telkom",
+      "role": "Komisaris",
+      "sector": "Telekomunikasi",
+      "status": "kader_partai",
+      "party": "Demokrat",
+      "political_affiliation": "Partai Demokrat (Wasekjen DPP)",
+      "evidence": "Wakil Sekretaris Jenderal DPP Partai Demokrat. Wamen ATR/BPN di Kabinet Prabowo. Staf pribadi SBY 2014-2018. Diangkat Telkom commissioner May 2025.",
+      "sources": [
+        "https://www.beritasatu.com/nasional/2848866/profil-ossy-dermawan-wasekjen-partai-demokrat-yang-dipanggil-prabowo-subianto-ke-kediamannya",
+        "https://id.wikipedia.org/wiki/Ossy_Dermawan",
+        "https://www.cnbcindonesia.com/news/20241016004452-4-580078/staf-pribadi-sby-ossy-dermawan-prabowo-tugaskan-saya-sebagai-wamen",
+        "https://market.bisnis.com/read/20250527/192/1880519/dewan-komisaris-telkom-tlkm-dirombak-2-politisi-masuk"
+      ],
+      "birth_year": 1976,
+      "age": 49,
+      "education": [
+        {
+          "degree": "BSc",
+          "university": "Norwich University, USA",
+          "major": "Business Administration & CIS",
+          "year": 2000
+        },
+        {
+          "degree": "MSc",
+          "university": "Nanyang Technological University, Singapura",
+          "major": "Strategic Studies",
+          "year": 2014
+        }
+      ],
+      "career": [
+        {
+          "role": "Perwira TNI AD",
+          "org": "TNI Angkatan Darat",
+          "period": "2001-2014"
+        },
+        {
+          "role": "Asisten Pribadi Presiden SBY",
+          "org": "Kepresidenan RI",
+          "period": "2014-2018"
+        },
+        {
+          "role": "Wakil Menteri ATR/BPN",
+          "org": "Kementerian ATR/BPN",
+          "period": "2024-sekarang"
+        },
+        {
+          "role": "Komisaris",
+          "org": "PT Telkom Indonesia",
+          "period": "2025-sekarang"
+        }
+      ],
+      "commissioner_since": "2025-05-28",
+      "wealth": null,
+      "wealth_source": null
+    },
+    {
+      "name": "Ismail",
+      "bumn": "Telkom",
+      "role": "Komisaris",
+      "sector": "Telekomunikasi",
+      "status": "pejabat",
+      "party": "Non-Partisan",
+      "political_affiliation": "None (Sekjen Komdigi)",
+      "evidence": "Sekjen Kementerian Komunikasi dan Digital. Career civil servant since 1993. ITB graduate. No party affiliation.",
+      "sources": [
+        "https://www.antaranews.com/berita/4580838/profil-ismail-sekretaris-jenderal-komdigi-yang-baru-dilantik",
+        "https://www.idnfinancials.com/id/news/54876/lima-pejabat-negara-masuk-komisaris-tlkm-berikut-sosoknya"
+      ],
+      "birth_year": null,
+      "age": null,
+      "education": [],
+      "career": [],
+      "commissioner_since": null,
+      "wealth": null,
+      "wealth_source": null
+    },
+    {
+      "name": "Rionald Silaban",
+      "bumn": "Telkom",
+      "role": "Komisaris",
+      "sector": "Telekomunikasi",
+      "status": "pejabat",
+      "party": "Non-Partisan",
+      "political_affiliation": "None (Dirjen DJKN)",
+      "evidence": "Dirjen Kekayaan Negara Kemenkeu. No party affiliation or TKN role found.",
+      "sources": [
+        "https://www.tempo.co/ekonomi/wamen-komdigi-hingga-dirjen-kemenkeu-masuk-jajaran-komisaris-telkom-1583587",
+        "https://market.bisnis.com/read/20250527/192/1880519/dewan-komisaris-telkom-tlkm-dirombak-2-politisi-masuk"
+      ],
+      "birth_year": null,
+      "age": null,
+      "education": [],
+      "career": [],
+      "commissioner_since": null,
+      "wealth": null,
+      "wealth_source": null
+    },
+    {
+      "name": "Yohanes Surya",
+      "bumn": "Telkom",
+      "role": "Komisaris Independen",
+      "sector": "Telekomunikasi",
+      "status": "profesional",
+      "party": "Non-Partisan",
+      "political_affiliation": "None",
+      "evidence": "Renowned physicist, physics olympiad coach. No party links. Resigned Nov 2025.",
+      "sources": [
+        "https://www.tempo.co/ekonomi/sosok-yohanes-surya-perintis-olimpiade-fisika-yang-mundur-dari-komisaris-telkom-2092010",
+        "https://www.idnfinancials.com/id/news/54876/lima-pejabat-negara-masuk-komisaris-tlkm-berikut-sosoknya"
+      ],
+      "birth_year": null,
+      "age": null,
+      "education": [],
+      "career": [],
+      "commissioner_since": null,
+      "wealth": null,
+      "wealth_source": null
+    },
+    {
+      "name": "Deswandhy Agusman",
+      "bumn": "Telkom",
+      "role": "Komisaris Independen",
+      "sector": "Telekomunikasi",
+      "status": "profesional",
+      "party": "Yayasan Prabowo",
+      "political_affiliation": "Chairman Yayasan Prabowo Subianto Djojohadikusumo (since 2022)",
+      "evidence": "Career finance professional. Chairman of Yayasan Prabowo Subianto — significant political link despite no formal party membership.",
+      "sources": [
+        "https://www.telkom.co.id/sites/about-telkom/id_ID/page/dewan-komisaris-197",
+        "https://www.idnfinancials.com/id/news/54876/lima-pejabat-negara-masuk-komisaris-tlkm-berikut-sosoknya"
+      ],
+      "birth_year": null,
+      "age": null,
+      "education": [],
+      "career": [],
+      "commissioner_since": null,
+      "wealth": null,
+      "wealth_source": null
+    },
+    {
+      "name": "Bambang Suswantono",
+      "bumn": "Pertamina",
+      "role": "Komisaris",
+      "sector": "Energi",
+      "status": "pejabat",
+      "party": "Non-Partisan",
+      "political_affiliation": "None (TNI Mar Purn)",
+      "evidence": "Letjen TNI Mar (Purn). Former Danpaspampres, Irjen TNI, Irjen Kemenhan/ESDM. No party affiliation found.",
+      "sources": [
+        "https://www.tribunnews.com/nasional/2024/06/10/profil-letjen-tni-mar-purn-bambang-suswantono-komisaris-pertamina-juga-eks-komandan-paspampres",
+        "https://www.cnnindonesia.com/ekonomi/20230922185909-92-1002604/profil-bambang-suswantono-dari-perwira-jadi-komisaris-baru-pertamina",
+        "https://id.wikipedia.org/wiki/Bambang_Suswantono"
+      ],
+      "birth_year": null,
+      "age": null,
+      "education": [],
+      "career": [],
+      "commissioner_since": null,
+      "wealth": null,
+      "wealth_source": null
+    },
+    {
+      "name": "Condro Kirono",
+      "bumn": "Pertamina",
+      "role": "Komisaris Independen",
+      "sector": "Energi",
+      "status": "relawan_pemenangan",
+      "party": "TKN Prabowo",
+      "political_affiliation": "TKN Prabowo-Gibran (Wakil Ketua)",
+      "evidence": "Wakil Ketua TKN Prabowo-Gibran Pilpres 2024. Komjen Pol Purn. Appointed Pertamina commissioner June 2024.",
+      "sources": [
+        "https://www.fortuneidn.com/business/12-nama-komisaris-bumn-dari-relawan-pemenangan-prabowo-gibran-00-my5jv-tybjpj",
+        "https://www.cnbcindonesia.com/news/20231106173024-4-486812/simak-susunan-lengkap-tim-kampanye-nasional-prabowo-gibran",
+        "https://www.tempo.co/ekonomi/deretan-pendukung-prabowo-gibran-yang-kini-jadi-bos-bumn-1164207",
+        "https://tirto.id/prabowo-belum-dilantik-tapi-orang-dekatnya-mulai-kuasai-bumn-gZzc"
+      ],
+      "birth_year": 1961,
+      "age": 64,
+      "education": [
+        {
+          "degree": "Akpol",
+          "university": "Akademi Kepolisian",
+          "major": "Kepolisian",
+          "year": 1984
+        },
+        {
+          "degree": "S2 MM",
+          "university": "Tidak disebutkan",
+          "major": "Manajemen",
+          "year": null
+        },
+        {
+          "degree": "S2 MHum",
+          "university": "Tidak disebutkan",
+          "major": "Humaniora",
+          "year": null
+        }
+      ],
+      "career": [
+        {
+          "role": "Kapolda Jawa Timur",
+          "org": "Polri",
+          "period": "2007"
+        },
+        {
+          "role": "Kapolda Metro Jaya",
+          "org": "Polri",
+          "period": "2008"
+        },
+        {
+          "role": "Kakorlantas",
+          "org": "Polri",
+          "period": "2014"
+        },
+        {
+          "role": "Wakil Ketua TKN",
+          "org": "TKN Prabowo-Gibran",
+          "period": "2024"
+        },
+        {
+          "role": "Komisaris Independen",
+          "org": "PT Pertamina",
+          "period": "2024-sekarang"
+        }
+      ],
+      "commissioner_since": "2024-06-10",
+      "wealth": "Rp64 miliar",
+      "wealth_source": "LHKPN e-LHKPN KPK (tidak punya utang)"
+    },
+    {
+      "name": "Sondaryani",
+      "bumn": "Pertamina",
+      "role": "Komisaris Independen",
+      "sector": "Energi",
+      "status": "profesional",
+      "party": "Non-Partisan",
+      "political_affiliation": "None found",
+      "evidence": "Oil industry professional. Former Ketua Ikatan Alumni Perminyakan Trisakti. No direct political evidence.",
+      "sources": [
+        "https://www.tempo.co/ekonomi/rekam-jejak-raden-adjeng-sondaryani-yang-ditunjuk-jadi-komisaris-independen-pertamina-1163490",
+        "https://www.metrotvnews.com/read/NOlCnErd-profil-singkat-jajaran-komisaris-baru-pertamina-dari-iwan-bule-hingga-raden-adjeng"
+      ],
+      "birth_year": null,
+      "age": null,
+      "education": [],
+      "career": [],
+      "commissioner_since": null,
+      "wealth": null,
+      "wealth_source": null
+    },
+    {
+      "name": "Iggi H. Achsien",
+      "bumn": "Pertamina",
+      "role": "Komisaris Independen",
+      "sector": "Energi",
+      "status": "profesional",
+      "party": "Non-Partisan",
+      "political_affiliation": "None found",
+      "evidence": "Finance/banking professional. MBA ITB. No party links found.",
+      "sources": [
+        "https://www.linkedin.com/in/iggi-achsien-44a07378/",
+        "https://www.ntvnews.id/news/014075/profil-simon-aloisius-mantiri-bendahara-tkn-prabowo-gibran-yang-jadi-komut-pertamina-gantikan-ahok?page=2"
+      ],
+      "birth_year": null,
+      "age": null,
+      "education": [],
+      "career": [],
+      "commissioner_since": null,
+      "wealth": null,
+      "wealth_source": null
+    },
+    {
+      "name": "Alexander Lay",
+      "bumn": "Pertamina",
+      "role": "Komisaris Independen",
+      "sector": "Energi",
+      "status": "relawan_pemenangan",
+      "party": "Relawan Jokowi",
+      "political_affiliation": "Relawan Jokowi 2019 (not Prabowo)",
+      "evidence": "One of 10 lawyers who defended Jokowi in 2019 pilpres court case. Former Stafsus Mensesneg. Appointed Pertamina commissioner 2017.",
+      "sources": [
+        "https://www.tribunnews.com/nasional/2024/06/10/profil-alexander-lay-komisaris-independen-pertamina-yang-baru-mantan-relawan-jokowi",
+        "https://www.cnnindonesia.com/ekonomi/20170913141505-85-241439/relawan-jokowi-alexander-lay-didapuk-jadi-komisaris-pertamina",
+        "https://www.dunia-energi.com/staf-khusus-mensesneg-ditunjuk-jadi-komisaris-pertamina/"
+      ],
+      "birth_year": null,
+      "age": null,
+      "education": [],
+      "career": [],
+      "commissioner_since": null,
+      "wealth": null,
+      "wealth_source": null
+    },
+    {
+      "name": "Burhanuddin Abdullah",
+      "bumn": "PLN",
+      "role": "President Commissioner",
+      "sector": "Energi",
+      "status": "kader_partai",
+      "party": "Gerindra",
+      "political_affiliation": "Partai Gerindra + TKN Prabowo-Gibran (Ketua Dewan Pakar)",
+      "evidence": "Ketua Dewan Pakar TKN Prabowo-Gibran. Ketua Dewan Pakar Partai Gerindra. Former Gubernur BI. Appointed PLN Komut July 2024.",
+      "sources": [
+        "https://www.fortuneidn.com/business/12-nama-komisaris-bumn-dari-relawan-pemenangan-prabowo-gibran-00-my5jv-tybjpj",
+        "https://www.tempo.co/ekonomi/sosok-burhanuddin-abdullah-dari-gubernur-bi-tersangka-kpk-tkn-prabowo-hingga-komisaris-utama-pln-36800",
+        "https://www.kompas.com/tren/read/2024/07/25/083000365/profil-burhanuddin-abdullah-ketua-dewan-pakar-tkn-yang-jadi-komut-pln",
+        "https://www.tempo.co/ekonomi/deretan-pendukung-prabowo-gibran-yang-kini-jadi-bos-bumn-1164207"
+      ],
+      "birth_year": 1947,
+      "age": 78,
+      "education": [
+        {
+          "degree": "S1 Ir",
+          "university": "Universitas Padjadjaran",
+          "major": "Pertanian",
+          "year": 1974
+        },
+        {
+          "degree": "MA",
+          "university": "Michigan State University",
+          "major": "Ekonomi",
+          "year": 1984
+        },
+        {
+          "degree": "Dr (HC)",
+          "university": "Universitas Diponegoro",
+          "major": "Ekonomi",
+          "year": 2006
+        }
+      ],
+      "career": [
+        {
+          "role": "Staff",
+          "org": "IMF Asia Pacific Dept",
+          "period": null
+        },
+        {
+          "role": "Menteri Koordinator Perekonomian",
+          "org": "Pemerintah RI (Gus Dur)",
+          "period": "2001"
+        },
+        {
+          "role": "Gubernur Bank Indonesia",
+          "org": "Bank Indonesia",
+          "period": "2003-2008"
+        },
+        {
+          "role": "Ketua Dewan Pakar TKN",
+          "org": "TKN Prabowo-Gibran",
+          "period": "2024"
+        },
+        {
+          "role": "Komisaris Utama",
+          "org": "PT PLN",
+          "period": "2024-sekarang"
+        }
+      ],
+      "commissioner_since": "2024-07-23",
+      "wealth": null,
+      "wealth_source": "Pernah dipidana 5 tahun penjara kasus korupsi BI"
+    },
+    {
+      "name": "Aminuddin Ma'ruf",
+      "bumn": "PLN",
+      "role": "Commissioner",
+      "sector": "Energi",
+      "status": "relawan_pemenangan",
+      "party": "TKN Prabowo",
+      "political_affiliation": "TKN Prabowo-Gibran (Wakil Sekretaris) + alumni PMII",
+      "evidence": "Wakil Sekretaris TKN Prabowo-Gibran. Founder Samawi (relawan Jokowi 2019). Now Wakil Kepala BP BUMN + PLN Commissioner.",
+      "sources": [
+        "https://www.nu.or.id/nasional/profil-7-alumni-pmii-yang-duduk-di-kabinet-merah-putih-prabowo-88Wy4",
+        "https://www.antaranews.com/berita/4403313/sosok-aminuddin-maruf-eks-stafsus-jokowi-menuju-kabinet-prabowo",
+        "https://nasional.kompas.com/read/2023/11/07/12193031/orang-orang-lingkaran-istana-yang-masuk-tim-kampanye-prabowo-gibran"
+      ],
+      "birth_year": 1986,
+      "age": 38,
+      "education": [
+        {
+          "degree": "S1",
+          "university": "Universitas Negeri Jakarta",
+          "major": "Ekonomi dan Administrasi",
+          "year": 2010
+        },
+        {
+          "degree": "S2",
+          "university": "Universitas Airlangga",
+          "major": "Sedang menempuh",
+          "year": null
+        }
+      ],
+      "career": [
+        {
+          "role": "Ketua Umum PB PMII",
+          "org": "PMII",
+          "period": "2014-2016"
+        },
+        {
+          "role": "Staf Khusus Presiden Jokowi",
+          "org": "Kepresidenan RI",
+          "period": null
+        },
+        {
+          "role": "Wakil Sekretaris TKN",
+          "org": "TKN Prabowo-Gibran",
+          "period": "2024"
+        },
+        {
+          "role": "Wakil Kepala BP BUMN",
+          "org": "BP BUMN",
+          "period": "2024-sekarang"
+        },
+        {
+          "role": "Komisaris",
+          "org": "PT PLN",
+          "period": "2024-sekarang"
+        }
+      ],
+      "commissioner_since": "2024-11-14",
+      "wealth": null,
+      "wealth_source": null
+    },
+    {
+      "name": "Dadan Kusdiana",
+      "bumn": "PLN",
+      "role": "Commissioner",
+      "sector": "Energi",
+      "status": "pejabat",
+      "party": "Non-Partisan",
+      "political_affiliation": "None (Sekjen ESDM)",
+      "evidence": "Career bureaucrat at Kementerian ESDM. Removed from Sekjen by Prabowo Sep 2025.",
+      "sources": [
+        "https://finance.detik.com/energi/d-6304727/profil-komisaris-baru-pln-dadan-kusdiana-yang-gantikan-rida-mulyana",
+        "https://jccnetwork.id/2025/09/16/dadan-kusdiana-dicopot-ahmad-erani-yustika-ditunjuk-jadi-sekjen-kementerian-esdm/"
+      ],
+      "birth_year": 1968,
+      "age": 57,
+      "education": [
+        {
+          "degree": "S1",
+          "university": "IPB University",
+          "major": "Mekanisasi Pertanian",
+          "year": 1992
+        },
+        {
+          "degree": "S2",
+          "university": "Kyoto University, Japan",
+          "major": "Energy Science",
+          "year": 2001
+        },
+        {
+          "degree": "S3",
+          "university": "Kyoto University, Japan",
+          "major": "Ilmu Lingkungan dan Energi",
+          "year": 2004
+        }
+      ],
+      "career": [
+        {
+          "role": "Direktur Bioenergi",
+          "org": "Kementerian ESDM",
+          "period": "2013-2015"
+        },
+        {
+          "role": "Dirjen EBTKE",
+          "org": "Kementerian ESDM",
+          "period": "2020-2022"
+        },
+        {
+          "role": "Sekjen Kementerian ESDM",
+          "org": "Kementerian ESDM",
+          "period": null
+        },
+        {
+          "role": "Komisaris",
+          "org": "PT PLN",
+          "period": "2022-sekarang"
+        }
+      ],
+      "commissioner_since": "2022-09-21",
+      "wealth": null,
+      "wealth_source": null
+    },
+    {
+      "name": "Jisman Parada Hutajulu",
+      "bumn": "PLN",
+      "role": "Commissioner",
+      "sector": "Energi",
+      "status": "pejabat",
+      "party": "Non-Partisan",
+      "political_affiliation": "None (Dirjen Ketenagalistrikan)",
+      "evidence": "Career bureaucrat at ESDM. Removed from Dirjen by Prabowo Sep 2025.",
+      "sources": [
+        "https://katadata.co.id/berita/industri/6736c51da4c78/profil-jisman-hutajulu-dirjen-ketenagalistrikan-jadi-komisaris-baru-pln",
+        "https://web.pln.co.id/tentang-kami/jisman-parada"
+      ],
+      "birth_year": 1967,
+      "age": 59,
+      "education": [
+        {
+          "degree": "S1",
+          "university": "ISTN Jakarta",
+          "major": "Teknik Elektro",
+          "year": 1992
+        },
+        {
+          "degree": "S2",
+          "university": null,
+          "major": "Magister Manajemen",
+          "year": null
+        }
+      ],
+      "career": [
+        {
+          "role": "Direktur Pembinaan Program Ketenagalistrikan",
+          "org": "Kementerian ESDM",
+          "period": "2018"
+        },
+        {
+          "role": "Komisaris",
+          "org": "MIND ID",
+          "period": null
+        },
+        {
+          "role": "Dirjen Ketenagalistrikan",
+          "org": "Kementerian ESDM",
+          "period": "2023-2025"
+        },
+        {
+          "role": "Komisaris",
+          "org": "PT PLN",
+          "period": "2024-sekarang"
+        }
+      ],
+      "commissioner_since": "2024-11-14",
+      "wealth": null,
+      "wealth_source": null
+    },
+    {
+      "name": "Bambang Eko Suhariyanto",
+      "bumn": "PLN",
+      "role": "Commissioner",
+      "sector": "Energi",
+      "status": "relawan_pemenangan",
+      "party": "TKN Prabowo",
+      "political_affiliation": "TKD Prabowo-Gibran Jatim + Wamensesneg",
+      "evidence": "Marsda TNI Purn. Staf Ahli Menhan Prabowo. Wamensesneg Kabinet Prabowo. Listed in TKD Prabowo-Gibran Jatim. Rangkap as PLN commissioner.",
+      "sources": [
+        "https://www.antaranews.com/berita/4409861/profil-bambang-eko-suhariyanto",
+        "https://www.beritasatu.com/nasional/2849054/profil-bambang-eko-suhariyanto-staf-ahli-menhan-yang-dipanggil-prabowo",
+        "https://www.kompas.com/tren/read/2024/10/21/061500365/profil-bambang-eko-suhariyanto-wakil-menteri-sekretaris-negara-pemerintahan",
+        "https://www.suarasurabaya.net/politik/2023/dua-eks-gubernur-jatim-hadiri-konsolidasi-tkd-prabowo-gibran-di-surabaya/"
+      ],
+      "birth_year": 1961,
+      "age": 64,
+      "education": [
+        {
+          "degree": "S1",
+          "university": "Universitas Jember",
+          "major": "Hukum",
+          "year": 1987
+        },
+        {
+          "degree": "S2",
+          "university": "Universitas Indonesia",
+          "major": "Magister Hukum",
+          "year": 2003
+        },
+        {
+          "degree": "S3",
+          "university": "Universitas Brawijaya",
+          "major": "Doktor Ilmu Hukum",
+          "year": 2018
+        }
+      ],
+      "career": [
+        {
+          "role": "Kepala Biro Hukum Setjen Kementerian Pertahanan",
+          "org": "Kementerian Pertahanan",
+          "period": null
+        },
+        {
+          "role": "Staf Ahli Menteri Pertahanan Prabowo",
+          "org": "Kementerian Pertahanan",
+          "period": "2018"
+        },
+        {
+          "role": "Wakil Menteri Sekretaris Negara",
+          "org": "Kemensetneg",
+          "period": "2024-sekarang"
+        },
+        {
+          "role": "Komisaris",
+          "org": "PT PLN",
+          "period": "2025-sekarang"
+        }
+      ],
+      "commissioner_since": "2025-06-18",
+      "wealth": null,
+      "wealth_source": null
+    },
+    {
+      "name": "Yazid Fanani",
+      "bumn": "PLN",
+      "role": "Independent Commissioner",
+      "sector": "Energi",
+      "status": "profesional",
+      "party": "Non-Partisan",
+      "political_affiliation": "None (Irjen Pol Purn)",
+      "evidence": "Retired Inspector General of Police. No direct political party or TKN links found.",
+      "sources": [
+        "https://www.tempo.co/ekonomi/daftar-45-purnawirawan-tni-dan-polri-yang-menjabat-komisaris-bumn-siapa-saja--1725594",
+        "https://www.cnnindonesia.com/ekonomi/20250616141331-92-1240217/daftar-45-pensiunan-tni-dan-polri-yang-jadi-komisaris-bumn",
+        "https://manadozone.com/2024/11/14/rups-pt-pln-tempatkan-yazid-fanani-komisaris-baru/"
+      ],
+      "birth_year": 1965,
+      "age": 61,
+      "education": [
+        {
+          "degree": "Akpol",
+          "university": "Akademi Kepolisian",
+          "major": "Kepolisian",
+          "year": 1988
+        },
+        {
+          "degree": "S2",
+          "university": null,
+          "major": "M.Si.",
+          "year": null
+        }
+      ],
+      "career": [
+        {
+          "role": "Wakil Ketua Komisi Sidang Kode Etik Polri (pemecatan Ferdy Sambo)",
+          "org": "Polri",
+          "period": "2022"
+        },
+        {
+          "role": "Kepala STIK Lemdikpol",
+          "org": "Polri",
+          "period": "2020"
+        },
+        {
+          "role": "Komisaris Independen",
+          "org": "PT PLN",
+          "period": "2024-sekarang"
+        }
+      ],
+      "commissioner_since": "2024-11-14",
+      "wealth": null,
+      "wealth_source": null
+    },
+    {
+      "name": "Mutanto Juwono",
+      "bumn": "PLN",
+      "role": "Independent Commissioner",
+      "sector": "Energi",
+      "status": "relawan_pemenangan",
+      "party": "TKN Prabowo",
+      "political_affiliation": "Badan Pemenangan Nasional Prabowo-Sandi 2019",
+      "evidence": "Marsma TNI Purn. Anggota Bapanas Prabowo-Sandi 2019. Now PLN Independent Commissioner.",
+      "sources": [
+        "https://www.slideshare.net/slideshow/tim-pemenangan-prabowosandi/117056988",
+        "https://www.tempo.co/ekonomi/daftar-45-purnawirawan-tni-dan-polri-yang-menjabat-komisaris-bumn-siapa-saja--1725594",
+        "https://aktual.com/prabowo-kembali-tunjuk-purnawirawan-pimpin-bumn-inilah-daftar-60-pejabat-negara-dan-bumn-berlatar-anggota-tni/3/"
+      ],
+      "birth_year": 1947,
+      "age": 78,
+      "education": [
+        {
+          "degree": "Militer",
+          "university": "Akademi Angkatan Udara (AAU)",
+          "major": "Penerbang TNI AU",
+          "year": null
+        }
+      ],
+      "career": [
+        {
+          "role": "Purnawirawan Marsma TNI AU",
+          "org": "TNI AU",
+          "period": null
+        },
+        {
+          "role": "Anggota Bapanas",
+          "org": "Badan Pemenangan Nasional Prabowo-Sandi",
+          "period": "2019"
+        },
+        {
+          "role": "Komisaris Independen",
+          "org": "PT PLN",
+          "period": "2024-sekarang"
+        }
+      ],
+      "commissioner_since": "2024-11-14",
+      "wealth": null,
+      "wealth_source": null
+    },
+    {
+      "name": "Andi Arief",
+      "bumn": "PLN",
+      "role": "Independent Commissioner",
+      "sector": "Energi",
+      "status": "kader_partai",
+      "party": "Demokrat",
+      "political_affiliation": "Partai Demokrat (Ketua Bappilu DPP) + KIM",
+      "evidence": "Ketua Bappilu DPP Demokrat. Resigned from Bappilu after PLN appointment. Demokrat was part of KIM supporting Prabowo-Gibran.",
+      "sources": [
+        "https://www.tempo.co/ekonomi/profil-andi-arief-kader-demokrat-yang-diangkat-jadi-komisaris-baru-pln-37107",
+        "https://nasional.kompas.com/read/2024/07/26/10240551/andi-arief-jadi-komisaris-pln-demokrat-beliau-sudah-mundur-dari-bappilu",
+        "https://www.tribunnews.com/nasional/2024/07/23/profil-andi-arief-politisi-demokrat-yang-diangkat-jadi-komisaris-pln-pernah-jadi-stafsus-sby",
+        "https://www.kompas.com/tren/read/2024/07/24/130000665/11-relawan-prabowo-gibran-yang-dapat-jatah-komisaris-bumn-terbaru-andi"
+      ],
+      "birth_year": 1970,
+      "age": 55,
+      "education": [
+        {
+          "degree": "S1 (tidak selesai)",
+          "university": "Universitas Gadjah Mada",
+          "major": "Ilmu Pemerintahan",
+          "year": "1993-1994"
+        },
+        {
+          "degree": "S1 Hukum",
+          "university": "Universitas Indonesia / STHI Jentera",
+          "major": "Hukum",
+          "year": null
+        }
+      ],
+      "career": [
+        {
+          "role": "Aktivis SMID/PRD (korban penculikan 1998)",
+          "org": "SMID/PRD",
+          "period": "1990s"
+        },
+        {
+          "role": "Komisaris",
+          "org": "PT Pos Indonesia",
+          "period": "2006"
+        },
+        {
+          "role": "Staf Khusus Presiden SBY",
+          "org": "Kepresidenan RI",
+          "period": null
+        },
+        {
+          "role": "Ketua Bappilu DPP",
+          "org": "Partai Demokrat",
+          "period": "2020-2025"
+        },
+        {
+          "role": "Komisaris Independen",
+          "org": "PT PLN",
+          "period": "2024-sekarang"
+        }
+      ],
+      "commissioner_since": "2024-07-23",
+      "wealth": null,
+      "wealth_source": "Honorarium Komisaris PLN ~Rp190 juta/bulan"
+    },
+    {
+      "name": "Yuliot",
+      "bumn": "Bank Mandiri",
+      "role": "Komisaris",
+      "sector": "Perbankan",
+      "status": "pejabat",
+      "party": "Non-Partisan",
+      "political_affiliation": "None (Wamen ESDM, teknokrat BKPM)",
+      "evidence": "Career teknokrat at BKPM since 1988. Wamen ESDM in Kabinet Prabowo. No party affiliation.",
+      "sources": [
+        "https://www.cnbcindonesia.com/news/20241021151419-4-581740/baru-dilantik-jadi-wamen-esdm-yuliot-dapat-tugas-ini-dari-bahlil",
+        "https://ekonomi.bisnis.com/read/20241021/44/1809240/profil-harta-yuliot-tanjung-wakil-menteri-esdm-pendamping-bahlil",
+        "https://www.kabarbursa.com/makro/bank-mandiri-tunjuk-pengurus-baru-yuliot-jadi-komisaris"
+      ],
+      "birth_year": 1963,
+      "age": 62,
+      "education": [
+        {
+          "degree": "S1",
+          "university": "Universitas Andalas",
+          "major": "Produksi Ternak",
+          "year": null
+        },
+        {
+          "degree": "S2",
+          "university": "PPM School of Management",
+          "major": "Magister Manajemen",
+          "year": null
+        }
+      ],
+      "career": [
+        {
+          "role": "Karir dimulai",
+          "org": "BKPM",
+          "period": "1988"
+        },
+        {
+          "role": "Deputi Bidang Pengembangan Iklim Penanaman Modal",
+          "org": "BKPM",
+          "period": "2020-2023"
+        },
+        {
+          "role": "Wakil Menteri ESDM",
+          "org": "Kementerian ESDM",
+          "period": "2024-sekarang"
+        },
+        {
+          "role": "Komisaris",
+          "org": "PT Bank Mandiri",
+          "period": "2025-sekarang"
+        }
+      ],
+      "commissioner_since": "2025-08-04",
+      "wealth": null,
+      "wealth_source": null
+    },
+    {
+      "name": "Mia Amiati",
+      "bumn": "Bank Mandiri",
+      "role": "Komisaris Independen",
+      "sector": "Perbankan",
+      "status": "pejabat",
+      "party": "Non-Partisan",
+      "political_affiliation": "Suspected political connection (Kajati Jatim)",
+      "evidence": "Retired Kajati Jatim Mar 2025. Appointed Mandiri commissioner Mar 2025. Rumored connection to Jaksa Agung. Media describes as 'jatah' appointment.",
+      "sources": [
+        "https://newsurban.id/2025/03/29/pensiun-dari-kejaksaan-kajati-jatim-mia-amiati-dapat-jatah-komisaris-independen-bank-mandiri/",
+        "https://monitorindonesia.com/ekonomi/read/2025/03/605571/mia-amiati-diduga-istri-kedua-jaksa-agung-hingga-kepala-bpkp-yusuf-ateh-dapat-jatah-komisaris-bank-mandiri",
+        "https://ketik.co.id/berita/asyik-jelang-pensiun-kajati-jatim-mia-amiati-dapat-jatah-komisaris-bank-mandiri"
+      ],
+      "birth_year": 1965,
+      "age": 61,
+      "education": [
+        {
+          "degree": "S1",
+          "university": "Universitas Padjadjaran",
+          "major": "Sastra Indonesia",
+          "year": null
+        },
+        {
+          "degree": "S1",
+          "university": "Universitas Islam Jakarta",
+          "major": "Hukum",
+          "year": null
+        },
+        {
+          "degree": "Profesor",
+          "university": "Universitas Padjadjaran",
+          "major": "Hukum",
+          "year": 2012
+        }
+      ],
+      "career": [
+        {
+          "role": "Jaksa (sejak 1995)",
+          "org": "Kejaksaan RI",
+          "period": "1995-2025"
+        },
+        {
+          "role": "Kepala Kejaksaan Tinggi Jawa Timur (perempuan pertama)",
+          "org": "Kejaksaan RI",
+          "period": null
+        },
+        {
+          "role": "Komisaris Independen",
+          "org": "PT Bank Mandiri",
+          "period": "2025-sekarang"
+        }
+      ],
+      "commissioner_since": "2025-03-25",
+      "wealth": "Rp4.17 miliar",
+      "wealth_source": "LHKPN (Desember 2023)"
+    },
+    {
+      "name": "Zulkifli Zaini",
+      "bumn": "Bank Mandiri",
+      "role": "Komisaris Utama/Independen",
+      "sector": "Perbankan",
+      "status": "profesional",
+      "party": "Non-Partisan",
+      "political_affiliation": "None (career banker)",
+      "evidence": "Career banker since 1983. Mantan Dirut Bank Mandiri (2010-2013), Dirut PLN (2019-2021). No party membership found.",
+      "sources": [
+        "https://id.wikipedia.org/wiki/Zulkifli_Zaini",
+        "https://money.kompas.com/read/2025/12/20/140548226/profil-zulkifli-zaini-komisaris-utama-baru-bank-mandiri",
+        "https://money.kompas.com/read/2025/12/20/104512626/bank-mandiri-rombak-jajaran-komisaris-angkat-zulkifli-zaini-jadi-komut"
+      ],
+      "birth_year": 1956,
+      "age": 69,
+      "education": [
+        {
+          "degree": "S1",
+          "university": "Institut Teknologi Bandung",
+          "major": "Teknik Sipil",
+          "year": 1980
+        },
+        {
+          "degree": "MBA",
+          "university": "Washington University, St. Louis, USA",
+          "major": "Administrasi Bisnis",
+          "year": null
+        }
+      ],
+      "career": [
+        {
+          "role": "Karir dimulai",
+          "org": "Bapindo",
+          "period": "1988"
+        },
+        {
+          "role": "Direktur Utama",
+          "org": "PT Bank Mandiri",
+          "period": "2010-2013"
+        },
+        {
+          "role": "Direktur Utama",
+          "org": "PT PLN",
+          "period": "2019-2021"
+        },
+        {
+          "role": "Komisaris Utama PTPN III",
+          "org": "PT Perkebunan Nusantara III",
+          "period": "2021-2025"
+        },
+        {
+          "role": "Komisaris Utama/Independen",
+          "org": "PT Bank Mandiri",
+          "period": "2025-sekarang"
+        }
+      ],
+      "commissioner_since": "2025-12-19",
+      "wealth": null,
+      "wealth_source": null
+    },
+    {
+      "name": "B. Bintoro Kunto Pardewo",
+      "bumn": "Bank Mandiri",
+      "role": "Komisaris Independen",
+      "sector": "Perbankan",
+      "status": "profesional",
+      "party": "Non-Partisan",
+      "political_affiliation": "None (BI career)",
+      "evidence": "Career Bank Indonesia official. Former Komisaris Danareksa. No party affiliation.",
+      "sources": [
+        "https://www.idntimes.com/business/finance/bank-mandiri-segarkan-komisaris-02-hs754-l7v4ld",
+        "https://katadata.co.id/info/6948f8abde37a/rupslb-bank-mandiri-rombak-3-komisaris-simak-profil-singkatnya",
+        "https://www.theiconomics.com/change-management/bintoro-kunto-pardewo-dari-komasaris-danareksa-menjadi-komisaris-independen-bank-mandiri/"
+      ],
+      "birth_year": null,
+      "age": null,
+      "education": [
+        {
+          "degree": "S1",
+          "university": "Universitas Indonesia",
+          "major": "Teknik Mesin",
+          "year": null
+        },
+        {
+          "degree": "MBA",
+          "university": "Iowa State University, USA",
+          "major": "Business Administration",
+          "year": null
+        },
+        {
+          "degree": "S3",
+          "university": "Universitas Indonesia",
+          "major": "Finance",
+          "year": null
+        }
+      ],
+      "career": [
+        {
+          "role": "Executive Analyst & Deputi Direktur",
+          "org": "Bank Indonesia",
+          "period": null
+        },
+        {
+          "role": "Komisaris",
+          "org": "PT Danareksa",
+          "period": "2025"
+        },
+        {
+          "role": "Komisaris Independen",
+          "org": "PT Bank Mandiri",
+          "period": "2025-sekarang"
+        }
+      ],
+      "commissioner_since": "2025-12-19",
+      "wealth": "Rp2.06 miliar",
+      "wealth_source": "LHKPN (per 31 Des 2024)"
+    },
+    {
+      "name": "Kartika Wirjoatmodjo",
+      "bumn": "BRI",
+      "role": "Komisaris Utama",
+      "sector": "Perbankan",
+      "status": "pejabat",
+      "party": "Relawan Jokowi",
+      "political_affiliation": "TKN Jokowi-Ma'ruf 2019 + Wamen BUMN",
+      "evidence": "Part of TKN Jokowi-Ma'ruf 2019. Wamen BUMN under Jokowi and Prabowo. Listed as 'Relawan Jokowi yang Jadi Menteri-Komisaris BUMN'.",
+      "sources": [
+        "https://www.cnbcindonesia.com/news/20201103150646-4-199019/relawan-jokowi-yang-jadi-menteri-komisaris-bumn-ini-listnya",
+        "https://www.tempo.co/ekonomi/sah-kartika-wirjoatmodjo-jadi-komisaris-utama-bank-bri-652036",
+        "https://www.arahpena.com/bumn/77916429519/profil-kartika-wirjoatmodjo-eks-wamen-bumn-yang-menjabat-sebagai-komisaris-utama-bri"
+      ],
+      "birth_year": 1973,
+      "age": 52,
+      "education": [
+        {
+          "degree": "S1 SE",
+          "university": "Universitas Indonesia",
+          "major": "Akuntansi",
+          "year": 1996
+        },
+        {
+          "degree": "MBA",
+          "university": "Erasmus University Rotterdam, Belanda",
+          "major": "Business Administration",
+          "year": 2001
+        }
+      ],
+      "career": [
+        {
+          "role": "Managing Director",
+          "org": "PT Mandiri Sekuritas",
+          "period": "2008-2011"
+        },
+        {
+          "role": "Kepala Eksekutif",
+          "org": "Lembaga Penjamin Simpanan (LPS)",
+          "period": "2014-2015"
+        },
+        {
+          "role": "Direktur Utama",
+          "org": "PT Bank Mandiri",
+          "period": "2016-2019"
+        },
+        {
+          "role": "Wakil Menteri BUMN",
+          "org": "Kementerian BUMN",
+          "period": "2019-sekarang"
+        },
+        {
+          "role": "Komisaris Utama",
+          "org": "PT BRI",
+          "period": "2020-sekarang"
+        }
+      ],
+      "commissioner_since": "2020-02-18",
+      "wealth": "Rp119.03 miliar",
+      "wealth_source": "LHKPN KPK (per 27 Maret 2024)"
+    },
+    {
+      "name": "Parman Nataatmadja",
+      "bumn": "BRI",
+      "role": "Wakil Komisaris Utama/Komisaris Independen",
+      "sector": "Perbankan",
+      "status": "profesional",
+      "party": "Non-Partisan",
+      "political_affiliation": "None (career banker)",
+      "evidence": "Career banker (BCA, BRI Syariah, PNM). No party membership or relawan role found.",
+      "sources": [
+        "https://indonews.id/artikel/343044/Parman-Nataadmadja-Ditunjuk-Jadi-Wakomut-Bank-BRI-Ini-Profilnya/",
+        "https://www.tempo.co/ekonomi/daftar-lengkap-susunan-komisaris-dan-direksi-bri-usai-rupslb-2100028",
+        "https://banktanah.id/en/leader-profile/"
+      ],
+      "birth_year": 1959,
+      "age": 67,
+      "education": [
+        {
+          "degree": "S1",
+          "university": "Universitas Indonesia",
+          "major": "Ekonomi, Manajemen",
+          "year": 1985
+        },
+        {
+          "degree": "S2",
+          "university": "State University of New York at Buffalo, USA",
+          "major": "Finance",
+          "year": 1988
+        }
+      ],
+      "career": [
+        {
+          "role": "Banker",
+          "org": "BCA New York",
+          "period": "1988"
+        },
+        {
+          "role": "Direktur Utama",
+          "org": "PT Permodalan Nasional Madani",
+          "period": "2008"
+        },
+        {
+          "role": "Staf Khusus Menteri BUMN",
+          "org": "Kementerian BUMN",
+          "period": "2018"
+        },
+        {
+          "role": "Komisaris Utama Bank BRI Syariah",
+          "org": "PT Bank BRI Syariah",
+          "period": "2019"
+        },
+        {
+          "role": "Wakil Komisaris Utama/Komisaris Independen",
+          "org": "PT BRI",
+          "period": "2025-sekarang"
+        }
+      ],
+      "commissioner_since": "2025-03-24",
+      "wealth": null,
+      "wealth_source": null
+    },
+    {
+      "name": "Awan Nurmawan Nuh",
+      "bumn": "BRI",
+      "role": "Komisaris",
+      "sector": "Perbankan",
+      "status": "pejabat",
+      "party": "Non-Partisan",
+      "political_affiliation": "None (Irjen Kemenkeu)",
+      "evidence": "Former Irjen Kementerian Keuangan. Career bureaucrat. No party affiliation.",
+      "sources": [
+        "https://www.suara.com/bisnis/2023/03/14/163154/profil-awan-nurmawan-nuh-irjen-kemenkeu-jadi-komisaris-baru-bri",
+        "https://finansial.bisnis.com/read/20230313/90/1636727/rupst-bri-bbri-tunjuk-irjen-kemenkeu-awan-nurmawan-nuh-jadi-komisaris"
+      ],
+      "birth_year": null,
+      "age": null,
+      "education": [],
+      "career": [],
+      "commissioner_since": null,
+      "wealth": null,
+      "wealth_source": null
+    },
+    {
+      "name": "Helvi Yuni Moraza",
+      "bumn": "BRI",
+      "role": "Komisaris",
+      "sector": "Perbankan",
+      "status": "kader_partai",
+      "party": "Gerindra",
+      "political_affiliation": "Partai Gerindra (Sekjen DPP) + Wamen UMKM",
+      "evidence": "Former Sekjen DPP Partai Gerindra. Now Wamen UMKM in Kabinet Prabowo. Summoned to Prabowo's Kertanegara for cabinet selection.",
+      "sources": [
+        "https://id.wikipedia.org/wiki/Helvi_Yuni_Moraza",
+        "https://www.antaranews.com/berita/4404809/profil-helvi-yuni-moraza-calon-wamen-dalam-kabinet-prabowo",
+        "https://kabar24.bisnis.com/read/20250327/15/1865157/deretan-politisi-dapat-jatah-kursi-komisaris-bumn"
+      ],
+      "birth_year": 1967,
+      "age": 58,
+      "education": [
+        {
+          "degree": "S1 SE",
+          "university": "Universitas Andalas",
+          "major": "Ekonomi",
+          "year": 1991
+        },
+        {
+          "degree": "S2 MM",
+          "university": "Universitas Pasundan",
+          "major": "Manajemen",
+          "year": 2023
+        }
+      ],
+      "career": [
+        {
+          "role": "Sekretaris Jenderal DPP Korwil Tangerang",
+          "org": "Partai Gerindra",
+          "period": null
+        },
+        {
+          "role": "Komisaris Independen",
+          "org": "PT Len Industri / Defend ID",
+          "period": "2021-2024"
+        },
+        {
+          "role": "Wakil Menteri UMKM",
+          "org": "Kementerian UMKM",
+          "period": "2024-sekarang"
+        },
+        {
+          "role": "Komisaris",
+          "org": "PT BRI",
+          "period": "2025-sekarang"
+        }
+      ],
+      "commissioner_since": "2025-03-24",
+      "wealth": null,
+      "wealth_source": null
+    },
+    {
+      "name": "Edi Susianto",
+      "bumn": "BRI",
+      "role": "Komisaris Independen",
+      "sector": "Perbankan",
+      "status": "profesional",
+      "party": "Non-Partisan",
+      "political_affiliation": "None (BI career)",
+      "evidence": "Career Bank Indonesia official since 1993. No party affiliation.",
+      "sources": [
+        "https://www.tempo.co/ekonomi/pejabat-bank-indonesia-edi-susianto-ditunjuk-jadi-komisaris-independen-bri-1224063",
+        "https://www.cnbcindonesia.com/market/20250325114328-17-621496/orang-penting-bi-ini-jadi-komisaris-independen-di-bri"
+      ],
+      "birth_year": null,
+      "age": null,
+      "education": [],
+      "career": [],
+      "commissioner_since": null,
+      "wealth": null,
+      "wealth_source": null
+    },
+    {
+      "name": "Lukmanul Khakim",
+      "bumn": "BRI",
+      "role": "Komisaris Independen",
+      "sector": "Perbankan",
+      "status": "kader_partai",
+      "party": "PKB",
+      "political_affiliation": "Partai Kebangkitan Bangsa (PKB) — Ketua DPP",
+      "evidence": "Ketua DPP PKB Bidang Perdagangan. Former DPRD DKI Jakarta. Cawagub Jatim 2024. Described as 'anak buah Cak Imin'. Labeled Independent Commissioner despite clear PKB ties.",
+      "sources": [
+        "https://www.suara.com/bisnis/2025/03/25/122343/anak-buah-cak-imin-jadi-komisaris-independen-di-bri",
+        "https://kabar24.bisnis.com/read/20250327/15/1865157/deretan-politisi-dapat-jatah-kursi-komisaris-bumn",
+        "https://www.cnbcindonesia.com/research/20250326142536-128-621956/lengkap-ini-jajaran-direksi-komisaris-bri-bni-mandiri"
+      ],
+      "birth_year": 1983,
+      "age": 43,
+      "education": [
+        {
+          "degree": "S1",
+          "university": "UIN Syarif Hidayatullah Jakarta",
+          "major": "Syariah dan Hukum",
+          "year": null
+        },
+        {
+          "degree": "S2",
+          "university": "Universitas Krisnadwipayana",
+          "major": "Ilmu Administrasi",
+          "year": null
+        }
+      ],
+      "career": [
+        {
+          "role": "Anggota DPR RI Fraksi PKB",
+          "org": "DPR RI",
+          "period": "2014-2019"
+        },
+        {
+          "role": "Ketua Bidang Perdagangan DPP PKB",
+          "org": "Partai PKB",
+          "period": "2019-2024"
+        },
+        {
+          "role": "Calon Wakil Gubernur Jawa Timur",
+          "org": "PKB",
+          "period": "2024"
+        },
+        {
+          "role": "Komisaris Independen",
+          "org": "PT BRI",
+          "period": "2025-sekarang"
+        }
+      ],
+      "commissioner_since": "2025-03-24",
+      "wealth": null,
+      "wealth_source": null
+    },
+    {
+      "name": "Angga Raka Prabowo",
+      "bumn": "Telkom",
+      "role": "Komisaris Utama",
+      "sector": "Telekomunikasi",
+      "status": "kader_partai",
+      "party": "Gerindra",
+      "political_affiliation": "Partai Gerindra (Wasekjen) + TKN Prabowo-Gibran (Direktur Media Kampanye)",
+      "evidence": "Kader Gerindra since 2008. Wasekjen DPP Gerindra. Direktur Media Kampanye TKN Prabowo-Gibran 2024. Sekretaris pribadi Prabowo (2014-2017). Now Wamen Komdigital + Komut Telkom.",
+      "sources": [
+        "https://id.wikipedia.org/wiki/Angga_Raka_Prabowo",
+        "https://news.detik.com/berita/d-7497025/angga-raka-prabowo-kader-gerindra-loyalis-prabowo-kini-jadi-wamenkominfo",
+        "https://www.tempo.co/ekonomi/sosok-angga-raka-prabowo-petinggi-gerindra-yang-menjadi-wakil-menteri-komunikasi-21484",
+        "https://money.kompas.com/read/2025/05/27/213825326/rupst-telkom-2025-ini-susunan-lengkap-direksi-dan-komisaris-baru-tlkm"
+      ],
+      "birth_year": 1989,
+      "age": 36,
+      "education": [
+        {
+          "degree": "S1",
+          "university": "Universitas Jayabaya",
+          "major": "Hubungan Internasional",
+          "year": 2011
+        }
+      ],
+      "career": [
+        {
+          "role": "Tim Media Partai Gerindra",
+          "org": "Partai Gerindra",
+          "period": "2012-2014"
+        },
+        {
+          "role": "Sekretaris Pribadi Ketua Umum Gerindra",
+          "org": "Partai Gerindra",
+          "period": "2014-2019"
+        },
+        {
+          "role": "Direktur Media Kampanye",
+          "org": "TKN Prabowo-Gibran",
+          "period": "2024"
+        },
+        {
+          "role": "Wakil Menteri Komunikasi dan Digital",
+          "org": "Kementerian Komdigi RI",
+          "period": "2024-sekarang"
+        },
+        {
+          "role": "Komisaris Utama",
+          "org": "PT Telkom Indonesia",
+          "period": "2025-sekarang"
+        }
+      ],
+      "commissioner_since": "2025-05-27",
+      "wealth": null,
+      "wealth_source": null
+    },
+    {
+      "name": "Silmy Karim",
+      "bumn": "Telkom",
+      "role": "Komisaris",
+      "sector": "Telekomunikasi",
+      "status": "pejabat",
+      "party": "Non-Partisan",
+      "political_affiliation": "None (professional, now KPK tersangka)",
+      "evidence": "Dirut Krakatau Steel, Dirjen Imigrasi, Wamen Imipas. No formal party membership. Recently became KPK tersangka, dismissed by Prabowo June 2026.",
+      "sources": [
+        "https://id.wikipedia.org/wiki/Silmy_Karim",
+        "https://nasional.kompas.com/read/2026/06/04/19585351/prabowo-berhentikan-silmy-karim-dari-wamen-imipas",
+        "https://www.kompas.id/artikel/en-rekam-jejak-silmy-karim-teknokrat-yang-terjerat-pusaran-korupsi-imigrasi"
+      ],
+      "birth_year": 1974,
+      "age": 51,
+      "education": [
+        {
+          "degree": "S1 SE",
+          "university": "Universitas Trisakti",
+          "major": "Ekonomi",
+          "year": 1997
+        },
+        {
+          "degree": "S2 ME",
+          "university": "Universitas Indonesia",
+          "major": "Perencanaan dan Kebijakan Publik",
+          "year": 2007
+        }
+      ],
+      "career": [
+        {
+          "role": "Komisaris",
+          "org": "PT PAL Indonesia",
+          "period": "2011-2014"
+        },
+        {
+          "role": "Direktur Utama",
+          "org": "PT Pindad",
+          "period": "2014-2016"
+        },
+        {
+          "role": "Direktur Utama",
+          "org": "PT Krakatau Steel",
+          "period": "2018-2023"
+        },
+        {
+          "role": "Dirjen Imigrasi",
+          "org": "Kemenkumham",
+          "period": "2023-2024"
+        },
+        {
+          "role": "Wakil Menteri Imigrasi dan Pemasyarakatan",
+          "org": "Kemenimipas",
+          "period": "2024-2026"
+        },
+        {
+          "role": "Komisaris",
+          "org": "PT Telkom Indonesia",
+          "period": "2023-sekarang"
+        }
+      ],
+      "commissioner_since": "2023-05-30",
+      "wealth": "Rp234.59 miliar",
+      "wealth_source": "LHKPN KPK 2025 (aset Rp243.59M - utang Rp8.99M)"
+    },
+    {
+      "name": "Suahasil Nazara",
+      "bumn": "PLN",
+      "role": "Vice President Commissioner",
+      "sector": "Energi",
+      "status": "pejabat",
+      "party": "Non-Partisan",
+      "political_affiliation": "None (technocrat, Professor FEB UI)",
+      "evidence": "Professor Economics FEB UI. Wamenkeu since 2019 (Jokowi and Prabowo). Non-partisan technocrat.",
+      "sources": [
+        "https://id.wikipedia.org/wiki/Suahasil_Nazara",
+        "https://www.kemenkeu.go.id/profile/profile-pejabat/wakil-menteri-keuangan-suahasil-nazara",
+        "https://www.antaranews.com/berita/4406305/sosok-suahasil-nazara-kandidat-wamen-keuangan-dalam-kabinet-prabowo"
+      ],
+      "birth_year": 1970,
+      "age": 55,
+      "education": [
+        {
+          "degree": "S1",
+          "university": "Universitas Indonesia",
+          "major": "Ekonomi",
+          "year": 1994
+        },
+        {
+          "degree": "S2",
+          "university": "Cornell University, USA",
+          "major": "MSc",
+          "year": 1997
+        },
+        {
+          "degree": "S3",
+          "university": "University of Illinois Urbana-Champaign, USA",
+          "major": "PhD",
+          "year": 2003
+        }
+      ],
+      "career": [
+        {
+          "role": "Guru Besar Profesor Ekonomi",
+          "org": "FEB Universitas Indonesia",
+          "period": "2009-sekarang"
+        },
+        {
+          "role": "Kepala Badan Kebijakan Fiskal",
+          "org": "Kementerian Keuangan",
+          "period": "2016-2019"
+        },
+        {
+          "role": "Wakil Menteri Keuangan",
+          "org": "Kementerian Keuangan",
+          "period": "2019-sekarang"
+        },
+        {
+          "role": "Wakil Komisaris Utama",
+          "org": "PT PLN",
+          "period": "2024-sekarang"
+        }
+      ],
+      "commissioner_since": "2024-11-14",
+      "wealth": "Rp129.8 miliar",
+      "wealth_source": "LHKPN KPK"
+    },
+    {
+      "name": "Nezar Patria",
+      "bumn": "Indosat",
+      "role": "Komisaris Utama",
+      "sector": "Telekomunikasi",
+      "status": "pejabat",
+      "party": "Non-Partisan",
+      "political_affiliation": "None (journalist/activist)",
+      "evidence": "Career journalist (Tempo), activist (Reformasi 1998, Kontras). Wamenkominfo/Komdigital. No party membership.",
+      "sources": [
+        "https://id.wikipedia.org/wiki/Nezar_Patria",
+        "https://www.kompas.com/tren/read/2024/10/20/222333765/profil-nezar-patria-wakil-menteri-komunikasi-dan-digital-kabinet-prabowo",
+        "https://www.antaranews.com/berita/4408085/profil-wamen-kominfo-nezar-patria-yang-masuk-kabinet-prabowo"
+      ],
+      "birth_year": null,
+      "age": null,
+      "education": [],
+      "career": [],
+      "commissioner_since": null,
+      "wealth": null,
+      "wealth_source": null
+    },
+    {
+      "name": "M. Rudy Salahuddin Ramto",
+      "bumn": "Bank Mandiri",
+      "role": "Wakil Komisaris Utama",
+      "sector": "Perbankan",
+      "status": "pejabat",
+      "party": "Non-Partisan",
+      "political_affiliation": "None (Sekretaris Kemeninvest)",
+      "evidence": "Sekretaris Kementerian Investasi/BKPM. Career bureaucrat. No party affiliation.",
+      "sources": [
+        "https://bkpm.go.id/index.php/id/tentang-bkpm/eselon/rudy-salahuddin-2",
+        "https://money.kompas.com/read/2023/12/15/175411626/m-rudy-salahuddin-ramto-jadi-komisaris-jasa-raharja",
+        "https://infobanknews.com/bank-mandiri-segarkan-komisaris-pertebal-pengawasan-di-tengah-ekspansi/amp/"
+      ],
+      "birth_year": null,
+      "age": null,
+      "education": [],
+      "career": [],
+      "commissioner_since": null,
+      "wealth": null,
+      "wealth_source": null
+    },
+    {
+      "name": "Luky Alfirman",
+      "bumn": "Bank Mandiri",
+      "role": "Komisaris",
+      "sector": "Perbankan",
+      "status": "pejabat",
+      "party": "Non-Partisan",
+      "political_affiliation": "None (Dirjen Kemenkeu, teknokrat)",
+      "evidence": "Career Kemenkeu official. Former Dirjen Anggaran. Described as 'anak buah Sri Mulyani'. No party affiliation.",
+      "sources": [
+        "https://www.tvonenews.com/berita/nasional/434230-dari-arsitek-apbn-ke-kursi-panas-profil-dan-kekayaan-luky-alfirman-yang-dicopot-dari-jabatannya-di-kemenkeu",
+        "https://www.tribunnews.com/nasional/7820337/profil-luky-alfirman-eks-anak-buah-sri-mulyani-yang-dicopot-purbaya-dari-dirjen-anggaran-kemenkeu",
+        "https://lps.go.id/dewan-komisioner/luky-alfirman/"
+      ],
+      "birth_year": 1970,
+      "age": 56,
+      "education": [
+        {
+          "degree": "S1",
+          "university": "Institut Teknologi Bandung",
+          "major": "Teknik Industri",
+          "year": 1994
+        },
+        {
+          "degree": "S2",
+          "university": "University of Colorado, USA",
+          "major": "MA Ekonomi",
+          "year": 2000
+        },
+        {
+          "degree": "S3",
+          "university": "University of Colorado, USA",
+          "major": "PhD Economics",
+          "year": null
+        }
+      ],
+      "career": [
+        {
+          "role": "Dirjen Perimbangan Keuangan",
+          "org": "Kementerian Keuangan",
+          "period": null
+        },
+        {
+          "role": "Dirjen Anggaran (dicopot)",
+          "org": "Kementerian Keuangan",
+          "period": "2025-2026"
+        },
+        {
+          "role": "Komisaris",
+          "org": "PT Bank Mandiri",
+          "period": "2025-sekarang"
+        }
+      ],
+      "commissioner_since": "2025-08-04",
+      "wealth": "Rp52.8 miliar",
+      "wealth_source": "LHKPN (Februari 2025, tanpa utang)"
+    },
+    {
+      "name": "Dony Oskaria",
+      "bumn": "Pertamina",
+      "role": "Wakil Komisaris Utama",
+      "sector": "Energi",
+      "status": "pejabat",
+      "party": "Non-Partisan",
+      "political_affiliation": "None (explicitly non-partisan)",
+      "evidence": "Career at CT Corp. Wamen BUMN, COO Danantara, Kepala BP BUMN. Explicitly described as 'profesional murni, bukan kader partai'.",
+      "sources": [
+        "https://id.wikipedia.org/wiki/Dony_Oskaria",
+        "https://serayunews.com/dony-oskaria-dari-partai-apa-resmi-dilantik-jadi-kepala-bp-bumn-rangkap-jabatan-coo-danantara",
+        "https://www.suara.com/bisnis/2025/02/24/172700/3-rangkap-jabatan-donny-oskaria-paman-raffi-ahmad-wamen-bumn-wakil-komisaris-utama-pertamina-dan-kini-bos-danantara"
+      ],
+      "birth_year": 1969,
+      "age": 56,
+      "education": [
+        {
+          "degree": "S1",
+          "university": "Universitas Andalas",
+          "major": "Akuntansi",
+          "year": 1989
+        },
+        {
+          "degree": "S1",
+          "university": "Universitas Padjadjaran",
+          "major": "Hubungan Internasional",
+          "year": 1996
+        },
+        {
+          "degree": "MBA",
+          "university": "Asian Institute of Technology",
+          "major": "Business Administration",
+          "year": 2009
+        }
+      ],
+      "career": [
+        {
+          "role": "Managing Director",
+          "org": "PT Bank Mega",
+          "period": "2012-2014"
+        },
+        {
+          "role": "Komisaris",
+          "org": "PT Garuda Indonesia",
+          "period": "2014-2019"
+        },
+        {
+          "role": "Wakil Direktur Utama",
+          "org": "PT Garuda Indonesia",
+          "period": "2020-2021"
+        },
+        {
+          "role": "Wakil Menteri BUMN",
+          "org": "Kementerian BUMN",
+          "period": "2024-2025"
+        },
+        {
+          "role": "COO",
+          "org": "BPI Danantara",
+          "period": "2025-sekarang"
+        },
+        {
+          "role": "Wakil Komisaris Utama",
+          "org": "PT Pertamina",
+          "period": "2024-sekarang"
+        }
+      ],
+      "commissioner_since": "2024-11-04",
+      "wealth": "Rp33.5 miliar",
+      "wealth_source": "LHKPN KPK (total aset Rp46.68M dikurangi utang Rp16.79M)"
+    },
+    {
+      "name": "Mochamad Iriawan",
+      "bumn": "Pertamina",
+      "role": "Komisaris Utama",
+      "sector": "Energi",
+      "status": "kader_partai",
+      "party": "Gerindra",
+      "political_affiliation": "Partai Gerindra (Wakil Ketua Dewan Pembina)",
+      "evidence": "Komjen Pol Purn. Joined Gerindra April 2023. Wakil Ketua Dewan Pembina DPP Gerindra. Ran as DPR candidate 2024 (failed). Appointed Komut Pertamina Nov 2024.",
+      "sources": [
+        "https://www.tribunnews.com/nasional/2024/11/04/komjen-pol-purn-dr-drs-h-mochamad-iriawan-sh-mm-mh",
+        "https://www.tempo.co/ekonomi/sosok-iwan-bule-yang-diangkat-erick-thohir-jadi-komisaris-utama-pertamina-1163443",
+        "https://ekonomi.bisnis.com/read/20241104/44/1812995/profil-iwan-bule-yang-baru-diangkat-jadi-komut-pertamina",
+        "https://www.tempo.co/ekonomi/diangkat-jadi-komisaris-utama-pertamina-inilah-rekam-jejak-iwan-bule-dan-harta-kekayaannya-1164837"
+      ],
+      "birth_year": 1962,
+      "age": 63,
+      "education": [
+        {
+          "degree": "Akpol",
+          "university": "Akademi Kepolisian",
+          "major": "Kepolisian",
+          "year": 1984
+        },
+        {
+          "degree": "S1 SH",
+          "university": "Universitas Abulyatama",
+          "major": "Hukum",
+          "year": 1997
+        },
+        {
+          "degree": "S2 MM",
+          "university": "Tidak disebutkan",
+          "major": "Manajemen",
+          "year": 2001
+        },
+        {
+          "degree": "S3 MH",
+          "university": "Tidak disebutkan",
+          "major": "Hukum",
+          "year": null
+        }
+      ],
+      "career": [
+        {
+          "role": "Kapolda Jawa Barat",
+          "org": "Polri",
+          "period": "2008"
+        },
+        {
+          "role": "Ketua Umum",
+          "org": "PSSI",
+          "period": "2019-2023"
+        },
+        {
+          "role": "Sekretaris Utama",
+          "org": "Lemhannas",
+          "period": null
+        },
+        {
+          "role": "Komisaris Utama",
+          "org": "PT Pertamina",
+          "period": "2024-sekarang"
+        }
+      ],
+      "commissioner_since": "2024-11-04",
+      "wealth": "Rp8.19 miliar + USD 20.000",
+      "wealth_source": "LHKPN (Sept 2014)"
+    },
+    {
+      "name": "Rizal Mallarangeng",
+      "bumn": "Telkom",
+      "role": "Komisaris Independen",
+      "sector": "Telekomunikasi",
+      "status": "kader_partai",
+      "party": "Golkar",
+      "political_affiliation": "Partai Golkar (former Waketum) + Chairman Yayasan Prabowo",
+      "evidence": "Former Waketum DPP Golkar. Chairman Yayasan Prabowo Subianto Djojohadikusumo since 2022. Reclassified from Independen to Komisaris in June 2026 RUPST.",
+      "sources": [
+        "https://en.wikipedia.org/wiki/Rizal_Mallarangeng",
+        "https://www.telkom.co.id/sites/profil-telkom/id_ID/page/dewan-komisaris-197",
+        "https://www.liputan6.com/bisnis/read/4284316/fokus-jadi-komisaris-telkom-rizal-mallarangeng-mundur-dari-golkar",
+        "https://www.kabarbursa.com/market-hari-ini/profil-rizal-mallarangeng-lima-tahun-duduk-manis-jadi-komisaris-telkom-tlkm"
+      ],
+      "birth_year": 1964,
+      "age": 61,
+      "education": [
+        {
+          "degree": "S1",
+          "university": "Universitas Gadjah Mada",
+          "major": "Ilmu Komunikasi",
+          "year": 1990
+        },
+        {
+          "degree": "MA",
+          "university": "Ohio State University, USA",
+          "major": "Perbandingan Politik",
+          "year": 1994
+        },
+        {
+          "degree": "PhD",
+          "university": "Ohio State University, USA",
+          "major": "Perbandingan Politik",
+          "year": 2000
+        }
+      ],
+      "career": [
+        {
+          "role": "Staf Khusus Menko Perekonomian",
+          "org": "Kemenko Perekonomian",
+          "period": "2004-2006"
+        },
+        {
+          "role": "Pendiri",
+          "org": "Fox Indonesia",
+          "period": "2008"
+        },
+        {
+          "role": "Wakil Ketua Umum",
+          "org": "Partai Golkar",
+          "period": null
+        },
+        {
+          "role": "Chairman Yayasan Prabowo",
+          "org": "Yayasan Prabowo Subianto",
+          "period": "2022-sekarang"
+        },
+        {
+          "role": "Komisaris Independen",
+          "org": "PT Telkom Indonesia",
+          "period": "2020-sekarang"
+        }
+      ],
+      "commissioner_since": "2020-06-19",
+      "wealth": "3.24 juta lembar saham Telkom",
+      "wealth_source": "Laporan Kepemilikan Saham Telkom"
+    }
+  ]
+}
