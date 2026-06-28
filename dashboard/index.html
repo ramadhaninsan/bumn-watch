@@ -5499,16 +5499,22 @@ function renderDetail(){
     const subName=navStack[2].id;
     const parent=navStack[1].id;
     const subInfo=SUBS.find(s=>s.name===subName)||{};
-    const subComms=D.filter(c=>c.bumn===subName||c.subsidiary===subName);
+    // Try to find commissioners directly linked to this subsidiary
+    let subComms=D.filter(c=>c.bumn===subName||c.subsidiary===subName);
+    // Fallback: if no commissioners found for subsidiary, show parent BUMN commissioners
+    const isFallback=subComms.length===0;
+    if(isFallback){subComms=D.filter(c=>c.bumn===parent)}
     const pol=subComms.filter(c=>c.status==='kader_partai'||c.status==='relawan_pemenangan').length;
     const legal=subComms.filter(c=>c.legal_record?.has_legal_issue).length;
+    const note=isFallback?`<div class="disc" style="margin-bottom:16px"><strong>Catatan:</strong> Data komisaris spesifik untuk ${subName} belum tersedia. Menampilkan komisaris ${parent} (induk).</div>`:'';
 
     content.innerHTML=`<div class="card" style="margin-bottom:16px">
       <div class="ct"><div class="ico ico-energy">\u{1F3E2}</div><div><div class="title" style="font-size:20px">${subName}</div><div class="sub">${subInfo.sector||''} · Anak dari ${parent}</div></div>
         <div class="nums" style="margin-left:auto"><div class="num-i"><div class="v">${subComms.length}</div><div class="l">Komisaris</div></div><div class="num-i"><div class="v" style="color:var(--red)">${pol}</div><div class="l">Politik</div></div><div class="num-i"><div class="v" style="color:var(--orange)">${legal}</div><div class="l">Hukum</div></div></div>
       </div>
     </div>
-    <div class="sh" style="margin-top:20px"><h2>Komisaris</h2><p>${subComms.length} komisaris di ${subName}</p></div>
+    ${note}
+    <div class="sh" style="margin-top:20px"><h2>Komisaris</h2><p>${subComms.length} komisaris${isFallback?' (dari induk '+parent+')':''}</p></div>
     <div class="comm-list" id="commList"></div>`;
     renderCommList(subComms);
   }
