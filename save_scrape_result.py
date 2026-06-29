@@ -1,13 +1,15 @@
 #!/usr/bin/env python3
 """
-Save scrape results to database and update state file.
+Save scrape results to database, output separate JSON files, and git push.
+No more HTML embedding — data loads via fetch at runtime.
 """
-import json, os, sys, re, subprocess
+import json, os, sys, subprocess
 from collections import Counter
 
 DB_PATH = '/root/bumn-commissioner-scraper/output/bumn_database_v9.json'
 RESULT_PATH = '/tmp/scrape_result.json'
 STATE_PATH = '/root/bumn-commissioner-scraper/output/scrape_state.json'
+DOCS_DIR = '/root/bumn-commissioner-scraper/docs'
 
 if not os.path.exists(RESULT_PATH):
     print("No result file found")
@@ -21,6 +23,7 @@ with open(RESULT_PATH) as f:
 
 added = 0
 updated = 0
+source_type = ''
 
 for r in results:
     bumn = r.get('bumn', '')
@@ -35,12 +38,10 @@ for r in results:
         if not name or len(name) < 3:
             continue
         
-        # Check if already exists
         found = False
         for existing in db['commissioners']:
             if existing['name'].lower() == name.lower() and existing['bumn'].lower() == bumn.lower():
-                # Update role if better
-                if role and len(role) > len(existing.get('role', '')):
+                if role and len(role) >= len(existing.get('role', '')):
                     existing['role'] = role
                 existing['source_url'] = source_url
                 existing['source_type'] = source_type
@@ -65,11 +66,16 @@ for r in results:
                 'sources': [],
                 'source_url': source_url,
                 'source_type': source_type,
-                'scrape_date': '2026-06-29'
+                'scrape_date': '2026-06-29',
+                'is_rangkap_jabatan': False,
+                'is_tni_polri': False,
+                'is_partai_kader': False,
+                'is_relawan_politik': False,
+                'is_ormas': False,
+                'is_family_connection': False,
             })
             added += 1
     
-    # Update state
     if os.path.exists(STATE_PATH):
         with open(STATE_PATH) as f:
             state = json.load(f)
@@ -81,44 +87,32 @@ for r in results:
     with open(STATE_PATH, 'w') as f:
         json.dump(state, f, ensure_ascii=False, indent=2)
 
-# Update version
 status = Counter(c.get('status','belum_dianalisis') for c in db['commissioners'])
 db['version'] = '10.0'
 
+# Save DB
 with open(DB_PATH, 'w') as f:
     json.dump(db, f, ensure_ascii=False, indent=2)
 
-# Embed into dashboard
-DASHBOARD_PATH = '/root/bumn-commissioner-scraper/dashboard/index.html'
-DOCS_PATH = '/root/bumn-commissioner-scraper/docs/index.html'
-
-with open(DASHBOARD_PATH) as f:
-    html = f.read()
-
-comm_js = json.dumps(db['commissioners'], ensure_ascii=False, indent=2)
-bumn_js = json.dumps(db.get('master_bumn', []), ensure_ascii=False, indent=2)
-bumd_js = json.dumps(db.get('master_bumd', []), ensure_ascii=False, indent=2)
-
-html = re.sub(r'const D=\[.*?\];', f'const D={comm_js};', html, count=1, flags=re.DOTALL)
-html = re.sub(r'const BUMN_MASTER=\[.*?\];', f'const BUMN_MASTER={bumn_js};', html, count=1, flags=re.DOTALL)
-html = re.sub(r'const BUMD_MASTER=\[.*?\];', f'const BUMD_MASTER={bumd_js};', html, count=1, flags=re.DOTALL)
-html = re.sub(r'const SUBS=\[.*?\];', f'const SUBS={bumn_js};', html, count=1, flags=re.DOTALL)
-html = re.sub(r'const BUMD=\[.*?\];', f'const BUMD={bumd_js};', html, count=1, flags=re.DOTALL)
-
-with open(DASHBOARD_PATH, 'w') as f:
-    f.write(html)
-with open(DOCS_PATH, 'w') as f:
-    f.write(html)
+# Output separate JSON files for frontend (no HTML embedding)
+with open(os.path.join(DOCS_DIR, 'data.json'), 'w') as f:
+    json.dump(db['commissioners'], f, ensure_ascii=False)
+with open(os.path.join(DOCS_DIR, 'bumn.json'), 'w') as f:
+    json.dump(db.get('master_bumn', []), f, ensure_ascii=False)
+with open(os.path.join(DOCS_DIR, 'bumd.json'), 'w') as f:
+    json.dump(db.get('master_bumd', []), f, ensure_ascii=False)
 
 # Git push
 subprocess.run(['git', 'add', '-A'], cwd='/root/bumn-commissioner-scraper')
 total = len(db['commissioners'])
 bumn_count = len(set(c['bumn'] for c in db['commissioners']))
-commit_msg = f"v10.0: Official scrape batch — {added} added, {updated} updated ({total} total, {bumn_count} BUMN)\nSource: {source_type}"
+scraped_count = sum(1 for c in db['commissioners'] if c.get('scrape_date'))
+commit_msg = f"Scrape batch: {added} added, {updated} updated ({total} total, {bumn_count} BUMN, {scraped_count} verified)"
 subprocess.run(['git', 'commit', '-m', commit_msg], cwd='/root/bumn-commissioner-scraper')
 subprocess.run(['git', 'push'], cwd='/root/bumn-commissioner-scraper')
 
 print(f"Added: {added}, Updated: {updated}")
 print(f"Total: {total} commissioners, {bumn_count} BUMN")
+print(f"Verified from official: {scraped_count}")
 print(f"Status: {dict(status)}")
-print("Dashboard updated + pushed to git")
+print("JSON files updated + pushed to git")
