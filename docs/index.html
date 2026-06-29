@@ -39,8 +39,8 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
 @media(max-width:640px){.grid-3,.grid-2{grid-template-columns:1fr}}
 
 /* Stats */
-.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:24px}
-@media(max-width:640px){.stats{grid-template-columns:repeat(2,1fr)}}
+.stats{display:grid;grid-template-columns:repeat(6,1fr);gap:12px;margin-bottom:24px}
+@media(max-width:640px){.stats{grid-template-columns:repeat(3,1fr)}}
 .stat{text-align:center;padding:16px;border:1px solid var(--bd);border-radius:8px}
 .stat .n{font-size:28px;font-weight:800;letter-spacing:-.02em;font-variant-numeric:tabular-nums}.stat .l{font-size:11px;color:var(--t3);margin-top:2px;font-weight:500}
 
@@ -24760,7 +24760,27 @@ const S={kader_partai:{l:"Kader Partai",c:"#dc2626",b:"b-red"},relawan_pemenanga
 const PC={Gerindra:"#16a34a",Demokrat:"#2563eb",Golkar:"#ca8a04",PKB:"#dc2626","TKN Prabowo":"#ea580c","Relawan Jokowi":"#7c3aed","Yayasan Prabowo":"#ea580c","Non-Partisan":"#94a3b8"};
 const SECTOR_ICO={Telekomunikasi:{cls:"ico-telecom",icon:"\u{1F4F1}"},Energi:{cls:"ico-energy",icon:"\u26A1"},Perbankan:{cls:"ico-bank",icon:"\u{1F3E6}"}};
 function dom(u){try{return new URL(u).hostname.replace('www.','')}catch(e){return u}}
-function risk(c){let r=0;if(c.status==='kader_partai'||c.status==='relawan_pemenangan')r+=2;if(c.legal_record?.has_legal_issue)r+=1;if(c.legal_record?.legal_status==='tersangka')r+=2;if(c.legal_record?.legal_status?.includes('terpidana'))r+=2;return r>=3?'high':r>=1?'med':'low'}
+// ── Flag badges builder ──
+function buildFlags(c){let b='';
+if(c.is_rangkap_jabatan){const mk=c.legal_record?.mk_violation;b+=`<span class="badge ${mk?'b-red':'b-yel'}" title="${c.rangkap_position||'Rangkap jabatan'}">Rangkap${mk?' MK':''}</span>`}
+if(c.is_tni_polri){b+=`<span class="badge b-org" title="${c.military_rank||'TNI/Polri'}">TNI/Polri</span>`}
+if(c.is_partai_kader&&c.party){b+=`<span class="badge b-red" title="${c.party_position||''}">${c.party}</span>`}
+if(c.is_relawan_politik){b+=`<span class="badge b-org" title="${c.relawan_for||''}">Relawan</span>`}
+if(c.is_ormas){b+=`<span class="badge b-blue" title="${c.ormas_name||''}">Ormas</span>`}
+if(c.is_family_connection){b+=`<span class="badge b-yel" title="${c.family_detail||''}">Keluarga</span>`}
+return b}
+
+// ── Flag details for drawer ──
+function flagDetails(c){let items=[];
+if(c.is_rangkap_jabatan){items.push(`<div style="margin-bottom:6px"><span class="badge ${c.legal_record?.mk_violation?'b-red':'b-yel'}">Rangkap Jabatan${c.legal_record?.mk_violation?' (MK Violation)':''}</span> ${c.rangkap_position||'Jabatan tidak terdeteksi'}</div>`)}
+if(c.is_tni_polri){items.push(`<div style="margin-bottom:6px"><span class="badge b-org">TNI/Polri</span> ${c.military_rank||'Purnawirawan'} ${c.military_branch||''}</div>`)}
+if(c.is_partai_kader){items.push(`<div style="margin-bottom:6px"><span class="badge b-red">Kader Partai</span> ${c.party||''} ${c.party_position?'— '+c.party_position:''}</div>`)}
+if(c.is_relawan_politik){items.push(`<div style="margin-bottom:6px"><span class="badge b-org">Relawan</span> ${c.relawan_for||''} ${c.tkn_role?'— '+c.tkn_role:''}</div>`)}
+if(c.is_ormas){items.push(`<div style="margin-bottom:6px"><span class="badge b-blue">Ormas</span> ${c.ormas_name||''}</div>`)}
+if(c.is_family_connection){items.push(`<div style="margin-bottom:6px"><span class="badge b-yel">Keluarga</span> ${c.family_detail||''} ${c.family_type?'('+c.family_type+')':''}</div>`)}
+return items.length?items.join(''):'<span style="color:var(--t4)">Tidak ada flag politik terdeteksi.</span>'}
+
+function risk(c){let r=0;if(c.status==='kader_partai'||c.status==='relawan_pemenangan')r+=2;if(c.legal_record?.has_legal_issue)r+=1;if(c.legal_record?.legal_status==='tersangka')r+=2;if(c.legal_record?.legal_status?.includes('terpidana'))r+=2;if(c.legal_record?.mk_violation)r+=1;return r>=3?'high':r>=1?'med':'low'}
 function initials(n){return n.split(' ').slice(0,2).map(w=>w[0]).join('')}
 function logoOrFallback(bumn){const l=LOGOS[bumn];if(l)return`<img src="${l}" class="logo" alt="${bumn}" onerror="this.outerHTML='<div class=&quot;logo-ph&quot;>${initials(bumn)}</div>'">`;return`<div class="logo-ph">${initials(bumn)}</div>`}
 
@@ -24883,6 +24903,15 @@ function renderDetail(){
         <option value="Komisaris">Komisaris</option>
       </select>
       <input id="fSearch" placeholder="Cari nama..." oninput="filterComms2()">
+      <select id="fFlag" onchange="filterComms2()">
+        <option value="">Semua Flags</option>
+        <option value="rangkap">Rangkap Jabatan</option>
+        <option value="tni">TNI/Polri</option>
+        <option value="partai">Kader Partai</option>
+        <option value="relawan">Relawan Politik</option>
+        <option value="ormas">Ormas</option>
+        <option value="family">Koneksi Keluarga</option>
+      </select>
     </div>
     <div class="comm-list" id="commList"></div>`;
     renderCommList(allComms);
@@ -24896,19 +24925,27 @@ function filterComms2(){
   const fp=document.getElementById('fParty')?.value||'';
   const fr=document.getElementById('fRole')?.value||'';
   const sr=document.getElementById('fSearch')?.value?.toLowerCase()||'';
+  const ff=document.getElementById('fFlag')?.value||'';
   let c=D.filter(x=>x.bumn===bumn||x.parent_bumn===bumn);
   if(fs)c=c.filter(x=>x.status===fs);
   if(fc)c=c.filter(x=>(fc===bumn?x.bumn===bumn:x.bumn===fc));
   if(fp)c=c.filter(x=>x.party===fp);
   if(fr)c=c.filter(x=>(x.role||'').includes(fr));
   if(sr)c=c.filter(x=>x.name.toLowerCase().includes(sr));
+  if(ff==='rangkap')c=c.filter(x=>x.is_rangkap_jabatan);
+  if(ff==='tni')c=c.filter(x=>x.is_tni_polri);
+  if(ff==='partai')c=c.filter(x=>x.is_partai_kader);
+  if(ff==='relawan')c=c.filter(x=>x.is_relawan_politik);
+  if(ff==='ormas')c=c.filter(x=>x.is_ormas);
+  if(ff==='family')c=c.filter(x=>x.is_family_connection);
   renderCommList(c);
 }
 
-function renderCommList(comms){document.getElementById('commList').innerHTML=comms.map(c=>{const s=S[c.status],r=risk(c),legalFlag=c.legal_record?.has_legal_issue?' \u26A0':'';
+function renderCommList(comms){document.getElementById('commList').innerHTML=comms.map(c=>{const s=S[c.status],r=risk(c);
+const flags=buildFlags(c);
 const photo=c.photo_url?`<img src="${c.photo_url}" class="photo" alt="${c.name}" onerror="this.outerHTML='<div class=&quot;photo-ph&quot;>${initials(c.name)}</div>'">`:`<div class="photo-ph">${initials(c.name)}</div>`;
-return`<div class="comm-item" onclick='openD(${D.indexOf(c)})'>${photo}<div class="ci-left"><div class="ci-name">${c.name}${legalFlag}</div><div class="ci-role">${c.role||'Komisaris'}${c.is_subsidiary?' · '+c.bumn:''}${c.age?' · '+c.age+' thn':''}</div><div class="ci-aff">${c.political_affiliation||'Tidak ada afiliasi terverifikasi'}</div></div>
-<div class="ci-badges"><span class="badge ${s.b}">${s.l}</span>${c.party!=='Non-Partisan'?`<span class="badge b-blue">${c.party}</span>`:''}<span class="risk ${r}">${r==='high'?'Tinggi':r==='med'?'Sedang':'Rendah'}</span></div></div>`}).join('')||'<p style="color:var(--t4);padding:20px">Tidak ada hasil.</p>'}
+return`<div class="comm-item" onclick='openD(${D.indexOf(c)})'>${photo}<div class="ci-left"><div class="ci-name">${c.name}</div><div class="ci-role">${c.role||'Komisaris'}${c.is_subsidiary?' · '+c.bumn:''}${c.age?' · '+c.age+' thn':''}</div><div class="ci-aff">${c.political_affiliation||'Tidak ada afiliasi terverifikasi'}</div></div>
+<div class="ci-badges"><span class="badge ${s.b}">${s.l}</span>${flags}${c.party&&c.party!=='Non-Partisan'&&!c.is_partai_kader?`<span class="badge b-blue">${c.party}</span>`:''}<span class="risk ${r}">${r==='high'?'Tinggi':r==='med'?'Sedang':'Rendah'}</span></div></div>`}).join('')||'<p style="color:var(--t4);padding:20px">Tidak ada hasil.</p>'}
 
 // ── Drawer ──
 function openD(idx){const c=D[idx],s=S[c.status],r=risk(c);
@@ -24922,7 +24959,7 @@ const srcs=(c.sources||[]).map(u=>`<a href="${u}" target="_blank" rel="noopener"
 const photo=c.photo_url?`<img src="${c.photo_url}" class="dp-photo" alt="${c.name}" onerror="this.outerHTML='<div class=&quot;dp-photo-ph&quot;>${initials(c.name)}</div>'">`:`<div class="dp-photo-ph">${initials(c.name)}</div>`;
 document.getElementById('dp').innerHTML=`<div class="dp-hdr">${photo}<div><div class="dp-name">${c.name}</div><div class="dp-role">${c.role||'Komisaris'} · ${c.bumn} · ${c.sector||''}</div><div class="dp-badges"><span class="badge ${s.b}">${s.l}</span>${c.party!=='Non-Partisan'?`<span class="badge b-blue">${c.party}</span>`:''}<span class="risk ${r}">${r==='high'?'Risiko Tinggi':r==='med'?'Risiko Sedang':'Risiko Rendah'}</span></div></div><button class="dp-close" onclick="closeD()">\u2715</button></div>
 <div class="dp-body"><div class="tabs"><button class="tab on" onclick="swTab(this,'t1')">Profil</button><button class="tab" onclick="swTab(this,'t2')">Pendidikan</button><button class="tab" onclick="swTab(this,'t3')">Karir</button><button class="tab" onclick="swTab(this,'t4')">Hukum</button><button class="tab" onclick="swTab(this,'t5')">Sumber (${(c.sources||[]).length})</button></div>
-<div class="tc on" id="t1"><div class="f"><div class="f-l">Afiliasi Politik</div><div class="f-v">${c.political_affiliation||'Tidak ditemukan.'}</div></div><div class="f"><div class="f-l">Bukti</div><div class="f-v">${c.evidence||'Data terbatas.'}</div></div><div class="f"><div class="f-l">Usia</div><div class="f-v">${c.age?c.age+' tahun (lahir '+c.birth_year+')':'Tidak tersedia'}</div></div><div class="f"><div class="f-l">Jabatan Sejak</div><div class="f-v">${c.commissioner_since||'Tidak tersedia'}</div></div><div class="f"><div class="f-l">Kekayaan (LHKPN)</div>${wealth}</div></div>
+<div class="tc on" id="t1"><div class="f"><div class="f-l">Afiliasi Politik</div><div class="f-v">${c.political_affiliation||'Tidak ditemukan.'}</div></div><div class="f"><div class="f-l">Flags Politik</div><div class="f-v">${flagDetails(c)}</div></div><div class="f"><div class="f-l">Bukti</div><div class="f-v">${c.evidence||'Data terbatas.'}</div></div><div class="f"><div class="f-l">Usia</div><div class="f-v">${c.age?c.age+' tahun (lahir '+c.birth_year+')':'Tidak tersedia'}</div></div><div class="f"><div class="f-l">Jabatan Sejak</div><div class="f-v">${c.commissioner_since||'Tidak tersedia'}</div></div><div class="f"><div class="f-l">Kekayaan (LHKPN)</div>${wealth}</div></div>
 <div class="tc" id="t2"><div class="tl">${edu}</div></div>
 <div class="tc" id="t3"><div class="tl">${career}</div></div>
 <div class="tc" id="t4">${legal}</div>
@@ -24932,8 +24969,20 @@ function closeD(){document.getElementById('drawer').classList.remove('on')}
 function swTab(btn,id){btn.parentElement.querySelectorAll('.tab').forEach(t=>t.classList.remove('on'));btn.classList.add('on');btn.parentElement.parentElement.querySelectorAll('.tc').forEach(t=>t.classList.remove('on'));document.getElementById(id).classList.add('on')}
 
 // ── Stats ──
-function renderStats(){const t=D.length,pol=D.filter(c=>c.status==='kader_partai'||c.status==='relawan_pemenangan').length,legal=D.filter(c=>c.legal_record?.has_legal_issue).length,wealth=D.filter(c=>c.wealth).length;
-document.getElementById('stats').innerHTML=[{n:t,l:"Komisaris",c:"#0f172a"},{n:pol,l:"Afiliasi Politik",c:"#dc2626"},{n:legal,l:"Isu Hukum",c:"#ea580c"},{n:wealth,l:"Data LHKPN",c:"#16a34a"}].map(s=>`<div class="stat"><div class="n" style="color:${s.c}">${s.n}</div><div class="l">${s.l}</div></div>`).join('')}
+function renderStats(){const t=D.length;
+const pol=D.filter(c=>c.is_partai_kader||c.is_relawan_politik).length;
+const rangkap=D.filter(c=>c.is_rangkap_jabatan).length;
+const tni=D.filter(c=>c.is_tni_polri).length;
+const legal=D.filter(c=>c.legal_record?.has_legal_issue).length;
+const family=D.filter(c=>c.is_family_connection).length;
+document.getElementById('stats').innerHTML=[
+{n:t,l:"Komisaris",c:"#0f172a"},
+{n:pol,l:"Afiliasi Politik",c:"#dc2626"},
+{n:rangkap,l:"Rangkap Jabatan",c:"#ca8a04"},
+{n:tni,l:"TNI/Polri",c:"#ea580c"},
+{n:legal,l:"Isu Hukum",c:"#dc2626"},
+{n:family,l:"Koneksi Keluarga",c:"#7c3aed"}
+].map(s=>`<div class="stat"><div class="n" style="color:${s.c}">${s.n}</div><div class="l">${s.l}</div></div>`).join('')}
 
 // ── Chart ──
 function renderChart(){const data=Object.entries(S).map(([k,v])=>({name:v.l,value:D.filter(c=>c.status===k).length,itemStyle:{color:v.c}}));
